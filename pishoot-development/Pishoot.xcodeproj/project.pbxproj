@@ -1,0 +1,733 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F05D7012C35985400F961C7 /* BlackScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F05D7002C35985400F961C7 /* BlackScreenView.swift */; };
+		0F3E79912C42CB190057F279 /* DeviceOrientationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3E79902C42CB190057F279 /* DeviceOrientationManager.swift */; };
+		0F3E79972C43BF9A0057F279 /* UnsupportedDeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3E79962C43BF9A0057F279 /* UnsupportedDeviceView.swift */; };
+		0F7399CA2C38531500324891 /* OnBoardingContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399C92C38531500324891 /* OnBoardingContainerView.swift */; };
+		0F7399CC2C38534900324891 /* OnBoardingDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399CB2C38534900324891 /* OnBoardingDataModel.swift */; };
+		0F7399CE2C38536900324891 /* OnBoardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399CD2C38536900324891 /* OnBoardingView.swift */; };
+		0F7399D22C3853CB00324891 /* WelcomeOnBoarding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399D12C3853CB00324891 /* WelcomeOnBoarding.swift */; };
+		0F7399D72C38615C00324891 /* ArrowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399D62C38615C00324891 /* ArrowView.swift */; };
+		0F7399D92C3861BF00324891 /* GuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399D82C3861BF00324891 /* GuideView.swift */; };
+		0F7399DB2C3862BB00324891 /* GuideStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399DA2C3862BB00324891 /* GuideStep.swift */; };
+		0F7399DD2C38631300324891 /* GuidePopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399DC2C38631300324891 /* GuidePopUpView.swift */; };
+		0F7399DF2C38637400324891 /* HighlightFrameKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399DE2C38637400324891 /* HighlightFrameKey.swift */; };
+		0F7399E12C3863AF00324891 /* GuideSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399E02C3863AF00324891 /* GuideSteps.swift */; };
+		0F7399E32C386CE600324891 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7399E22C386CE600324891 /* AppState.swift */; };
+		0F8458D32C2AB4130033FED7 /* PishootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458D22C2AB4130033FED7 /* PishootApp.swift */; };
+		0F8458D52C2AB4130033FED7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458D42C2AB4130033FED7 /* ContentView.swift */; };
+		0F8458D72C2AB4140033FED7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8458D62C2AB4140033FED7 /* Assets.xcassets */; };
+		0F8458DA2C2AB4140033FED7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8458D92C2AB4140033FED7 /* Preview Assets.xcassets */; };
+		0F8458E52C2AB8800033FED7 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458E42C2AB8800033FED7 /* CameraViewModel.swift */; };
+		0F8458E72C2AB8CD0033FED7 /* PhotoLibraryHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458E62C2AB8CD0033FED7 /* PhotoLibraryHelper.swift */; };
+		0F8458E92C2AB9170033FED7 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458E82C2AB9170033FED7 /* CameraPreviewView.swift */; };
+		0F8458EB2C2AB97E0033FED7 /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458EA2C2AB97E0033FED7 /* CaptureButton.swift */; };
+		0F8458ED2C2AB9C20033FED7 /* TopBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458EC2C2AB9C20033FED7 /* TopBarView.swift */; };
+		0F8458EF2C2ABA2C0033FED7 /* BottomBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458EE2C2ABA2C0033FED7 /* BottomBarView.swift */; };
+		0F8458F12C2ABA8C0033FED7 /* PhotoThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458F02C2ABA8C0033FED7 /* PhotoThumbnailView.swift */; };
+		0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */; };
+		279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279E1D9E2C36E21D0078C2A1 /* Marker.swift */; };
+		27ECB80D2C3856E8004FFBA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8458D62C2AB4140033FED7 /* Assets.xcassets */; };
+		E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4802C354500005EB61A /* CameraManager.swift */; };
+		E9E5A4892C3545F4005EB61A /* PishootWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */; };
+		E9E5A48B2C3545F4005EB61A /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A48A2C3545F4005EB61A /* WatchContentView.swift */; };
+		E9E5A48D2C3545F5005EB61A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9E5A48C2C3545F5005EB61A /* Assets.xcassets */; };
+		E9E5A4902C3545F5005EB61A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9E5A48F2C3545F5005EB61A /* Preview Assets.xcassets */; };
+		E9E5A4932C3545F5005EB61A /* PishootWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E9E5A4862C3545F4005EB61A /* PishootWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E9E5A49A2C354616005EB61A /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4992C354616005EB61A /* WatchConnectivityManager.swift */; };
+		E9E5A49B2C354616005EB61A /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4992C354616005EB61A /* WatchConnectivityManager.swift */; };
+		E9E5A4A12C35B3D3005EB61A /* WatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4A02C35B3D3005EB61A /* WatchViewModel.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E9E5A4912C3545F5005EB61A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0F8458C72C2AB4130033FED7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E9E5A4852C3545F4005EB61A;
+			remoteInfo = "PishootWatch Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E9E5A4942C3545F5005EB61A /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				E9E5A4932C3545F5005EB61A /* PishootWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0F05D7002C35985400F961C7 /* BlackScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackScreenView.swift; sourceTree = "<group>"; };
+		0F3E79902C42CB190057F279 /* DeviceOrientationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceOrientationManager.swift; sourceTree = "<group>"; };
+		0F3E79962C43BF9A0057F279 /* UnsupportedDeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedDeviceView.swift; sourceTree = "<group>"; };
+		0F3E79982C43BFD50057F279 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		0F7399C92C38531500324891 /* OnBoardingContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingContainerView.swift; sourceTree = "<group>"; };
+		0F7399CB2C38534900324891 /* OnBoardingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingDataModel.swift; sourceTree = "<group>"; };
+		0F7399CD2C38536900324891 /* OnBoardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingView.swift; sourceTree = "<group>"; };
+		0F7399D12C3853CB00324891 /* WelcomeOnBoarding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeOnBoarding.swift; sourceTree = "<group>"; };
+		0F7399D62C38615C00324891 /* ArrowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowView.swift; sourceTree = "<group>"; };
+		0F7399D82C3861BF00324891 /* GuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideView.swift; sourceTree = "<group>"; };
+		0F7399DA2C3862BB00324891 /* GuideStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideStep.swift; sourceTree = "<group>"; };
+		0F7399DC2C38631300324891 /* GuidePopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidePopUpView.swift; sourceTree = "<group>"; };
+		0F7399DE2C38637400324891 /* HighlightFrameKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightFrameKey.swift; sourceTree = "<group>"; };
+		0F7399E02C3863AF00324891 /* GuideSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideSteps.swift; sourceTree = "<group>"; };
+		0F7399E22C386CE600324891 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		0F8458CF2C2AB4130033FED7 /* Pishoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pishoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0F8458D22C2AB4130033FED7 /* PishootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PishootApp.swift; sourceTree = "<group>"; };
+		0F8458D42C2AB4130033FED7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		0F8458D62C2AB4140033FED7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		0F8458D92C2AB4140033FED7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		0F8458E42C2AB8800033FED7 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		0F8458E62C2AB8CD0033FED7 /* PhotoLibraryHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryHelper.swift; sourceTree = "<group>"; };
+		0F8458E82C2AB9170033FED7 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		0F8458EA2C2AB97E0033FED7 /* CaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
+		0F8458EC2C2AB9C20033FED7 /* TopBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopBarView.swift; sourceTree = "<group>"; };
+		0F8458EE2C2ABA2C0033FED7 /* BottomBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomBarView.swift; sourceTree = "<group>"; };
+		0F8458F02C2ABA8C0033FED7 /* PhotoThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoThumbnailView.swift; sourceTree = "<group>"; };
+		0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAdditionalSetting.swift; sourceTree = "<group>"; };
+		279E1D9E2C36E21D0078C2A1 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		E9E5A4802C354500005EB61A /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		E9E5A4862C3545F4005EB61A /* PishootWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PishootWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PishootWatchApp.swift; sourceTree = "<group>"; };
+		E9E5A48A2C3545F4005EB61A /* WatchContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchContentView.swift; sourceTree = "<group>"; };
+		E9E5A48C2C3545F5005EB61A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E9E5A48F2C3545F5005EB61A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		E9E5A4992C354616005EB61A /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
+		E9E5A4A02C35B3D3005EB61A /* WatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchViewModel.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0F8458CC2C2AB4130033FED7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9E5A4832C3545F4005EB61A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0F3E798F2C42CAFB0057F279 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				E9E5A4802C354500005EB61A /* CameraManager.swift */,
+				0F3E79902C42CB190057F279 /* DeviceOrientationManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		0F7399C82C3852D700324891 /* OnBoarding */ = {
+			isa = PBXGroup;
+			children = (
+				0F7399C92C38531500324891 /* OnBoardingContainerView.swift */,
+				0F7399CB2C38534900324891 /* OnBoardingDataModel.swift */,
+				0F7399CD2C38536900324891 /* OnBoardingView.swift */,
+				0F7399D12C3853CB00324891 /* WelcomeOnBoarding.swift */,
+			);
+			path = OnBoarding;
+			sourceTree = "<group>";
+		};
+		0F7399D32C385E7D00324891 /* AppGuide */ = {
+			isa = PBXGroup;
+			children = (
+				0F7399D62C38615C00324891 /* ArrowView.swift */,
+				0F7399D82C3861BF00324891 /* GuideView.swift */,
+				0F7399DA2C3862BB00324891 /* GuideStep.swift */,
+				0F7399DC2C38631300324891 /* GuidePopUpView.swift */,
+				0F7399DE2C38637400324891 /* HighlightFrameKey.swift */,
+				0F7399E02C3863AF00324891 /* GuideSteps.swift */,
+			);
+			path = AppGuide;
+			sourceTree = "<group>";
+		};
+		0F8458C62C2AB4130033FED7 = {
+			isa = PBXGroup;
+			children = (
+				E9E5A4982C3545FD005EB61A /* Shared */,
+				0F8458D12C2AB4130033FED7 /* Pishoot */,
+				E9E5A4872C3545F4005EB61A /* PishootWatch Watch App */,
+				0F8458D02C2AB4130033FED7 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0F8458D02C2AB4130033FED7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0F8458CF2C2AB4130033FED7 /* Pishoot.app */,
+				E9E5A4862C3545F4005EB61A /* PishootWatch Watch App.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0F8458D12C2AB4130033FED7 /* Pishoot */ = {
+			isa = PBXGroup;
+			children = (
+				0F3E79982C43BFD50057F279 /* Info.plist */,
+				0F3E798F2C42CAFB0057F279 /* Manager */,
+				0F7399E22C386CE600324891 /* AppState.swift */,
+				0F7399D32C385E7D00324891 /* AppGuide */,
+				0F7399C82C3852D700324891 /* OnBoarding */,
+				0F8458E32C2AB7670033FED7 /* Screens */,
+				0F8458E22C2AB74D0033FED7 /* Utilities */,
+				0F8458E12C2AB7400033FED7 /* ViewModels */,
+				0F8458E02C2AB7270033FED7 /* Views */,
+				0F8458D22C2AB4130033FED7 /* PishootApp.swift */,
+				0F8458D62C2AB4140033FED7 /* Assets.xcassets */,
+				0F8458D82C2AB4140033FED7 /* Preview Content */,
+			);
+			path = Pishoot;
+			sourceTree = "<group>";
+		};
+		0F8458D82C2AB4140033FED7 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				0F8458D92C2AB4140033FED7 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		0F8458E02C2AB7270033FED7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0F8458E82C2AB9170033FED7 /* CameraPreviewView.swift */,
+				0F8458EA2C2AB97E0033FED7 /* CaptureButton.swift */,
+				0F8458EC2C2AB9C20033FED7 /* TopBarView.swift */,
+				0F8458EE2C2ABA2C0033FED7 /* BottomBarView.swift */,
+				0F8458F02C2ABA8C0033FED7 /* PhotoThumbnailView.swift */,
+				0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */,
+				0F05D7002C35985400F961C7 /* BlackScreenView.swift */,
+				279E1D9E2C36E21D0078C2A1 /* Marker.swift */,
+				0F3E79962C43BF9A0057F279 /* UnsupportedDeviceView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0F8458E12C2AB7400033FED7 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				0F8458E42C2AB8800033FED7 /* CameraViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0F8458E22C2AB74D0033FED7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0F8458E62C2AB8CD0033FED7 /* PhotoLibraryHelper.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		0F8458E32C2AB7670033FED7 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				0F8458D42C2AB4130033FED7 /* ContentView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		E9E5A4872C3545F4005EB61A /* PishootWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */,
+				E9E5A48A2C3545F4005EB61A /* WatchContentView.swift */,
+				E9E5A48C2C3545F5005EB61A /* Assets.xcassets */,
+				E9E5A48E2C3545F5005EB61A /* Preview Content */,
+				E9E5A4A02C35B3D3005EB61A /* WatchViewModel.swift */,
+			);
+			path = "PishootWatch Watch App";
+			sourceTree = "<group>";
+		};
+		E9E5A48E2C3545F5005EB61A /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				E9E5A48F2C3545F5005EB61A /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E9E5A4982C3545FD005EB61A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E9E5A4992C354616005EB61A /* WatchConnectivityManager.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0F8458CE2C2AB4130033FED7 /* Pishoot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0F8458DD2C2AB4140033FED7 /* Build configuration list for PBXNativeTarget "Pishoot" */;
+			buildPhases = (
+				0F8458CB2C2AB4130033FED7 /* Sources */,
+				0F8458CC2C2AB4130033FED7 /* Frameworks */,
+				0F8458CD2C2AB4130033FED7 /* Resources */,
+				E9E5A4942C3545F5005EB61A /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E9E5A4922C3545F5005EB61A /* PBXTargetDependency */,
+			);
+			name = Pishoot;
+			productName = Pishoot;
+			productReference = 0F8458CF2C2AB4130033FED7 /* Pishoot.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E9E5A4852C3545F4005EB61A /* PishootWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E9E5A4972C3545F5005EB61A /* Build configuration list for PBXNativeTarget "PishootWatch Watch App" */;
+			buildPhases = (
+				E9E5A4822C3545F4005EB61A /* Sources */,
+				E9E5A4832C3545F4005EB61A /* Frameworks */,
+				E9E5A4842C3545F4005EB61A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PishootWatch Watch App";
+			productName = "PishootWatch Watch App";
+			productReference = E9E5A4862C3545F4005EB61A /* PishootWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0F8458C72C2AB4130033FED7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					0F8458CE2C2AB4130033FED7 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					E9E5A4852C3545F4005EB61A = {
+						CreatedOnToolsVersion = 15.4;
+					};
+				};
+			};
+			buildConfigurationList = 0F8458CA2C2AB4130033FED7 /* Build configuration list for PBXProject "Pishoot" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0F8458C62C2AB4130033FED7;
+			productRefGroup = 0F8458D02C2AB4130033FED7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				0F8458CE2C2AB4130033FED7 /* Pishoot */,
+				E9E5A4852C3545F4005EB61A /* PishootWatch Watch App */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0F8458CD2C2AB4130033FED7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F8458DA2C2AB4140033FED7 /* Preview Assets.xcassets in Resources */,
+				0F8458D72C2AB4140033FED7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9E5A4842C3545F4005EB61A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9E5A4902C3545F5005EB61A /* Preview Assets.xcassets in Resources */,
+				27ECB80D2C3856E8004FFBA8 /* Assets.xcassets in Resources */,
+				E9E5A48D2C3545F5005EB61A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0F8458CB2C2AB4130033FED7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F8458D52C2AB4130033FED7 /* ContentView.swift in Sources */,
+				0F7399D22C3853CB00324891 /* WelcomeOnBoarding.swift in Sources */,
+				0F8458D32C2AB4130033FED7 /* PishootApp.swift in Sources */,
+				0F7399CC2C38534900324891 /* OnBoardingDataModel.swift in Sources */,
+				0F3E79912C42CB190057F279 /* DeviceOrientationManager.swift in Sources */,
+				0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */,
+				0F8458E92C2AB9170033FED7 /* CameraPreviewView.swift in Sources */,
+				0F8458EF2C2ABA2C0033FED7 /* BottomBarView.swift in Sources */,
+				0F7399DB2C3862BB00324891 /* GuideStep.swift in Sources */,
+				279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */,
+				0F7399CA2C38531500324891 /* OnBoardingContainerView.swift in Sources */,
+				0F7399DD2C38631300324891 /* GuidePopUpView.swift in Sources */,
+				0F8458E72C2AB8CD0033FED7 /* PhotoLibraryHelper.swift in Sources */,
+				0F7399CE2C38536900324891 /* OnBoardingView.swift in Sources */,
+				0F7399D72C38615C00324891 /* ArrowView.swift in Sources */,
+				0F8458ED2C2AB9C20033FED7 /* TopBarView.swift in Sources */,
+				0F8458F12C2ABA8C0033FED7 /* PhotoThumbnailView.swift in Sources */,
+				0F05D7012C35985400F961C7 /* BlackScreenView.swift in Sources */,
+				0F8458EB2C2AB97E0033FED7 /* CaptureButton.swift in Sources */,
+				0F8458E52C2AB8800033FED7 /* CameraViewModel.swift in Sources */,
+				0F7399D92C3861BF00324891 /* GuideView.swift in Sources */,
+				E9E5A49A2C354616005EB61A /* WatchConnectivityManager.swift in Sources */,
+				0F7399DF2C38637400324891 /* HighlightFrameKey.swift in Sources */,
+				0F7399E32C386CE600324891 /* AppState.swift in Sources */,
+				0F3E79972C43BF9A0057F279 /* UnsupportedDeviceView.swift in Sources */,
+				E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */,
+				0F7399E12C3863AF00324891 /* GuideSteps.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E9E5A4822C3545F4005EB61A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E9E5A48B2C3545F4005EB61A /* WatchContentView.swift in Sources */,
+				E9E5A49B2C354616005EB61A /* WatchConnectivityManager.swift in Sources */,
+				E9E5A4A12C35B3D3005EB61A /* WatchViewModel.swift in Sources */,
+				E9E5A4892C3545F4005EB61A /* PishootWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E9E5A4922C3545F5005EB61A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E9E5A4852C3545F4005EB61A /* PishootWatch Watch App */;
+			targetProxy = E9E5A4912C3545F5005EB61A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0F8458DB2C2AB4140033FED7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		0F8458DC2C2AB4140033FED7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		0F8458DE2C2AB4140033FED7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Pishoot/Preview Content\"";
+				DEVELOPMENT_TEAM = VFLSGXGQ55;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pishoot/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pishoot;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to allow you to take photos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to upload photos";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "wide-angle-camera ultra-wide-camera";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.weeaboo.pishootmc2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0F8458DF2C2AB4140033FED7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Pishoot/Preview Content\"";
+				DEVELOPMENT_TEAM = VFLSGXGQ55;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Pishoot/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pishoot;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to allow you to take photos.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save photos";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to upload photos";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "wide-angle-camera ultra-wide-camera";
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.weeaboo.pishootmc2;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		E9E5A4952C3545F5005EB61A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PishootWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = VFLSGXGQ55;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PishootWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.weeaboo.pishootmc2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.weeaboo.pishootmc2.watch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.5;
+			};
+			name = Debug;
+		};
+		E9E5A4962C3545F5005EB61A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"PishootWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = VFLSGXGQ55;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = PishootWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.weeaboo.pishootmc2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.weeaboo.pishootmc2.watch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0F8458CA2C2AB4130033FED7 /* Build configuration list for PBXProject "Pishoot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F8458DB2C2AB4140033FED7 /* Debug */,
+				0F8458DC2C2AB4140033FED7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0F8458DD2C2AB4140033FED7 /* Build configuration list for PBXNativeTarget "Pishoot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0F8458DE2C2AB4140033FED7 /* Debug */,
+				0F8458DF2C2AB4140033FED7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E9E5A4972C3545F5005EB61A /* Build configuration list for PBXNativeTarget "PishootWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E9E5A4952C3545F5005EB61A /* Debug */,
+				E9E5A4962C3545F5005EB61A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0F8458C72C2AB4130033FED7 /* Project object */;
+}
