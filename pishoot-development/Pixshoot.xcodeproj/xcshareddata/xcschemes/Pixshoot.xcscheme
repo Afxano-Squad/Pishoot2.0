@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1540"
+   LastUpgradeVersion = "1600"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0F8458CE2C2AB4130033FED7"
-               BuildableName = "Pishoot.app"
-               BlueprintName = "Pishoot"
-               ReferencedContainer = "container:Pishoot.xcodeproj">
+               BuildableName = "Pixshoot.app"
+               BlueprintName = "Pixshoot"
+               ReferencedContainer = "container:Pixshoot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F8458CE2C2AB4130033FED7"
-            BuildableName = "Pishoot.app"
-            BlueprintName = "Pishoot"
-            ReferencedContainer = "container:Pishoot.xcodeproj">
+            BuildableName = "Pixshoot.app"
+            BlueprintName = "Pixshoot"
+            ReferencedContainer = "container:Pixshoot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0F8458CE2C2AB4130033FED7"
-            BuildableName = "Pishoot.app"
-            BlueprintName = "Pishoot"
-            ReferencedContainer = "container:Pishoot.xcodeproj">
+            BuildableName = "Pixshoot.app"
+            BlueprintName = "Pixshoot"
+            ReferencedContainer = "container:Pixshoot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
