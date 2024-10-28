@@ -15,7 +15,7 @@ struct Marker: View {
     var body: some View {
         ZStack {
             if isMarkerOn {
-                Image(systemName: "target")
+                Image(systemName: "rectangle.portrait")
                     .resizable()
                     .frame(width: 50, height: 50)
                     .position(position)
