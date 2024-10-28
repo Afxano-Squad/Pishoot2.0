@@ -60,7 +60,7 @@ struct ContentView: View {
                                 )
                                 .padding(.bottom, 5)
                             }
-                            Marker(isMarkerOn: $isMarkerOn)
+                            GyroView(isMarkerOn: $isMarkerOn)
                             if showGuide {
                                 ZStack {
                                     GuideView(isPresented: $showGuide, isAdditionalSettingsOpen: $isAdditionalSettingsOpen, isMarkerOn: $isMarkerOn, steps: guideSteps)

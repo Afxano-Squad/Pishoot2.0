@@ -12,19 +12,23 @@ struct BottomBarView: View {
     var captureAction: () -> Void
     var openPhotosApp: () -> Void
     @Binding var isCapturing: Bool
-    @Binding var animationProgress: CGFloat 
+    @Binding var animationProgress: CGFloat
+    @StateObject private var gyroViewModel = GyroViewModel()
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
-                PhotoThumbnailView(lastPhoto: lastPhoto, openPhotosApp: openPhotosApp)
+                PhotoThumbnailView(
+                    lastPhoto: lastPhoto, openPhotosApp: openPhotosApp)
                 Spacer()
             }
             .padding()
             .padding(.bottom)
-            
+
             HStack {
                 Spacer()
-                CaptureButton(action: captureAction, isCapturing: $isCapturing,animationProgress: $animationProgress)
+                CaptureButton(
+                    action: captureAction, isCapturing: $isCapturing,
+                    animationProgress: $animationProgress)
                 Spacer()
             }
         }
@@ -33,7 +37,8 @@ struct BottomBarView: View {
     }
 }
 
-
 #Preview {
-    BottomBarView(lastPhoto: nil, captureAction: {}, openPhotosApp: {}, isCapturing: .constant(false), animationProgress: .constant(0.5))
+    BottomBarView(
+        lastPhoto: nil, captureAction: {}, openPhotosApp: {},
+        isCapturing: .constant(false), animationProgress: .constant(0.5))
 }
