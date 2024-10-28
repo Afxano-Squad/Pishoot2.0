@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1540"
+   LastUpgradeVersion = "1600"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,24 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E9E5A4852C3545F4005EB61A"
-               BuildableName = "PishootWatch Watch App.app"
-               BlueprintName = "PishootWatch Watch App"
-               ReferencedContainer = "container:Pishoot.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "0F8458CE2C2AB4130033FED7"
-               BuildableName = "Pishoot.app"
-               BlueprintName = "Pishoot"
-               ReferencedContainer = "container:Pishoot.xcodeproj">
+               BuildableName = "Pixshoot.app"
+               BlueprintName = "Pixshoot"
+               ReferencedContainer = "container:Pixshoot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -58,12 +44,19 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E9E5A4852C3545F4005EB61A"
-            BuildableName = "PishootWatch Watch App.app"
-            BlueprintName = "PishootWatch Watch App"
-            ReferencedContainer = "container:Pishoot.xcodeproj">
+            BlueprintIdentifier = "0F8458CE2C2AB4130033FED7"
+            BuildableName = "Pixshoot.app"
+            BlueprintName = "Pixshoot"
+            ReferencedContainer = "container:Pixshoot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "IDEPreferLogStreaming"
+            value = "YES"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -75,10 +68,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E9E5A4852C3545F4005EB61A"
-            BuildableName = "PishootWatch Watch App.app"
-            BlueprintName = "PishootWatch Watch App"
-            ReferencedContainer = "container:Pishoot.xcodeproj">
+            BlueprintIdentifier = "0F8458CE2C2AB4130033FED7"
+            BuildableName = "Pixshoot.app"
+            BlueprintName = "Pixshoot"
+            ReferencedContainer = "container:Pixshoot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
