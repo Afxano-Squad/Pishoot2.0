@@ -50,12 +50,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C053C5CA2CCF405E00DEC909 /* PBXContainerItemProxy */ = {
+		C08A43962CCF54BE00BC52CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0F8458C72C2AB4130033FED7 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E9E5A4852C3545F4005EB61A;
-			remoteInfo = "PishootWatch Watch App";
+			remoteInfo = "PixshootWatch Watch App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -442,7 +442,7 @@
 		C053C5CB2CCF405E00DEC909 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E9E5A4852C3545F4005EB61A /* PixshootWatch Watch App */;
-			targetProxy = E9E5A4912C3545F5005EB61A /* PBXContainerItemProxy */;
+			targetProxy = C08A43962CCF54BE00BC52CE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -575,7 +575,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -618,7 +618,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -660,7 +660,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
@@ -690,7 +690,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;

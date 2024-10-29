@@ -15,6 +15,7 @@ struct GyroView: View {
     var body: some View {
         ZStack {
             VStack {
+                
                 Text(gyroViewModel.guidanceText)
                     .foregroundColor(.white)
                     .padding()
