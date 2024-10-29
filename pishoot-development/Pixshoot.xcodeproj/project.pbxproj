@@ -50,12 +50,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C053C5CA2CCF405E00DEC909 /* PBXContainerItemProxy */ = {
+		67F6170F2CD0961300E2F573 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0F8458C72C2AB4130033FED7 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E9E5A4852C3545F4005EB61A;
-			remoteInfo = "PishootWatch Watch App";
+			remoteInfo = "PixshootWatch Watch App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -442,7 +442,7 @@
 		C053C5CB2CCF405E00DEC909 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E9E5A4852C3545F4005EB61A /* PixshootWatch Watch App */;
-			targetProxy = E9E5A4912C3545F5005EB61A /* PBXContainerItemProxy */;
+			targetProxy = 67F6170F2CD0961300E2F573 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -591,6 +591,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -634,6 +635,7 @@
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
