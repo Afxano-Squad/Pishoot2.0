@@ -28,7 +28,7 @@ struct BottomBarView: View {
                 Spacer()
                 CaptureButton(
                     action: captureAction, isCapturing: $isCapturing,
-                    animationProgress: $animationProgress)
+                    animationProgress: $animationProgress, gyroViewModel: gyroViewModel)
                 Spacer()
             }
         }

@@ -51,6 +51,7 @@ class GyroViewModel: ObservableObject {
         roll = 0.0
         isRollSuccess = false // Reset roll success state
         isPitchSuccess = false // Reset pitch success state
+        print("Rest gyro")
     }
     
     private func checkSuccess() {
