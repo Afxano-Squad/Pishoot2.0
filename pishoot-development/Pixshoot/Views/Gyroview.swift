@@ -1,12 +1,4 @@
-//
-//  gyroview.swift
-//  Pishoot
-//
-//  Created by MUHAMMAD FAIQ ADHITYA FAQIH on 28/10/24.
-//
-
 import SwiftUI
-
 
 struct GyroView: View {
     @StateObject private var gyroViewModel = GyroViewModel()
@@ -15,6 +7,7 @@ struct GyroView: View {
     var body: some View {
         ZStack {
             VStack {
+                // Guidance Text Display
                 Text(gyroViewModel.guidanceText)
                     .foregroundColor(.white)
                     .padding()
@@ -23,48 +16,44 @@ struct GyroView: View {
                     .padding(.top, 20)
                 
                 Spacer()
+                
+                // Rotating Circle View
                 ZStack {
-                    // Pitch rectangle (red)
-                    Rectangle()
-                        .stroke(lineWidth: 5)
-                        .foregroundColor(.red)
-                        .frame(width: 40, height: 40)
+                    // Outer Circle
+                    Circle()
+                        .stroke(Color.red, lineWidth: 4)
+                        .frame(width: 100, height: 100)
+                    
+                    // Inner Circle
+                    Circle()
+                        .fill(gyroViewModel.isPitchSuccess ? .green : .red)
+                        .frame(width: 80, height: 80)
                         .rotation3DEffect(
-                            .degrees(gyroViewModel.pitch * 180 / .pi),
+                            Angle(degrees: gyroViewModel.pitch * 180 / .pi),
                             axis: (x: 1, y: 0, z: 0)
                         )
-
-                    // Yaw rectangle (blue)
-                    Rectangle()
-                        .stroke(lineWidth: 5)
-                        .foregroundColor(.blue)
-                        .frame(width: 70, height: 70)
-                        .rotation3DEffect(
-                            .degrees(gyroViewModel.yaw * 180 / .pi),
-                            axis: (x: 0, y: 1, z: 0)
-                        )
-
-//                    // Roll rectangle (green)
-//                    Rectangle()
-//                        .stroke(lineWidth: 5)
-//                        .foregroundColor(.green)
-//                        .frame(width: 45, height: 45)
-//                        .rotation3DEffect(
-//                            .degrees(gyroViewModel.roll * 180 / .pi),
-//                            axis: (x: 0, y: 0, z: 1)
-//                        )
+                    
+                   
+                    Circle()
+                        .stroke(Color.red, lineWidth: 3)
+                        .frame(width: 25, height: 25)
+                        .offset(y: -70)
+                    
+                    Circle()
+                        .fill(gyroViewModel.isRollSuccess ? .green : .red)
+                        .frame(width: 15, height: 15)
+                        .offset(y: -70)
+                        .rotationEffect(Angle(degrees: gyroViewModel.roll * 0.2 * 360 / .pi))
                 }
                 .padding()
                 Spacer()
+                
+                // Bottom Lock Button
                 HStack {
-                    
-                    
-
                     Spacer()
-
-                    // Lock Button
+                    
                     Button(action: {
-                        // Place AR anchor and lock gyro coordinates
+                        
                         gyroViewModel.lockGyroCoordinates()
                         gyroViewModel.resetGyroValues()
                     }) {
@@ -84,7 +73,6 @@ struct GyroView: View {
         .onDisappear {
             gyroViewModel.stopGyros()
         }
-        
     }
 }
 
