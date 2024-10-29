@@ -45,7 +45,7 @@ struct WelcomeOnBoarding: View {
                     .padding(.top, 180)
                     
                     VStack(alignment: .leading, spacing: 19) {
-                        Text("Welcome to Pishoot")
+                        Text("Welcome to Pixshoot")
                             .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.black)

@@ -50,12 +50,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		C08A43962CCF54BE00BC52CE /* PBXContainerItemProxy */ = {
+		C053C5CA2CCF405E00DEC909 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0F8458C72C2AB4130033FED7 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = E9E5A4852C3545F4005EB61A;
-			remoteInfo = "PixshootWatch Watch App";
+			remoteInfo = "PishootWatch Watch App";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -442,7 +442,7 @@
 		C053C5CB2CCF405E00DEC909 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E9E5A4852C3545F4005EB61A /* PixshootWatch Watch App */;
-			targetProxy = C08A43962CCF54BE00BC52CE /* PBXContainerItemProxy */;
+			targetProxy = E9E5A4912C3545F5005EB61A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -575,7 +575,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -618,7 +618,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -660,12 +660,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.weeaboo.pixshootmc2;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -690,12 +691,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = dev.weeaboo.pixshootmc2;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
