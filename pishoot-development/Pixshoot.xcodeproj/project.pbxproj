@@ -38,6 +38,7 @@
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
 		C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C52CCF3D8700DEC909 /* GyroManager.swift */; };
 		C053C5CD2CCF444900DEC909 /* Gyroview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5CC2CCF444400DEC909 /* Gyroview.swift */; };
+		E9B5B46F2CD090B4006A429A /* HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B5B46D2CD090AF006A429A /* HapticFeedback.swift */; };
 		E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4802C354500005EB61A /* CameraManager.swift */; };
 		E9E5A4892C3545F4005EB61A /* PishootWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */; };
 		E9E5A48B2C3545F4005EB61A /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A48A2C3545F4005EB61A /* WatchContentView.swift */; };
@@ -106,6 +107,7 @@
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
 		C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroViewModel.swift; sourceTree = "<group>"; };
 		C053C5CC2CCF444400DEC909 /* Gyroview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gyroview.swift; sourceTree = "<group>"; };
+		E9B5B46D2CD090AF006A429A /* HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedback.swift; sourceTree = "<group>"; };
 		E9E5A4802C354500005EB61A /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		E9E5A4862C3545F4005EB61A /* PixshootWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PixshootWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PishootWatchApp.swift; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 		0F8458E22C2AB74D0033FED7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				E9B5B46D2CD090AF006A429A /* HapticFeedback.swift */,
 				0F8458E62C2AB8CD0033FED7 /* PhotoLibraryHelper.swift */,
 			);
 			path = Utilities;
@@ -399,6 +402,7 @@
 				C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */,
 				0F7399CC2C38534900324891 /* OnBoardingDataModel.swift in Sources */,
 				0F3E79912C42CB190057F279 /* DeviceOrientationManager.swift in Sources */,
+				E9B5B46F2CD090B4006A429A /* HapticFeedback.swift in Sources */,
 				0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */,
 				0F8458E92C2AB9170033FED7 /* CameraPreviewView.swift in Sources */,
 				C053C5CD2CCF444900DEC909 /* Gyroview.swift in Sources */,

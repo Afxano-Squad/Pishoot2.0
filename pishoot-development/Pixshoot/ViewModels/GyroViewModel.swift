@@ -61,6 +61,7 @@ class GyroViewModel: ObservableObject {
         if pitchDiff < tolerance {
             isPitchSuccess = true
             guidanceText = "Pitch Success!"
+//            HapticFeedback.success()
         } else {
             isPitchSuccess = false
         }
@@ -69,6 +70,7 @@ class GyroViewModel: ObservableObject {
         if rollDiff < tolerance {
             isRollSuccess = true
             guidanceText = "Roll Success!"
+//            HapticFeedback.success()
         } else {
             isRollSuccess = false
         }

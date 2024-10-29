@@ -27,7 +27,7 @@ struct GyroView: View {
                     // Inner Circle
                     Circle()
                         .fill(gyroViewModel.isPitchSuccess ? .green : .red)
-                        .frame(width: 80, height: 80)
+                        .frame(width: 70, height: 70)
                         .rotation3DEffect(
                             Angle(degrees: gyroViewModel.pitch * 180 / .pi),
                             axis: (x: 1, y: 0, z: 0)
