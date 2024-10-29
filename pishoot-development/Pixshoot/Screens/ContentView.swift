@@ -41,6 +41,7 @@ struct ContentView: View {
                                 )
                             
                             VStack {
+                                
                                 Spacer()
                                 
                                 if isAdditionalSettingsOpen {
