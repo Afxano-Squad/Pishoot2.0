@@ -120,11 +120,13 @@ struct MainAdditionalSetting: View {
                         // button grid
                         Button(action: {
                             isGridOn.toggle()
+                            print("Grid Nyala")
+                            
 
                         }) {
                             Image(systemName: "grid")
                                 .foregroundColor(
-                                    isMarkerOn ? Color("pishootYellow") : .white
+                                    isGridOn ? Color("pishootYellow") : .white
                                 )
                                 .frame(width: 40, height: 40)
                                 .background(Color.black.opacity(0.5))

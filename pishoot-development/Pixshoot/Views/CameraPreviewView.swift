@@ -94,6 +94,7 @@ struct CameraPreviewView: UIViewRepresentable {
 
     var session: AVCaptureSession
     @Binding var countdown: Int
+    @Binding var isGridOn: Bool
 
     func makeUIView(context: Context) -> CameraPreview {
         let view = CameraPreview()
@@ -125,7 +126,3 @@ struct CameraPreviewView: UIViewRepresentable {
     }
 }
 
-
-#Preview {
-    ContentView()
-}
