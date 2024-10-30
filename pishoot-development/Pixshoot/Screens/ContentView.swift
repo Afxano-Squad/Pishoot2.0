@@ -50,7 +50,7 @@ struct ContentView: View {
                                 if isAdditionalSettingsOpen {
                                     MainAdditionalSetting(selectedZoomLevel: $cameraViewModel.selectedZoomLevel, isMarkerOn: $isMarkerOn, isMultiRatio: $cameraViewModel.isMultiRatio, toggleFlash: {
                                         cameraViewModel.toggleFlash()
-                                    }, isFlashOn: cameraViewModel.isFlashOn, cameraViewModel: cameraViewModel)
+                                    }, isFlashOn: cameraViewModel.isFlashOn, isMultiframeOn: cameraViewModel.isMultiRatio, cameraViewModel: cameraViewModel)
                                 }
                                 
                                 BottomBarView(lastPhoto: lastPhotos.first, captureAction: {

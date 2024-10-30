@@ -16,6 +16,7 @@ struct MainAdditionalSetting: View {
     @Binding var isMultiRatio: Bool
     var toggleFlash: () -> Void
     var isFlashOn: Bool
+    var isMultiframeOn: Bool
     @State private var isFlashPopup = false
     @State private var isMultiFramePopup = false
     var cameraViewModel: CameraViewModel
@@ -44,7 +45,7 @@ struct MainAdditionalSetting: View {
                     // pop up multiframe
                     if isMultiFramePopup{
                         VStack {
-                            Text(isMultiFramePopup ? "Multiframe On" : "Multiframe Off")
+                            Text(isMultiframeOn ? "Multiframe On" : "Multiframe Off")
                                 .font(.callout)
                                 .foregroundColor(.white)
                                 .padding(.horizontal)
@@ -276,5 +277,5 @@ struct MainAdditionalSetting: View {
     MainAdditionalSetting(
         selectedZoomLevel: Binding<CGFloat>(get: { 1.0 }, set: { _ in }),
         isMarkerOn: .constant(false), isMultiRatio: .constant(false),
-        toggleFlash: {}, isFlashOn: true, cameraViewModel: CameraViewModel())
+        toggleFlash: {}, isFlashOn: true, isMultiframeOn: true, cameraViewModel: CameraViewModel())
 }
