@@ -1,11 +1,3 @@
-//
-//  GyroViewModel.swift
-//  FinalChallengeDummy3
-//
-//  Created by Yuriko AIshinselo on 26/10/24.
-//
-
-
 import CoreMotion
 import SwiftUI
 
@@ -19,6 +11,8 @@ class GyroViewModel: ObservableObject {
     @Published var pitch: Double = 0.0
     @Published var roll: Double = 0.0
     @Published var isSuccess = false
+    @Published var isRollSuccess = false // New state for roll success
+    @Published var isPitchSuccess = false // New state for pitch success
     @Published var guidanceText: String = ""
     
     private let tolerance = 0.1
@@ -55,30 +49,51 @@ class GyroViewModel: ObservableObject {
         yaw = 0.0
         pitch = 0.0
         roll = 0.0
+        isRollSuccess = false // Reset roll success state
+        isPitchSuccess = false // Reset pitch success state
+        objectWillChange.send()  // Notify subscribers
+        print("Rest gyro")
     }
     
     private func checkSuccess() {
-        let yawDiff = abs(yaw)
         let pitchDiff = abs(pitch)
         let rollDiff = abs(roll)
         
-        if yawDiff < tolerance && pitchDiff < tolerance && rollDiff < tolerance {
-            isSuccess = true
-            guidanceText = "Success!"
+        // Check for pitch success
+        if pitchDiff < tolerance {
+            isPitchSuccess = true
+            guidanceText = "Pitch Success!"
+//            HapticFeedback.success()
         } else {
-            isSuccess = false
+            isPitchSuccess = false
+        }
+
+        // Check for roll success
+        if rollDiff < tolerance {
+            isRollSuccess = true
+            guidanceText = "Roll Success!"
+//            HapticFeedback.success()
+        } else {
+            isRollSuccess = false
+        }
+
+        // Overall success condition
+        isSuccess = isPitchSuccess && isRollSuccess;
+
+        if isSuccess {
+            guidanceText = "Both Success!";
         }
     }
-    
+
     private func updateGuidance() {
-        if yaw > tolerance {
-            guidanceText = "Turn Left"
-        } else if yaw < -tolerance {
-            guidanceText = "Turn Right"
-        } else if pitch > tolerance {
+        if pitch > tolerance {
             guidanceText = "Tilt Up"
         } else if pitch < -tolerance {
             guidanceText = "Tilt Down"
+        } else if roll > tolerance {
+            guidanceText = "Rotate Left"
+        } else if roll < -tolerance {
+            guidanceText = "Rotate Right"
         } else {
             guidanceText = "Hold Steady"
         }

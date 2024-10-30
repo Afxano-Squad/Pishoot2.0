@@ -9,6 +9,7 @@ import SwiftUI
 import AVFoundation
 
 struct ContentView: View {
+    @StateObject private var gyroViewModel = GyroViewModel()
     @StateObject private var cameraViewModel = CameraViewModel()
     @State private var lastPhotos: [UIImage] = []
     @State var isMarkerOn: Bool = false
@@ -22,6 +23,8 @@ struct ContentView: View {
     
     @State var animationProgress: CGFloat = 0
     @State private var isDeviceSupported: Bool = false
+    
+    @State private var isLocked = false
     
     var body: some View {
         Group {
@@ -57,11 +60,13 @@ struct ContentView: View {
                                 }, openPhotosApp: {
                                     PhotoLibraryHelper.openPhotosApp()
                                 },
-                                              isCapturing: $cameraViewModel.isCapturingPhoto,animationProgress: $animationProgress
+                                              isCapturing: $cameraViewModel.isCapturingPhoto,
+                                              animationProgress: $animationProgress, gyroViewModel: gyroViewModel,
+                                              isLocked: $isLocked
                                 )
                                 .padding(.bottom, 5)
                             }
-                            GyroView(isMarkerOn: $isMarkerOn)
+                            GyroView(gyroViewModel: gyroViewModel, isMarkerOn: $isMarkerOn)
                             if showGuide {
                                 ZStack {
                                     GuideView(isPresented: $showGuide, isAdditionalSettingsOpen: $isAdditionalSettingsOpen, isMarkerOn: $isMarkerOn, steps: guideSteps)
