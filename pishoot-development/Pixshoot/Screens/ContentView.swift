@@ -13,6 +13,7 @@ struct ContentView: View {
     @StateObject private var cameraViewModel = CameraViewModel()
     @State private var lastPhotos: [UIImage] = []
     @State var isMarkerOn: Bool = false
+    @State var isGridOn: Bool = false
     @State var isAdditionalSettingsOpen: Bool = false
     @Environment(\.scenePhase) private var scenePhase
     
@@ -20,7 +21,6 @@ struct ContentView: View {
     @State private var highlightFrame = CGRect.zero
     @State private var guideStepIndex = 0
     @State private var chevronButtonTapped = false
-    
     @State var animationProgress: CGFloat = 0
     @State private var isDeviceSupported: Bool = false
     
@@ -48,7 +48,7 @@ struct ContentView: View {
                                 Spacer()
                                 
                                 if isAdditionalSettingsOpen {
-                                    MainAdditionalSetting(selectedZoomLevel: $cameraViewModel.selectedZoomLevel, isMarkerOn: $isMarkerOn, isMultiRatio: $cameraViewModel.isMultiRatio, toggleFlash: {
+                                    MainAdditionalSetting(selectedZoomLevel: $cameraViewModel.selectedZoomLevel, isMarkerOn: $isMarkerOn, isGridOn: $isGridOn, isMultiRatio: $cameraViewModel.isMultiRatio, toggleFlash: {
                                         cameraViewModel.toggleFlash()
                                     }, isFlashOn: cameraViewModel.isFlashOn, cameraViewModel: cameraViewModel)
                                 }
