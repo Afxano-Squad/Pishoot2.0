@@ -61,7 +61,6 @@ struct ContentView: View {
                                         .frame(width: width, height: height)
                                         .padding(.top, verticalPadding)
                                         .padding(.bottom, verticalPadding + 10)
-                                }
                                 
                                 VStack {
                                     Spacer()

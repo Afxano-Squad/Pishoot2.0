@@ -148,6 +148,10 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
         }
     }
     
+    private func saveImagesToPhotoLibrary(images: [UIImage]) {
+            PhotoLibraryHelper.saveImagesToAlbum(images: images)
+        }
+    
     func setZoomLevel(zoomLevel: CGFloat) {
         selectedZoomLevel = zoomLevel
         if zoomLevel == 0.5 {
@@ -193,44 +197,44 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-        DispatchQueue.main.async {
-            if let error = error {
-                print("Error capturing photo: \(error)")
-                self.isBlackScreenVisible = false
-                if self.isFlashOn {
-                    self.turnTorch(on: false)
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Error capturing photo: \(error)")
+                    self.isBlackScreenVisible = false
+                    if self.isFlashOn {
+                        self.turnTorch(on: false)
+                    }
+                    return
                 }
-                return
-            }
-            
-            guard let imageData = photo.fileDataRepresentation(),
-                  let image = UIImage(data: imageData) else { return }
-            
-            PhotoLibraryHelper.requestPhotoLibraryPermission { [weak self] authorized in
-                guard let self = self else { return }
-                DispatchQueue.main.async {
-                    if authorized {
-                        self.capturedImages.append(image)
-                        
-                        if self.capturedImages.count == 2 {
-                            self.captureZoomedPhotos()
-                        }
-                        
-                        if self.capturedImages.count == 3 {
-                            self.backToNormalLens()
-                            self.processAndSaveImages()
-                        }
-                    } else {
-                        print("Photo library access not authorized")
-                        self.isBlackScreenVisible = false
-                        if self.isFlashOn {
-                            self.turnTorch(on: false)
+                
+                guard let imageData = photo.fileDataRepresentation(),
+                      let image = UIImage(data: imageData) else { return }
+                
+                PhotoLibraryHelper.requestPhotoLibraryPermission { [weak self] authorized in
+                    guard let self = self else { return }
+                    DispatchQueue.main.async {
+                        if authorized {
+                            self.capturedImages.append(image)
+                            
+                            if self.capturedImages.count == 2 {
+                                self.captureZoomedPhotos()
+                            }
+                            
+                            if self.capturedImages.count == 3 {
+                                self.backToNormalLens()
+                                self.processAndSaveImages()
+                            }
+                        } else {
+                            print("Photo library access not authorized")
+                            self.isBlackScreenVisible = false
+                            if self.isFlashOn {
+                                self.turnTorch(on: false)
+                            }
                         }
                     }
                 }
             }
         }
-    }
     
     private func processAndSaveImages() {
         if self.isMultiRatio {
@@ -310,11 +314,11 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
         return croppedImage
     }
     
-    private func saveImagesToPhotoLibrary(images: [UIImage]) {
-        for image in images {
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        }
-    }
+//    private func saveImagesToPhotoLibrary(images: [UIImage]) {
+//        for image in images {
+//            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+//        }
+//    }
     
     func backToNormalLens() {
         if selectedZoomLevel == 0.5 {
