@@ -39,7 +39,7 @@ struct BottomBarView: View {
 
             HStack(alignment: .center) {
                 Spacer()
-                ButtonLockGyro(
+                ButtonLockGyros(
                     gyroViewModel: gyroViewModel, isLocked: $isLocked)
             }
             .padding()
