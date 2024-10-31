@@ -22,15 +22,31 @@ struct MainAdditionalSetting: View {
     @State private var isMultiFramePopup = false
     var cameraViewModel: CameraViewModel
 
-    var body: some View {
-        VStack {
-            if !isZoomOptionsVisible && !isTimerOptionsVisible {
-                ZStack{
-                    
-                    //pop up flash
-                    if isFlashPopup {
+        var body: some View {
+            VStack {
+                if !isZoomOptionsVisible && !isTimerOptionsVisible {
+                    ZStack{
+
+                        //pop up flash
+                        if isFlashPopup {
+                                VStack {
+                                    Text(isFlashOn ? "Flash On" : "Flash Off")
+                                        .font(.callout)
+                                        .foregroundColor(.white)
+                                        .padding(.horizontal)
+                                        .padding(.vertical, 2)
+                                        .background(Color.black.opacity(0.7))
+                                        .clipShape(Capsule())
+                                        .transition(.scale)
+                                }
+                                .offset(y: -50) // Position the popup above the button
+
+                        }
+
+                        // pop up multiframe
+                        if isMultiFramePopup{
                             VStack {
-                                Text(isFlashOn ? "Flash On" : "Flash Off")
+                                Text(isMultiFramePopup ? "Multiframe On" : "Multiframe Off")
                                     .font(.callout)
                                     .foregroundColor(.white)
                                     .padding(.horizontal)
@@ -40,187 +56,224 @@ struct MainAdditionalSetting: View {
                                     .transition(.scale)
                             }
                             .offset(y: -50) // Position the popup above the button
-                        
-                    }
-                    
-                    // pop up multiframe
-                    if isMultiFramePopup{
-                        VStack {
-                            Text(isMultiframeOn ? "Multiframe On" : "Multiframe Off")
-                                .font(.callout)
-                                .foregroundColor(.white)
-                                .padding(.horizontal)
-                                .padding(.vertical, 2)
-                                .background(Color.black.opacity(0.7))
-                                .clipShape(Capsule())
-                                .transition(.scale)
                         }
-                        .offset(y: -50) // Position the popup above the button
-                    }
-                    
-                    
-                    
-                    
-                    HStack(spacing: 25) {
 
-                        // button flash
-                        Button(action: {
-                            withAnimation {
-                                toggleFlash()
-                            }
-                            isFlashPopup = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+
+
+
+                        HStack(spacing: 25) {
+
+                            // button flash
+                            Button(action: {
                                 withAnimation {
-                                    isFlashPopup = false
+                                    toggleFlash()
                                 }
+                                isFlashPopup = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    withAnimation {
+                                        isFlashPopup = false
+                                    }
+                                }
+                            }) {
+                                Image(
+                                    systemName: isFlashOn
+                                        ? "bolt.fill" : "bolt.slash.fill"
+                                )
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(
+                                    isFlashOn ? Color("pishootYellow") : .white
+                                )
+                                .background(Color.black.opacity(0.5))
+                                .clipShape(Circle())
                             }
-                        }) {
-                            Image(
-                                systemName: isFlashOn
-                                    ? "bolt.fill" : "bolt.slash.fill"
-                            )
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(
-                                isFlashOn ? Color("pishootYellow") : .white
-                            )
-                            .background(Color.black.opacity(0.5))
-                            .clipShape(Circle())
+
+
+
+
+
+                            // button zoom
+                            Button(action: {
+                                withAnimation {
+                                    isZoomOptionsVisible.toggle()
+                                }
+                            }) {
+                                Image(systemName: "plus.magnifyingglass")
+                                    .foregroundColor(.white)
+                                    .frame(width: 40, height: 40)
+                                    .background(Color.black.opacity(0.5))
+                                    .clipShape(Circle())
+                            }
+
+                            // button marker
+                            Button(action: {
+                                isMarkerOn.toggle()
+
+                            }) {
+                                Image(systemName: "target")
+                                    .foregroundColor(
+                                        isMarkerOn ? Color("pishootYellow") : .white
+                                    )
+                                    .frame(width: 40, height: 40)
+                                    .background(Color.black.opacity(0.5))
+                                    .clipShape(Circle())
+                            }
+
+                            // button grid
+                            Button(action: {
+                                isGridOn.toggle()
+                                print("Grid Nyala")
+                                
+
+                            }) {
+                                Image(systemName: "grid")
+                                    .foregroundColor(
+                                        isGridOn ? Color("pishootYellow") : .white
+                                    )
+                                    .frame(width: 40, height: 40)
+                                    .background(Color.black.opacity(0.5))
+                                    .clipShape(Circle())
+                            }
+
+                            // button timer
+                            Button(action: {
+                                withAnimation {
+                                    isTimerOptionsVisible.toggle()
+                                }
+                            }) {
+                                Image(systemName: "timer")
+                                    .foregroundColor(
+                                        cameraViewModel.timerDuration == 0
+                                            ? .white : Color("pishootYellow")
+                                    )
+                                    .frame(width: 40, height: 40)
+                                    .background(Color.black.opacity(0.5))
+                                    .clipShape(Circle())
+                            }
+
+                            // button multiframe
+                            Button(action: {
+                                withAnimation {
+                                    isMultiRatio.toggle()
+                                }
+                                isMultiFramePopup = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                    withAnimation {
+                                        isMultiFramePopup = false
+                                    }
+                                }
+                            }) {
+                                Image(systemName: "rectangle.stack.fill")
+                                    .foregroundColor(
+                                        isMultiRatio ? Color("pishootYellow") : .white
+                                    )
+                                    .frame(width: 40, height: 40)
+                                    .background(Color.black.opacity(0.5))
+                                    .clipShape(Circle())
+                            }
                         }
-                        
-                        
-                        
-                        
-                        
-                        // button zoom
+
+                    }
+
+                }
+
+                if isZoomOptionsVisible {
+                    HStack(spacing: 20) {
                         Button(action: {
-                            withAnimation {
+                            withAnimation(.spring()) {
                                 isZoomOptionsVisible.toggle()
                             }
                         }) {
                             Image(systemName: "plus.magnifyingglass")
                                 .foregroundColor(.white)
-                                .frame(width: 40, height: 40)
+                                .padding(10)
                                 .background(Color.black.opacity(0.5))
                                 .clipShape(Circle())
                         }
-                        
-                        // button marker
                         Button(action: {
-                            isMarkerOn.toggle()
-
+                            selectedZoomLevel = 0.5
+                            cameraViewModel.setZoomLevel(
+                                zoomLevel: selectedZoomLevel)
                         }) {
-                            Image(systemName: "target")
+                            Text("0.5x")
                                 .foregroundColor(
-                                    isMarkerOn ? Color("pishootYellow") : .white
+                                    selectedZoomLevel == 0.5
+                                        ? Color("pishootYellow") : .white
                                 )
-                                .frame(width: 40, height: 40)
-                                .background(Color.black.opacity(0.5))
-                                .clipShape(Circle())
+                                .padding(10)
                         }
-                        
-                        // button grid
                         Button(action: {
-                            isGridOn.toggle()
-                            print("Grid Nyala")
-                            
-
+                            selectedZoomLevel = 1.0
+                            cameraViewModel.setZoomLevel(
+                                zoomLevel: selectedZoomLevel)
                         }) {
-                            Image(systemName: "grid")
+                            Text("1x")
                                 .foregroundColor(
-                                    isGridOn ? Color("pishootYellow") : .white
+                                    selectedZoomLevel == 1.0
+                                        ? Color("pishootYellow") : .white
                                 )
-                                .frame(width: 40, height: 40)
-                                .background(Color.black.opacity(0.5))
-                                .clipShape(Circle())
+                                .padding(10)
                         }
-                        
-                        // button timer
                         Button(action: {
-                            withAnimation {
-                                isTimerOptionsVisible.toggle()
-                            }
+                            selectedZoomLevel = 2.0
+                            cameraViewModel.setZoomLevel(
+                                zoomLevel: selectedZoomLevel)
                         }) {
-                            Image(systemName: "timer")
+                            Text("2x")
                                 .foregroundColor(
-                                    cameraViewModel.timerDuration == 0
-                                        ? .white : Color("pishootYellow")
+                                    selectedZoomLevel == 2.0
+                                        ? Color("pishootYellow") : .white
                                 )
-                                .frame(width: 40, height: 40)
-                                .background(Color.black.opacity(0.5))
-                                .clipShape(Circle())
-                        }
-                        
-                        // button multiframe
-                        Button(action: {
-                            withAnimation {
-                                isMultiRatio.toggle()
-                            }
-                            isMultiFramePopup = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                withAnimation {
-                                    isMultiFramePopup = false
-                                }
-                            }
-                        }) {
-                            Image(systemName: "rectangle.stack.fill")
-                                .foregroundColor(
-                                    isMultiRatio ? Color("pishootYellow") : .white
-                                )
-                                .frame(width: 40, height: 40)
-                                .background(Color.black.opacity(0.5))
-                                .clipShape(Circle())
+                                .padding(10)
                         }
                     }
-                    
+                    .padding(.trailing, 20)
+                    .background(Color.black.opacity(0.5))
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
                 }
-                
             }
 
-            if isZoomOptionsVisible {
+            if isTimerOptionsVisible {
                 HStack(spacing: 20) {
                     Button(action: {
                         withAnimation(.spring()) {
-                            isZoomOptionsVisible.toggle()
+                            isTimerOptionsVisible.toggle()
                         }
                     }) {
-                        Image(systemName: "plus.magnifyingglass")
-                            .foregroundColor(.white)
+                        Image(systemName: "timer")
+                            .foregroundColor(
+                                cameraViewModel.timerDuration == 0
+                                    ? .white : Color("pishootYellow")
+                            )
                             .padding(10)
                             .background(Color.black.opacity(0.5))
                             .clipShape(Circle())
                     }
                     Button(action: {
-                        selectedZoomLevel = 0.5
-                        cameraViewModel.setZoomLevel(
-                            zoomLevel: selectedZoomLevel)
+                        cameraViewModel.timerDuration = 3
                     }) {
-                        Text("0.5x")
+                        Text("3s")
                             .foregroundColor(
-                                selectedZoomLevel == 0.5
+                                cameraViewModel.timerDuration == 3
                                     ? Color("pishootYellow") : .white
                             )
                             .padding(10)
                     }
                     Button(action: {
-                        selectedZoomLevel = 1.0
-                        cameraViewModel.setZoomLevel(
-                            zoomLevel: selectedZoomLevel)
+                        cameraViewModel.timerDuration = 10
                     }) {
-                        Text("1x")
+                        Text("10s")
                             .foregroundColor(
-                                selectedZoomLevel == 1.0
+                                cameraViewModel.timerDuration == 10
                                     ? Color("pishootYellow") : .white
                             )
                             .padding(10)
                     }
                     Button(action: {
-                        selectedZoomLevel = 2.0
-                        cameraViewModel.setZoomLevel(
-                            zoomLevel: selectedZoomLevel)
+                        cameraViewModel.timerDuration = 0
                     }) {
-                        Text("2x")
+                        Text("Off")
                             .foregroundColor(
-                                selectedZoomLevel == 2.0
+                                cameraViewModel.timerDuration == 0
                                     ? Color("pishootYellow") : .white
                             )
                             .padding(10)
@@ -230,69 +283,15 @@ struct MainAdditionalSetting: View {
                 .background(Color.black.opacity(0.5))
                 .clipShape(RoundedRectangle(cornerRadius: 20))
             }
-        }
 
-        if isTimerOptionsVisible {
-            HStack(spacing: 20) {
-                Button(action: {
-                    withAnimation(.spring()) {
-                        isTimerOptionsVisible.toggle()
-                    }
-                }) {
-                    Image(systemName: "timer")
-                        .foregroundColor(
-                            cameraViewModel.timerDuration == 0
-                                ? .white : Color("pishootYellow")
-                        )
-                        .padding(10)
-                        .background(Color.black.opacity(0.5))
-                        .clipShape(Circle())
-                }
-                Button(action: {
-                    cameraViewModel.timerDuration = 3
-                }) {
-                    Text("3s")
-                        .foregroundColor(
-                            cameraViewModel.timerDuration == 3
-                                ? Color("pishootYellow") : .white
-                        )
-                        .padding(10)
-                }
-                Button(action: {
-                    cameraViewModel.timerDuration = 10
-                }) {
-                    Text("10s")
-                        .foregroundColor(
-                            cameraViewModel.timerDuration == 10
-                                ? Color("pishootYellow") : .white
-                        )
-                        .padding(10)
-                }
-                Button(action: {
-                    cameraViewModel.timerDuration = 0
-                }) {
-                    Text("Off")
-                        .foregroundColor(
-                            cameraViewModel.timerDuration == 0
-                                ? Color("pishootYellow") : .white
-                        )
-                        .padding(10)
-                }
-            }
-            .padding(.trailing, 20)
-            .background(Color.black.opacity(0.5))
-            .clipShape(RoundedRectangle(cornerRadius: 20))
+
+
         }
-        
-        
-        
     }
-}
 
-#Preview {
-    MainAdditionalSetting(
-        selectedZoomLevel: Binding<CGFloat>(get: { 1.0 }, set: { _ in }),
- feat/grid
-        isMarkerOn: .constant(false), isGridOn: .constant(false), isMultiRatio: .constant(false),
-
-}
+    #Preview {
+        MainAdditionalSetting(
+            selectedZoomLevel: Binding<CGFloat>(get: { 1.0 }, set: { _ in }),
+            isMarkerOn: .constant(false), isGridOn: .constant(false), isMultiRatio: .constant(false),
+            toggleFlash: {}, isFlashOn: true, isMultiframeOn: false, cameraViewModel: CameraViewModel())
+    }
