@@ -13,6 +13,7 @@ struct MainAdditionalSetting: View {
     
     @Binding var selectedZoomLevel: CGFloat
     @Binding var isMarkerOn: Bool
+    @Binding var isGridOn: Bool
     @Binding var isMultiRatio: Bool
     var toggleFlash: () -> Void
     var isFlashOn: Bool
@@ -117,6 +118,21 @@ struct MainAdditionalSetting: View {
                                 .clipShape(Circle())
                         }
                         
+                        // button grid
+                        Button(action: {
+                            isGridOn.toggle()
+                            print("Grid Nyala")
+                            
+
+                        }) {
+                            Image(systemName: "grid")
+                                .foregroundColor(
+                                    isGridOn ? Color("pishootYellow") : .white
+                                )
+                                .frame(width: 40, height: 40)
+                                .background(Color.black.opacity(0.5))
+                                .clipShape(Circle())
+                        }
                         
                         // button timer
                         Button(action: {
@@ -276,6 +292,7 @@ struct MainAdditionalSetting: View {
 #Preview {
     MainAdditionalSetting(
         selectedZoomLevel: Binding<CGFloat>(get: { 1.0 }, set: { _ in }),
-        isMarkerOn: .constant(false), isMultiRatio: .constant(false),
-        toggleFlash: {}, isFlashOn: true, isMultiframeOn: true, cameraViewModel: CameraViewModel())
+ feat/grid
+        isMarkerOn: .constant(false), isGridOn: .constant(false), isMultiRatio: .constant(false),
+
 }
