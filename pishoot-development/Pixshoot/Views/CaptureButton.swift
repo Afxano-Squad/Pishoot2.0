@@ -37,7 +37,9 @@ struct CaptureButton: View {
                         .frame(width: 40, height: 40)
                         .rotation3DEffect(
                             Angle(degrees: gyroViewModel.pitch * 180 / .pi),
-                            axis: (x: 1, y: 0, z: 0)
+                            axis: (x: 1, y: 0, z: 0),
+                            anchor: .center,
+                            perspective: 0
                         )
                     //
                     //                    // Small Circle for Lock Indicator
@@ -70,10 +72,10 @@ struct CaptureButton: View {
                     .rotationEffect(Angle(degrees: -90))
             }
             .onChange(of: isLocked) { locked in
-                            if !locked {
-                                gyroViewModel.resetGyroValues()  // Ensure gyro reset when unlocked
-                            }
-                        }
+                if !locked {
+                    gyroViewModel.resetGyroValues()  // Ensure gyro reset when unlocked
+                }
+            }
             .onAppear {
                 gyroViewModel.startGyros()
             }

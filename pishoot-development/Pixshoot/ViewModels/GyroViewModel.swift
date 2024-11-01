@@ -1,26 +1,30 @@
 import CoreMotion
 import SwiftUI
+import UIKit
 
 class GyroViewModel: ObservableObject {
     private let gyroManager: GyroMotionManager
     private var lockedYaw: Double?
     private var lockedPitch: Double?
     private var lockedRoll: Double?
-    
+
     @Published var yaw: Double = 0.0
     @Published var pitch: Double = 0.0
     @Published var roll: Double = 0.0
     @Published var isSuccess = false
-    @Published var isRollSuccess = false // New state for roll success
-    @Published var isPitchSuccess = false // New state for pitch success
+    @Published var isRollSuccess = false  // New state for roll success
+    @Published var isPitchSuccess = false  // New state for pitch success
     @Published var guidanceText: String = ""
-    
+
     private let tolerance = 0.1
-    
+
+    private var hapticGenerator: UIImpactFeedbackGenerator?  // Add haptic feedback generator
+
     init(gyroManager: GyroMotionManager = GyroMotionManager()) {
         self.gyroManager = gyroManager
+        self.hapticGenerator = UIImpactFeedbackGenerator(style: .medium)  // Initialize with desired feedback style
     }
-    
+
     func startGyros() {
         gyroManager.startGyros(updateInterval: 1.0 / 60.0) { [weak self] data in
             DispatchQueue.main.async {
@@ -36,7 +40,7 @@ class GyroViewModel: ObservableObject {
     func stopGyros() {
         gyroManager.stopGyros()
     }
-    
+
     func lockGyroCoordinates() {
         if let attitude = gyroManager.lockGyroCoordinates() {
             lockedYaw = attitude.yaw
@@ -44,52 +48,50 @@ class GyroViewModel: ObservableObject {
             lockedRoll = attitude.roll
         }
     }
-    
+
     func resetGyroValues() {
         yaw = 0.0
         pitch = 0.0
         roll = 0.0
-        isRollSuccess = false // Reset roll success state
-        isPitchSuccess = false // Reset pitch success state
+        isRollSuccess = false  // Reset roll success state
+        isPitchSuccess = false  // Reset pitch success state
+        isSuccess = false  // Reset isSuccess to ensure haptic will trigger on next success
         objectWillChange.send()  // Notify subscribers
         print("Rest gyro")
     }
-    
+
     private func checkSuccess() {
         let pitchDiff = abs(pitch)
         let rollDiff = abs(roll)
-        
+
         // Check for pitch success
-        if pitchDiff < tolerance {
-            isPitchSuccess = true
+        isPitchSuccess = pitchDiff < tolerance
+        if isPitchSuccess {
             guidanceText = "Pitch Success!"
-//            HapticFeedback.success()
-        } else {
-            isPitchSuccess = false
         }
 
         // Check for roll success
-        if rollDiff < tolerance {
-            isRollSuccess = true
+        isRollSuccess = rollDiff < tolerance
+        if isRollSuccess {
             guidanceText = "Roll Success!"
-//            HapticFeedback.success()
-        } else {
-            isRollSuccess = false
         }
 
-        // Overall success condition
-        isSuccess = isPitchSuccess && isRollSuccess;
+        // Store previous isSuccess state
+        let previousSuccess = isSuccess
+        isSuccess = isPitchSuccess && isRollSuccess
 
-        if isSuccess {
-            guidanceText = "Both Success!";
+        // Trigger haptic feedback only when transitioning from false to true
+        if isSuccess && !previousSuccess {
+            guidanceText = "Both Success!"
+            hapticGenerator?.impactOccurred()  // Trigger haptic feedback when success is first achieved
         }
     }
 
     private func updateGuidance() {
         if pitch > tolerance {
-            guidanceText = "Tilt Up"
+            guidanceText = "Point Up"
         } else if pitch < -tolerance {
-            guidanceText = "Tilt Down"
+            guidanceText = "Point Down"
         } else if roll > tolerance {
             guidanceText = "Rotate Left"
         } else if roll < -tolerance {
