@@ -18,6 +18,7 @@ struct PhotoThumbnailView: View {
             }) {
                 Image(uiImage: lastPhoto)
                     .resizable()
+                    .aspectRatio(contentMode: .fill) // Preserve aspect ratio
                     .frame(width: 50, height: 50)
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -25,16 +26,19 @@ struct PhotoThumbnailView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.white, lineWidth: 2)
                     )
+                    .clipped()
             }
         } else {
             Image(systemName: "photo")
                 .resizable()
+                .aspectRatio(contentMode: .fill) // Preserve aspect ratio
                 .frame(width: 50, height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
                         .stroke(Color.white, lineWidth: 2)
                 )
+                .clipped()
         }
     }
 }
