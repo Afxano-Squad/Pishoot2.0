@@ -6,13 +6,21 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct CaptureButton: View {
-    var action: () -> Void  // This action can be the function to capture the picture
+    var action: () -> Void
     @Binding var isCapturing: Bool
     @Binding var animationProgress: CGFloat
     @ObservedObject var gyroViewModel: GyroViewModel
     @Binding var isLocked: Bool
+
+    // Tambahkan AVAudioPlayer untuk memutar suara
+    @State private var audioPlayer: AVAudioPlayer?
+
+    // Variabel untuk menyimpan kondisi sebelumnya dari pitch dan roll
+    @State private var previousPitchSuccess = false
+    @State private var previousRollSuccess = false
 
     var body: some View {
         Button(action: {
@@ -23,7 +31,6 @@ struct CaptureButton: View {
         }) {
             ZStack {
                 if !isCapturing {
-                    // Outer Circle
                     Circle()
                         .stroke(
                             gyroViewModel.isPitchSuccess ? .green : .red,
@@ -31,7 +38,6 @@ struct CaptureButton: View {
                         )
                         .frame(width: 60, height: 60)
 
-                    //                    // Inner Circle based on pitch success
                     Circle()
                         .fill(gyroViewModel.isPitchSuccess ? .green : .red)
                         .frame(width: 40, height: 40)
@@ -41,8 +47,7 @@ struct CaptureButton: View {
                             anchor: .center,
                             perspective: 0
                         )
-                    //
-                    //                    // Small Circle for Lock Indicator
+
                     Circle()
                         .stroke(
                             gyroViewModel.isRollSuccess ? .green : .red,
@@ -51,7 +56,6 @@ struct CaptureButton: View {
                         .frame(width: 20, height: 20)
                         .offset(y: -50)
 
-                    //                    // Roll circle based on roll success
                     Circle()
                         .fill(gyroViewModel.isRollSuccess ? .green : .red)
                         .frame(width: 15, height: 15)
@@ -71,25 +75,65 @@ struct CaptureButton: View {
                     .frame(width: 65, height: 65)
                     .rotationEffect(Angle(degrees: -90))
             }
-            .onChange(of: isLocked) { locked in
-                if !locked {
-                    gyroViewModel.resetGyroValues()  // Ensure gyro reset when unlocked
-                }
-            }
-            .onAppear {
-                gyroViewModel.startGyros()
-            }
-            .onDisappear {
-                gyroViewModel.stopGyros()
-            }
+            .accessibilityLabel("Capture")
+            .accessibilityHint(isCapturing ? "Capturing in progress" : "Tap to capture a picture")
         }
-        .onChange(of: isCapturing) { oldValue, newValue in
+        .accessibilityElement(children: .combine) // Menggabungkan semua elemen dalam Button
+        .onAppear {
+            prepareAudioPlayer() // Siapkan audio player untuk suara sukses
+        }
+        .onChange(of: isCapturing) { _, newValue in
             if !newValue {
                 withAnimation(.linear(duration: 0.3)) {
                     self.animationProgress = 0
                 }
             }
         }
+        .onChange(of: gyroViewModel.isPitchSuccess) { _, newValue in
+            checkSuccessConditions() // Cek kondisi ketika pitch berubah
+            UIAccessibility.post(notification: .announcement, argument: newValue ? "Pitch level is correct" : "Adjust the pitch level")
+        }
+        .onChange(of: gyroViewModel.isRollSuccess) { _, newValue in
+            checkSuccessConditions() // Cek kondisi ketika roll berubah
+            UIAccessibility.post(notification: .announcement, argument: newValue ? "Roll level is correct" : "Adjust the roll level")
+        }
+        .onChange(of: isLocked) { locked in
+            if !locked {
+                gyroViewModel.resetGyroValues()
+            }
+        }
+    }
+
+    // Fungsi untuk menyiapkan audio player
+    func prepareAudioPlayer() {
+        if let soundURL = Bundle.main.url(forResource: "benar", withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+            } catch {
+                print("Failed to load sound: \(error)")
+            }
+        } else {
+            print("Audio file not found.")
+        }
+    }
+
+    func playSuccessSound() {
+        audioPlayer?.play()
+    }
+
+    // Fungsi untuk memeriksa apakah pitch dan roll keduanya sukses
+    func checkSuccessConditions() {
+        // Hanya mainkan suara jika pitch dan roll sukses, dan kondisinya baru berubah
+        if gyroViewModel.isPitchSuccess && gyroViewModel.isRollSuccess {
+            if !previousPitchSuccess || !previousRollSuccess {
+                playSuccessSound()
+            }
+        }
+
+        // Simpan kondisi saat ini sebagai kondisi sebelumnya
+        previousPitchSuccess = gyroViewModel.isPitchSuccess
+        previousRollSuccess = gyroViewModel.isRollSuccess
     }
 }
 

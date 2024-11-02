@@ -18,7 +18,7 @@ struct PhotoThumbnailView: View {
             }) {
                 Image(uiImage: lastPhoto)
                     .resizable()
-                    .aspectRatio(contentMode: .fill) // Preserve aspect ratio
+                    .aspectRatio(contentMode: .fill)
                     .frame(width: 50, height: 50)
                     .scaledToFit()
                     .clipShape(RoundedRectangle(cornerRadius: 10))
@@ -28,10 +28,12 @@ struct PhotoThumbnailView: View {
                     )
                     .clipped()
             }
+            .accessibilityLabel("Gallery")
+            .accessibilityHint("Tap to view your latest photos.")
         } else {
             Image(systemName: "photo")
                 .resizable()
-                .aspectRatio(contentMode: .fill) // Preserve aspect ratio
+                .aspectRatio(contentMode: .fill)
                 .frame(width: 50, height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .overlay(
@@ -39,11 +41,12 @@ struct PhotoThumbnailView: View {
                         .stroke(Color.white, lineWidth: 2)
                 )
                 .clipped()
+                
         }
     }
 }
 
-
 #Preview {
     PhotoThumbnailView(lastPhoto: nil, openPhotosApp: {})
 }
+
