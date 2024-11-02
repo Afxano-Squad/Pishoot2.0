@@ -2,7 +2,6 @@ import SwiftUI
 import WatchKit
 import WatchConnectivity
 
-
 struct WatchContentView: View {
     @StateObject private var connectivityManager = WatchConnectivityManager.shared
     @StateObject private var watchViewModel = WatchViewModel()
