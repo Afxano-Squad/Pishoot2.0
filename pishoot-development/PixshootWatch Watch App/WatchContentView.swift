@@ -1,24 +1,24 @@
 import SwiftUI
+import WatchKit
+import WatchConnectivity
 
 struct WatchContentView: View {
-    @ObservedObject var connectivityManager = WatchConnectivityManager.shared
+    @StateObject private var connectivityManager = WatchConnectivityManager.shared
+    @StateObject private var watchViewModel = WatchViewModel()
+    
     @Environment(\.scenePhase) private var scenePhase
-    @State private var isActive = true
-    @State private var isMarkerOn = true
     
     var body: some View {
         VStack {
-            //            Text("isIosAppReachable \(connectivityManager.isIOSAppReachable)")
-            //            Text("is Active \(isActive)")
-            //
-            
             ZStack {
-                if isActive {
+                if watchViewModel.isActive {
                     if connectivityManager.isIOSAppReachable {
                         if let imageData = connectivityManager.previewImage,
                            let uiImage = UIImage(data: imageData) {
                             let screenSize = WKInterfaceDevice.current().screenBounds.size
+                            
                             ZStack {
+                                // Image Display
                                 Image(uiImage: uiImage)
                                     .resizable()
                                     .scaledToFit()
@@ -26,22 +26,24 @@ struct WatchContentView: View {
                                     .clipped()
                                     .rotationEffect(Angle(degrees: 90))
                                     .position(x: screenSize.width / 2, y: screenSize.height / 2)
-                                if(isMarkerOn){
-                                    Image(systemName: "target")
-                                        .resizable()
-                                        .frame(width: 50, height: 50)
-                                        .position(connectivityManager.position)
-                                }
+                                
                             }
-                            .onAppear{
+                            .onAppear {
+                                // Send watch screen size to iOS app
                                 let watchSize = ["width": Float(screenSize.width), "height": Float(screenSize.height)]
                                 connectivityManager.send(message: ["watchSize": watchSize])
                                 connectivityManager.watchScreenSize = watchSize
+                                
+                                // Ensure display stays active
+                                watchViewModel.keepDisplayActive()
                             }
+                            
+                            // Take Picture Button
                             VStack {
                                 Spacer()
                                 Button(action: {
                                     connectivityManager.sendTakePictureCommand()
+                                    // Haptic feedback has been removed
                                 }) {
                                     Circle()
                                         .fill(Color.white)
@@ -51,33 +53,18 @@ struct WatchContentView: View {
                                                 .stroke(Color.gray, lineWidth: 1)
                                                 .frame(width: 30, height: 30)
                                         )
-                                }.buttonStyle(PlainButtonStyle())
-                                    .padding()
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                .padding()
                             }
                             
-                            VStack {
-                                Spacer()
-                                HStack{
-                                    Spacer()
-                                    Button(action: {
-                                        isMarkerOn.toggle()
-                                    }) {
-                                        Image(systemName: "target")
-                                            .resizable()
-                                            .frame(width: 40, height: 40)
-                                            .foregroundColor(isMarkerOn ? Color("pishootYellow") : .white)
-                                    }.buttonStyle(PlainButtonStyle())
-                                        .padding()
-                                }
-                            }
                         } else {
                             Text("Waiting for preview...")
                         }
-                        
                     } else {
                         Text("iOS app not open")
                     }
-                } else if !isActive && connectivityManager.isIOSAppReachable{
+                } else if !watchViewModel.isActive && connectivityManager.isIOSAppReachable {
                     Color.black.edgesIgnoringSafeArea(.all)
                     Text("Inactive")
                         .foregroundColor(.white)
@@ -85,17 +72,32 @@ struct WatchContentView: View {
             }
             .edgesIgnoringSafeArea(.all)
         }
-        .edgesIgnoringSafeArea(.all)
-        .onChange(of: scenePhase) { oldPhase, newPhase in
-            switch newPhase {
-            case .active:
-                isActive = true
-                connectivityManager.updateIOSAppReachability()
-            case .inactive, .background:
-                isActive = false
-            @unknown default:
-                break
-            }
+        .onChange(of: scenePhase) { newPhase in
+            handleScenePhaseChange(newPhase)
         }
+    }
+    
+    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
+        switch newPhase {
+        case .active:
+            watchViewModel.isActive = true
+            connectivityManager.updateIOSAppReachability()
+            watchViewModel.keepDisplayActive()
+            printCurrentState("active")
+        case .inactive:
+            watchViewModel.isActive = false
+            watchViewModel.stopKeepingDisplayActive()
+            printCurrentState("inactive")
+        case .background:
+            watchViewModel.isActive = false
+            watchViewModel.stopKeepingDisplayActive()
+            printCurrentState("background")
+        @unknown default:
+            break
+        }
+    }
+    
+    private func printCurrentState(_ state: String) {
+        print("The app is currently in the \(state) state.")
     }
 }
