@@ -14,13 +14,15 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     @Published var session: WCSession?
     @Published var position: CGPoint = CGPoint(x: 99, y: 90)
     @Published var isWatchSizeSet : Bool = false
-    #if os(iOS)
+    @Published var isCapturePhoto = false
+#if os(iOS)
     @Published var previewImage: UIImage?
     var takePictureOnWatch: (() -> Void)?
-    #elseif os(watchOS)
+#elseif os(watchOS)
     @Published var previewImage: Data?
     @Published var isIOSAppReachable = false
-    #endif
+    
+#endif
     
     private var lastSentTime: Date = Date()
     private let minTimeBetweenUpdates: TimeInterval = 0.2
@@ -35,7 +37,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
-    #if os(iOS)
+#if os(iOS)
     func sendPreviewToWatch(_ image: UIImage) {
         guard let session = session, session.isReachable else { return }
         
@@ -54,6 +56,15 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
+    func notifyWatchOfPhotoCapture() {
+        guard let session = session, session.isReachable else { return }
+        
+        let message = ["event": "photoCaptured"]
+        session.sendMessage(message, replyHandler: nil) { error in
+            print("Error sending photo capture notification to watch: \(error.localizedDescription)")
+        }
+    }
+    
     private func resizeImage(_ image: UIImage, to size: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
         image.draw(in: CGRect(origin: .zero, size: size))
@@ -61,9 +72,9 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         UIGraphicsEndImageContext()
         return resizedImage
     }
-    #endif
+#endif
     
-    #if os(watchOS)
+#if os(watchOS)
     func sendTakePictureCommand() {
         guard let session = session, session.isReachable else { return }
         print("Send command to iPhone")
@@ -76,16 +87,16 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     func updateIOSAppReachability() {
         isIOSAppReachable = session?.isReachable ?? false
     }
-    #endif
+#endif
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if let error = error {
             print("WCSession activation failed: \(error.localizedDescription)")
         } else {
             print("WCSession activated with state: \(activationState.rawValue)")
-            #if os(watchOS)
+#if os(watchOS)
             updateIOSAppReachability()
-            #endif
+#endif
         }
     }
     
@@ -98,24 +109,30 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         DispatchQueue.main.async {
             if let imageData = message["previewImage"] as? Data {
-                #if os(iOS)
+#if os(iOS)
                 self.previewImage = UIImage(data: imageData)
-                #elseif os(watchOS)
+#elseif os(watchOS)
                 self.previewImage = imageData
-                #endif
+#endif
             }
             
-            #if os(iOS)
+#if os(iOS)
             if let command = message["command"] as? String, command == "takePicture" {
                 self.takePictureOnWatch?()
             }
-            #endif
+#endif
             if let x = message["x"] as? CGFloat, let y = message["y"] as? CGFloat, let isWatchSizeSet = message["isWatchSizeSet"] as? Bool {
                 self.position = CGPoint(x: x, y: y)
                 if(!isWatchSizeSet){
                     self.send(message: ["watchSize": self.watchScreenSize])
                 }
             }
+            
+            if let event = message["event"] as? String, event == "photoCaptured" {
+                self.isCapturePhoto = true
+                print("My is capture photo : \(self.isCapturePhoto)")
+            }
+            
             if let watchSize = message["watchSize"] as? Dictionary<String,Float> {
                 self.isWatchSizeSet = true
                 self.watchScreenSize = watchSize
@@ -124,14 +141,14 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     }
     
     func sessionReachabilityDidChange(_ session: WCSession) {
-            DispatchQueue.main.async {
-                #if os(watchOS)
-                self.updateIOSAppReachability()
-                #endif
-            }
+        DispatchQueue.main.async {
+#if os(watchOS)
+            self.updateIOSAppReachability()
+#endif
         }
+    }
     
-    #if os(iOS)
+#if os(iOS)
     func sessionDidBecomeInactive(_ session: WCSession) {
         print("WCSession became inactive")
     }
@@ -140,14 +157,14 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         print("WCSession deactivated")
         WCSession.default.activate()
     }
-    #endif
+#endif
     
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-            DispatchQueue.main.async {
-                print("Received application context: \(applicationContext)")
-                // Handle the received application context data here
-            }
+        DispatchQueue.main.async {
+            print("Received application context: \(applicationContext)")
+            
         }
+    }
     func getWatchPosition(_ position: CGPoint) -> Dictionary<String, Float> {
         let widthScalingFactor: Float = Float(self.watchScreenSize["width"] ?? 1) / Float(iPhoneScreenSize.width)
         let heightScalingFactor: Float = Float(self.watchScreenSize["height"] ?? 1) / Float(iPhoneScreenSize.height)

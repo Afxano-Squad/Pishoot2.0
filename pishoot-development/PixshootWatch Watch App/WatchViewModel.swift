@@ -12,7 +12,6 @@ class WatchViewModel: ObservableObject {
     }
     
     private func setupExtendedRuntime() {
-        // Start the extended runtime session when the ViewModel is initialized
         session.start()
     }
     
@@ -23,5 +22,10 @@ class WatchViewModel: ObservableObject {
     
     func stopKeepingDisplayActive() {
         session.invalidate()
+    }
+    
+    
+    func playHapticFeedback() {
+        WKInterfaceDevice.current().play(.success)
     }
 }

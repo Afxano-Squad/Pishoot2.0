@@ -34,7 +34,7 @@ struct WatchContentView: View {
                                 connectivityManager.send(message: ["watchSize": watchSize])
                                 connectivityManager.watchScreenSize = watchSize
                                 
-                                // Ensure display stays active
+                                
                                 watchViewModel.keepDisplayActive()
                             }
                             
@@ -43,7 +43,6 @@ struct WatchContentView: View {
                                 Spacer()
                                 Button(action: {
                                     connectivityManager.sendTakePictureCommand()
-                                    // Haptic feedback has been removed
                                 }) {
                                     Circle()
                                         .fill(Color.white)
@@ -74,6 +73,14 @@ struct WatchContentView: View {
         }
         .onChange(of: scenePhase) { newPhase in
             handleScenePhaseChange(newPhase)
+        }
+        
+        .onChange(of: connectivityManager.isCapturePhoto) { newValue in
+            if newValue {
+                watchViewModel.playHapticFeedback()
+                connectivityManager.isCapturePhoto = false
+                print("Capture photo : \(connectivityManager.isCapturePhoto)")
+            }
         }
     }
     

@@ -34,8 +34,6 @@ class CameraViewModel: ObservableObject {
             cameraManager.isMultiRatio = isMultiRatio
         }
     }
-    
-    
 
     private var countdownTimer: Timer?
 
@@ -103,6 +101,7 @@ class CameraViewModel: ObservableObject {
         }
         cameraManager.capturePhotos { [weak self] images in
             self?.lastPhotos = images
+            WatchConnectivityManager.shared.send(message: ["event": "photoCaptured"])
             completion(images)
         }
     }
