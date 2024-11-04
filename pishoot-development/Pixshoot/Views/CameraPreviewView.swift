@@ -26,9 +26,9 @@ struct CameraPreviewView: UIViewRepresentable {
             focusBox = UIView()
 
             super.init(frame: frame)
+            
             layer.addSublayer(previewLayer)
             addSubview(countdownLabel)
-
             focusBox.layer.borderColor = UIColor.yellow.cgColor
             focusBox.layer.borderWidth = 2
             focusBox.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
@@ -37,6 +37,9 @@ struct CameraPreviewView: UIViewRepresentable {
 
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(focusAndExposeTap(_:)))
             self.addGestureRecognizer(tapGestureRecognizer)
+            
+            // Memanggil konfigurasi aksesibilitas
+            configureAccessibility()
         }
 
         required init?(coder: NSCoder) {
@@ -52,9 +55,17 @@ struct CameraPreviewView: UIViewRepresentable {
         @objc func focusAndExposeTap(_ gestureRecognizer: UITapGestureRecognizer) {
             let layerPoint = gestureRecognizer.location(in: gestureRecognizer.view)
             let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: layerPoint)
+            
+            // Menampilkan focus box sebagai indikator visual di lokasi ketukan
             showFocusBox(at: layerPoint)
+            
+            // Mengatur fokus kamera pada titik yang diketuk
             focus(with: .autoFocus, exposureMode: .autoExpose, at: devicePoint)
+
+            // Menambahkan accessibility announcement untuk memberi tahu pengguna bahwa fokus telah diatur
+            UIAccessibility.post(notification: .announcement, argument: "Focused on selected point")
         }
+
 
         private func showFocusBox(at point: CGPoint) {
             focusBox.center = point
@@ -123,6 +134,8 @@ struct CameraPreviewView: UIViewRepresentable {
     func updateUIView(_ uiView: CameraPreview, context: Context) {
         uiView.countdownLabel.text = "\(countdown)"
         uiView.countdownLabel.alpha = countdown > 0 ? 1 : 0
+        uiView.countdownLabel.accessibilityValue = "\(countdown)"
     }
 }
+
 

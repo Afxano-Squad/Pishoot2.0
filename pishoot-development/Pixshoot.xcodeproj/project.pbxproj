@@ -35,6 +35,8 @@
 		0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */; };
 		279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279E1D9E2C36E21D0078C2A1 /* Marker.swift */; };
 		27ECB80D2C3856E8004FFBA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8458D62C2AB4140033FED7 /* Assets.xcassets */; };
+		679A619C2CD669860054688B /* AccessibilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A619B2CD669860054688B /* AccessibilityExtensions.swift */; };
+		679A61A22CD67A350054688B /* benar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 679A61A12CD67A350054688B /* benar.mp3 */; };
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
 		C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C52CCF3D8700DEC909 /* GyroManager.swift */; };
 		C053C5CD2CCF444900DEC909 /* gyroview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5CC2CCF444400DEC909 /* gyroview.swift */; };
@@ -108,6 +110,8 @@
 		0F8458F02C2ABA8C0033FED7 /* PhotoThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoThumbnailView.swift; sourceTree = "<group>"; };
 		0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAdditionalSetting.swift; sourceTree = "<group>"; };
 		279E1D9E2C36E21D0078C2A1 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		679A619B2CD669860054688B /* AccessibilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityExtensions.swift; sourceTree = "<group>"; };
+		679A61A12CD67A350054688B /* benar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = benar.mp3; sourceTree = "<group>"; };
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
 		C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroViewModel.swift; sourceTree = "<group>"; };
 		C053C5CC2CCF444400DEC909 /* gyroview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gyroview.swift; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 		0F8458C62C2AB4130033FED7 = {
 			isa = PBXGroup;
 			children = (
+				679A61A12CD67A350054688B /* benar.mp3 */,
+				679A619B2CD669860054688B /* AccessibilityExtensions.swift */,
 				E9E5A4982C3545FD005EB61A /* Shared */,
 				0F8458D12C2AB4130033FED7 /* Pixshoot */,
 				E9E5A4872C3545F4005EB61A /* PixshootWatch Watch App */,
@@ -403,6 +409,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				679A61A22CD67A350054688B /* benar.mp3 in Resources */,
 				0F8458DA2C2AB4140033FED7 /* Preview Assets.xcassets in Resources */,
 				0F8458D72C2AB4140033FED7 /* Assets.xcassets in Resources */,
 			);
@@ -440,6 +447,7 @@
 				C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */,
 				C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */,
 				279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */,
+				679A619C2CD669860054688B /* AccessibilityExtensions.swift in Sources */,
 				0F7399CA2C38531500324891 /* OnBoardingContainerView.swift in Sources */,
 				0F7399DD2C38631300324891 /* GuidePopUpView.swift in Sources */,
 				0F8458E72C2AB8CD0033FED7 /* PhotoLibraryHelper.swift in Sources */,
@@ -613,7 +621,8 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -657,7 +666,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -701,7 +710,9 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
@@ -734,7 +745,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = F37675VH96;
+
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
