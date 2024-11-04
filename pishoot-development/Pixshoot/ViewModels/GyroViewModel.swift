@@ -19,6 +19,9 @@ class GyroViewModel: ObservableObject {
     private let tolerance = 0.1
 
     private var hapticGenerator: UIImpactFeedbackGenerator?  // Add haptic feedback generator
+    
+    // Observe device orientation
+    var orientationManager = DeviceOrientationManager.shared
 
     init(gyroManager: GyroMotionManager = GyroMotionManager()) {
         self.gyroManager = gyroManager
@@ -89,9 +92,9 @@ class GyroViewModel: ObservableObject {
 
     private func updateGuidance() {
         if pitch > tolerance {
-            guidanceText = "Point Up"
-        } else if pitch < -tolerance {
             guidanceText = "Point Down"
+        } else if pitch < -tolerance {
+            guidanceText = "Point Up"
         } else if roll > tolerance {
             guidanceText = "Rotate Left"
         } else if roll < -tolerance {
@@ -100,4 +103,18 @@ class GyroViewModel: ObservableObject {
             guidanceText = "Hold Steady"
         }
     }
+    
+    
+    // Computed property to determine rotation angle
+    var rotationAngle: Angle {
+        switch orientationManager.currentOrientation {
+        case .portrait: return .degrees(0)
+        case .landscapeLeft: return .degrees(90)
+        case .landscapeRight: return .degrees(-90)
+        case .portraitUpsideDown: return .degrees(180)
+        default: return .degrees(0)
+        }
+    }
+    
+    
 }

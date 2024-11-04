@@ -20,7 +20,7 @@ struct BottomBarView: View {
         ZStack {
             HStack(alignment: .center) {
                 PhotoThumbnailView(
-                    lastPhoto: lastPhoto, openPhotosApp: openPhotosApp)
+                    lastPhoto: lastPhoto, openPhotosApp: openPhotosApp, gyroViewModel: gyroViewModel)
                 Spacer()
             }
             .padding()

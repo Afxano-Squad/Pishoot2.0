@@ -30,9 +30,6 @@ struct ContentView: View {
             Group {
                 if isDeviceSupported {
                     VStack {
-                        TopBarView(isAdditionalSettingsOpen: $isAdditionalSettingsOpen)
-                            .padding(.bottom, 5)
-
                         if let session = cameraViewModel.session {
                             GeometryReader { geometry in
                                 let width = geometry.size.width
@@ -40,6 +37,8 @@ struct ContentView: View {
                                 let verticalPadding = (geometry.size.height - height) / 6
 
                                 ZStack {
+                                    
+                                    
                                     VStack {
                                         Spacer()
                                         
@@ -66,7 +65,7 @@ struct ContentView: View {
                                     VStack {
                                         Spacer()
                                         
-                                        if isAdditionalSettingsOpen {
+                                       
                                             MainAdditionalSetting(selectedZoomLevel: $cameraViewModel.selectedZoomLevel,
                                                                   isMarkerOn: $isMarkerOn,
                                                                   isGridOn: $isGridOn,
@@ -75,8 +74,8 @@ struct ContentView: View {
                                                                       cameraViewModel.toggleFlash()
                                                                   },
                                                                   isFlashOn: cameraViewModel.isFlashOn, isMultiframeOn: false,
-                                                                  cameraViewModel: cameraViewModel)
-                                        }
+                                                                  cameraViewModel: cameraViewModel, gyroViewModel: gyroViewModel)
+                                        
                                         
                                         BottomBarView(lastPhoto: lastPhotos.first, captureAction: {
                                             cameraViewModel.capturePhotos { images in
@@ -102,6 +101,8 @@ struct ContentView: View {
                                                 }
                                         }
                                     }
+                                    
+//                                    BlackOverlayWithHole()
                                 }
                             }
                         } else {
