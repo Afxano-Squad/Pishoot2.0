@@ -22,15 +22,34 @@ struct ButtonLockGyros: View {
                 gyroViewModel.resetGyroValues()
             }
         }) {
-            Image(systemName: isLocked ? "lock" : "lock.open")
-                .resizable()
-                .aspectRatio(contentMode: .fit) // Maintain aspect ratio to avoid stretching
-                .frame(width: 40, height: 40)
-                .foregroundColor(.white)
-//                .rotationEffect(.degrees(isLocked ? 0 : 180)) // Rotate icon when unlocked
-                .scaleEffect(isLocked ? 1 : 1.2) // Enlarge slightly when unlocked
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.white, lineWidth: 2)
+                    .frame(width: 57, height: 57)
+
+                // Overlay both icons and control their visibility
+                Image(systemName: "lock")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: isLocked ? 30 : 0, height: 43)
+                    .foregroundColor(.green)
+                    .opacity(isLocked ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.4), value: isLocked)
+
+                Image(systemName: "lock.open")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: isLocked ? 0 : 30, height: 43)
+                    .foregroundColor(.white)
+                    .opacity(isLocked ? 0 : 1)
+                    .animation(.easeInOut(duration: 0.4), value: isLocked)
+            }
+            .rotationEffect(gyroViewModel.rotationAngle)
+            .animation(
+                .easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
         }
-        .animation(.spring(response: 0.4, dampingFraction: 0.6), value: isLocked)
+        .animation(
+            .spring(response: 0.4, dampingFraction: 0.6), value: isLocked)
 
     }
 }
