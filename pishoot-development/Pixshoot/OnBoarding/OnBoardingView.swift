@@ -14,68 +14,66 @@ struct OnBoardingView: View {
     var totalSteps: Int
     var onBack: () -> Void
     var onContinue: () -> Void
-
+    
     var body: some View {
         GeometryReader { geometry in
             VStack {
-                VStack(spacing: 0) {
-                    if data.imageName == "OnBoarding1" {
-
-                        //                                Image(data.imageName)
-                        //                            .resizable()
-                        //                                    .scaledToFill()
-                        //                                    .frame(width: UIScreen.main.bounds.width, height: geometry.size.height * 0.5) // Adjust height to fit design
-                        //                                    .clipped()
-                        //                                    .ignoresSafeArea()
-                        Rectangle()
-                            .foregroundColor(.clear)
-
-                            .background(
-                                Image(data.imageName)
-                                    .resizable()
-                                    .scaledToFit()
-                                    //                                                            .clipped()
-                                    .ignoresSafeArea()
-                            )
-
-                    }else if data.imageName == "OnBoarding2" {
+                if data.imageName == "OnBoarding1" {
+                    VStack {
+                        Spacer()
                         
-                                Image(data.imageName)
-                                    .resizable()
-                                    .scaledToFill()
-//                                    .frame(width: 393, height: 452)
-//                                    .clipped()
-                                    .ignoresSafeArea()
-                    }
-                    else {
                         Image(data.imageName)
                             .resizable()
                             .scaledToFit()
+                            .padding(.horizontal, 0)
+                            .padding(.bottom, -28)
+                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
+                            
                     }
+                    .frame(width: geometry.size.width)
+                    .background(Color("Primary"))
+                }else if data.imageName == "OnBoarding2" {
+                    
+                    Image(data.imageName)
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                        .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
+                      
                 }
-                .frame(width: UIScreen.main.bounds.width)
-                .background(Color("Primary"))
-
+                else {
+                    VStack{
+                        Image(data.imageName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
+                    }
+                    .background(Color("Primary"))
+                }
+                
                 VStack(alignment: .leading /*, spacing: 38*/) {
-                    VStack(alignment: .leading, spacing: 20) {
+                    VStack(alignment: .leading, spacing: 10){
                         Text(data.title)
-                            .font(.largeTitle)
+                            .font(.title)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-                            .multilineTextAlignment(.leading)
-                            .lineLimit(nil)
-                            .lineSpacing(8)
-
+                            
+                            
+//                            .multilineTextAlignment(.center)
+//                            .lineLimit(nil)
+    
+                        //                            .lineSpacing(4)
+                        
                         Text(data.description)
                             .font(.body)
                             .foregroundColor(.white)
-                            //                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                        //                            .frame(maxWidth: .infinity, alignment: .topLeading)
                             .lineSpacing(12)
                     }
-                    //                    .frame(maxWidth: .infinity)
-
+                       
+                    
                     Spacer()
-
+                    
                     // Progress Indicator
                     HStack(spacing: 10) {
                         Spacer()
@@ -89,13 +87,13 @@ struct OnBoardingView: View {
                                     )
                                     .shadow(
                                         color: index == currentStep
-                                            ? Color.blue.opacity(0.4)
-                                            : Color.clear, radius: 5)
-
+                                        ? Color.blue.opacity(0.4)
+                                        : Color.clear, radius: 5)
+                                
                                 Circle()
                                     .fill(
                                         index < currentStep + 1
-                                            ? Color("Primary") : Color.clear
+                                        ? Color("Primary") : Color.clear
                                     )
                                     .frame(
                                         width: index == currentStep ? 8.4 : 6,
@@ -107,9 +105,9 @@ struct OnBoardingView: View {
                         Spacer()
                     }
                     .padding(.bottom, 10)
-
+                    
                     HStack(alignment: .center, spacing: 3) {
-
+                        
                         VStack(alignment: .center, spacing: 10) {
                             Text("Back")
                                 .font(.body)
@@ -124,7 +122,7 @@ struct OnBoardingView: View {
                         .onTapGesture {
                             onBack()
                         }
-
+                        
                         VStack(alignment: .center, spacing: 10) {
                             Text(isLastStep ? "Get Started" : "Continue")
                                 .font(.body)
@@ -143,16 +141,17 @@ struct OnBoardingView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(height: 372)
-                .padding(.top, 18)
+//                .frame(height: 372)
+                .padding(.top,10)
                 .padding(.horizontal, 32)
                 .padding(.bottom, 20)
-                .frame(maxWidth: .infinity, alignment: .topLeading)
-
+//                .frame(maxWidth: .infinity, alignment: .topLeading)
+                
                 Spacer()
             }
             .background(Color("Secondary"))
-
+          
+            
             .gesture(
                 DragGesture()
                     .onEnded { value in
@@ -165,13 +164,13 @@ struct OnBoardingView: View {
                     }
             )
         }
-
+        
     }
 }
 
 #Preview {
     OnBoardingView(
-        data: OnBoardingDataModel.data[1],
+        data: OnBoardingDataModel.data[2],
         isLastStep: false,
         currentStep: .constant(1),
         totalSteps: 4,
