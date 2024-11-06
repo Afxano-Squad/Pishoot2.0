@@ -5,9 +5,8 @@
 //  Created by Muhammad Zikrurridho Afwani on 25/06/24.
 //
 
-import SwiftUI
 import AVFoundation
-
+import SwiftUI
 
 struct ContentView: View {
     @StateObject private var gyroViewModel = GyroViewModel()
@@ -17,8 +16,9 @@ struct ContentView: View {
     @State var isGridOn: Bool = false  // Status grid overlay
     @State var isAdditionalSettingsOpen: Bool = false
     @Environment(\.scenePhase) private var scenePhase
-    
-    @State private var showGuide = UserDefaults.standard.bool(forKey: "hasSeenGuide") == false
+
+    @State private var showGuide =
+        UserDefaults.standard.bool(forKey: "hasSeenGuide") == false
     @State private var highlightFrame = CGRect.zero
     @State private var guideStepIndex = 0
     @State private var chevronButtonTapped = false
@@ -26,154 +26,200 @@ struct ContentView: View {
     @State private var isDeviceSupported: Bool = false
     @State private var isLocked = false
 
-        var body: some View {
-            Group {
-                if isDeviceSupported {
-                    VStack {
-                        if let session = cameraViewModel.session {
-                            GeometryReader { geometry in
-                                let width = geometry.size.width
-                                let height = width * 16 / 9
-                                let verticalPadding = (geometry.size.height - height) / 6
+    // Tutorial
+    @EnvironmentObject var appState: AppState
+    let tutorialSteps: [TutorialStep]
 
-                                ZStack {
-                                    
-                                    
-                                    VStack {
-                                        Spacer()
-                                        
-                                        CameraPreviewView(session: session, countdown: $cameraViewModel.countdown, isGridOn: $isGridOn)
-                                            .frame(width: width, height: height)
-                                            .clipped()
-                                            .overlay(
-                                                BlackScreenView(animationProgress: $animationProgress)
-                                                    .opacity(cameraViewModel.isBlackScreenVisible ? 1 : 0)
-                                            )
-                                        
-                                        Spacer()
-                                    }
+    var body: some View {
+        Group {
+            if isDeviceSupported {
+                VStack {
+                    if let session = cameraViewModel.session {
+                        GeometryReader { geometry in
+                            let width = geometry.size.width
+                            let height = width * 16 / 9
+                            let verticalPadding =
+                                (geometry.size.height - height) / 6
+
+                            ZStack {
+
+                                VStack {
+                                    Spacer()
+
+                                    CameraPreviewView(
+                                        session: session,
+                                        countdown: $cameraViewModel.countdown,
+                                        isGridOn: $isGridOn
+                                    )
+                                    .frame(width: width, height: height)
+                                    .clipped()
+                                    .overlay(
+                                        BlackScreenView(
+                                            animationProgress:
+                                                $animationProgress
+                                        )
+                                        .opacity(
+                                            cameraViewModel.isBlackScreenVisible
+                                                ? 1 : 0)
+                                    )
+
+                                    Spacer()
+                                }
+                                .padding(.top, verticalPadding)
+                                .padding(.bottom, verticalPadding + 12)
+
+                                if isGridOn {
+                                    RuleOf3GridView(
+                                        lineColor: .white, lineWidth: 1
+                                    )
+                                    .frame(width: width, height: height)
                                     .padding(.top, verticalPadding)
-                                    .padding(.bottom, verticalPadding + 12)
-                    
-                                    if isGridOn {
-                                        RuleOf3GridView(lineColor: .white, lineWidth: 1)
-                                            .frame(width: width, height: height)
-                                            .padding(.top, verticalPadding)
-                                            .padding(.bottom, verticalPadding + 10)
-                                    }
+                                    .padding(.bottom, verticalPadding + 10)
+                                }
 
-                                    VStack {
-                                        Spacer()
-                                        
-                                       
-                                            MainAdditionalSetting(selectedZoomLevel: $cameraViewModel.selectedZoomLevel,
-                                                                  isMarkerOn: $isMarkerOn,
-                                                                  isGridOn: $isGridOn,
-                                                                  isMultiRatio: $cameraViewModel.isMultiRatio,
-                                                                  toggleFlash: {
-                                                                      cameraViewModel.toggleFlash()
-                                                                  },
-                                                                  isFlashOn: cameraViewModel.isFlashOn, isMultiframeOn: false,
-                                                                  cameraViewModel: cameraViewModel, gyroViewModel: gyroViewModel)
-                                        
-                                        
-                                        BottomBarView(lastPhoto: lastPhotos.first, captureAction: {
-                                            cameraViewModel.capturePhotos { images in
+                                VStack {
+                                    Spacer()
+
+                                    MainAdditionalSetting(
+                                        selectedZoomLevel: $cameraViewModel
+                                            .selectedZoomLevel,
+                                        isMarkerOn: $isMarkerOn,
+                                        isGridOn: $isGridOn,
+                                        isMultiRatio: $cameraViewModel
+                                            .isMultiRatio,
+                                        toggleFlash: {
+                                            cameraViewModel.toggleFlash()
+                                        },
+                                        isFlashOn: cameraViewModel.isFlashOn,
+                                        isMultiframeOn: false,
+                                        cameraViewModel: cameraViewModel,
+                                        gyroViewModel: gyroViewModel)
+
+                                    BottomBarView(
+                                        lastPhoto: lastPhotos.first,
+                                        captureAction: {
+                                            cameraViewModel.capturePhotos {
+                                                images in
                                                 self.lastPhotos = images
                                             }
-                                        }, openPhotosApp: {
+                                        },
+                                        openPhotosApp: {
                                             PhotoLibraryHelper.openPhotosApp()
                                         },
-                                        isCapturing: $cameraViewModel.isCapturingPhoto,
+                                        isCapturing: $cameraViewModel
+                                            .isCapturingPhoto,
                                         animationProgress: $animationProgress,
                                         gyroViewModel: gyroViewModel,
-                                        isLocked: $isLocked)
-                                        .padding(.bottom, 5)
-                                    }
-                                    
-                                    GyroView(gyroViewModel: gyroViewModel, isMarkerOn: $isMarkerOn)
-                                    
-                                    if showGuide {
-                                        ZStack {
-                                            GuideView(isPresented: $showGuide, isAdditionalSettingsOpen: $isAdditionalSettingsOpen, isMarkerOn: $isMarkerOn, steps: guideSteps)
-                                                .onPreferenceChange(HighlightFrameKey.self) { value in
-                                                    self.highlightFrame = value
-                                                }
-                                        }
-                                    }
-                                    
-//                                    BlackOverlayWithHole()
+                                        isLocked: $isLocked
+                                    )
+                                    .padding(.bottom, 5)
                                 }
+
+                                GyroView(
+                                    gyroViewModel: gyroViewModel,
+                                    isMarkerOn: $isMarkerOn)
+
+//                                if showGuide {
+//                                    ZStack {
+//                                        GuideView(
+//                                            isPresented: $showGuide,
+//                                            isAdditionalSettingsOpen:
+//                                                $isAdditionalSettingsOpen,
+//                                            isMarkerOn: $isMarkerOn,
+//                                            steps: guideSteps
+//                                        )
+//                                        .onPreferenceChange(
+//                                            HighlightFrameKey.self
+//                                        ) { value in
+//                                            self.highlightFrame = value
+//                                        }
+//                                    }
+//                                }
+                                // Overlay BlackOverlayWithHole if tutorial is not completed
+                                if !appState.hasCompletedTutorial {
+                                    BlackOverlayWithHole(tutorialSteps: tutorialSteps) {
+                                        appState.hasCompletedTutorial = true
+                                    }
+                                    .transition(.opacity)  // Add transition for a smooth appearance
+                                    .animation(.easeInOut, value: appState.hasCompletedTutorial)
+                                }
+                                //                                    BlackOverlayWithHole(tutorialSteps: tutorialSteps)
                             }
-                        } else {
-                            Text("Camera not available")
                         }
+                    } else {
+                        Text("Camera not available")
                     }
-                } else {
-                    UnsupportedDeviceView()
                 }
+            } else {
+                UnsupportedDeviceView()
             }
-            .statusBar(hidden: true)
-            .onChange(of: scenePhase) { newPhase in
-                handleScenePhaseChange(newPhase)
-            }
-            .onAppear {
-                isDeviceSupported = checkDeviceCapabilities()
-            }
+        }
+        .statusBar(hidden: true)
+        .onChange(of: scenePhase) { newPhase in
+            handleScenePhaseChange(newPhase)
+        }
+        .onAppear {
+            isDeviceSupported = checkDeviceCapabilities()
         }
 
-        // Fungsi overlayGrid untuk menampilkan grid overlay saat isGridOn aktif
-        func overlayGrid() -> some View {
-            ZStack {
-                if isGridOn {
-                    RuleOf3GridView(lineColor: .white, lineWidth: 1)
-                        .edgesIgnoringSafeArea(.all)
-                }
-            }
-        }
         
-        private func handleScenePhaseChange(_ newPhase: ScenePhase) {
-            switch newPhase {
-            case .active:
-                print("App became active")
-                if isDeviceSupported {
-                    cameraViewModel.startSession()
-                    PhotoLibraryHelper.fetchLastPhoto { image in
-                        if let image = image {
-                            self.lastPhotos = [image]
-                        }
-                    }
-                }
-            case .inactive:
-                print("App became inactive")
-            case .background:
-                print("App went to background")
-                if isDeviceSupported {
-                    cameraViewModel.stopSession()
-                }
-            @unknown default:
-                print("Unknown scene phase")
+
+    }
+
+    // Fungsi overlayGrid untuk menampilkan grid overlay saat isGridOn aktif
+    func overlayGrid() -> some View {
+        ZStack {
+            if isGridOn {
+                RuleOf3GridView(lineColor: .white, lineWidth: 1)
+                    .edgesIgnoringSafeArea(.all)
             }
         }
     }
 
-    func checkDeviceCapabilities() -> Bool {
-        let deviceTypes: [AVCaptureDevice.DeviceType] = [
-            .builtInWideAngleCamera,
-            .builtInUltraWideCamera
-        ]
+    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
+        switch newPhase {
+        case .active:
+            print("App became active")
+            if isDeviceSupported {
+                cameraViewModel.startSession()
+                PhotoLibraryHelper.fetchLastPhoto { image in
+                    if let image = image {
+                        self.lastPhotos = [image]
+                    }
+                }
+            }
+        case .inactive:
+            print("App became inactive")
+        case .background:
+            print("App went to background")
+            if isDeviceSupported {
+                cameraViewModel.stopSession()
+            }
+        @unknown default:
+            print("Unknown scene phase")
+        }
+    }
+}
 
-        let discoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: deviceTypes,
-            mediaType: .video,
-            position: .back
-        )
+func checkDeviceCapabilities() -> Bool {
+    let deviceTypes: [AVCaptureDevice.DeviceType] = [
+        .builtInWideAngleCamera,
+        .builtInUltraWideCamera,
+    ]
 
-        let hasUltraWide = discoverySession.devices.contains { $0.deviceType == .builtInUltraWideCamera }
+    let discoverySession = AVCaptureDevice.DiscoverySession(
+        deviceTypes: deviceTypes,
+        mediaType: .video,
+        position: .back
+    )
 
-        let wideAngleCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-        let has2xZoom = wideAngleCamera?.maxAvailableVideoZoomFactor ?? 1.0 >= 2.0
-
-        return hasUltraWide && has2xZoom
+    let hasUltraWide = discoverySession.devices.contains {
+        $0.deviceType == .builtInUltraWideCamera
     }
 
+    let wideAngleCamera = AVCaptureDevice.default(
+        .builtInWideAngleCamera, for: .video, position: .back)
+    let has2xZoom = wideAngleCamera?.maxAvailableVideoZoomFactor ?? 1.0 >= 2.0
+
+    return hasUltraWide && has2xZoom
+}

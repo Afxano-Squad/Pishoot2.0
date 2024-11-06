@@ -8,84 +8,79 @@
 import SwiftUI
 
 struct WelcomeOnBoarding: View {
-    @State private var animate = false
-    @State private var progress: Float = 0.20
-    var onContinue: () -> Void
-    
+        @Binding var currentStep: Int
+        var totalSteps: Int
+        var onContinue: () -> Void
+
     var body: some View {
         VStack {
-            ZStack {
-                Color(Color(red: 0.95, green: 0.86, blue: 0.04))
-                    .edgesIgnoringSafeArea(.all)
-                
-                VStack(alignment: .leading, spacing: 38) {
-                    HStack(alignment: .top, spacing: 15) {
-                        Rectangle()
-                            .foregroundColor(.clear)
-                            .frame(width: 21, height: 145)
-                            .background(.black)
-                            .cornerRadius(75)
-                            .shadow(color: .black.opacity(0.25), radius: 5, x: 0, y: 0)
-                        
-                        Image("shoot")
-                            .frame(width: 91.62347, height: 93.61382)
-                            .rotationEffect(Angle(degrees: animate ? 370 : 0))
-                            .animation(
-                                .linear(duration: 1)
-                                .repeatForever(autoreverses: false),
-                                value: animate
-                            )
-                            .onAppear {
-                                withAnimation {
-                                    animate.toggle()
+            Spacer()
+
+            // Logo
+            Image("Logo")  // Placeholder, replace with your custom image
+                .resizable()
+                .scaledToFit()
+                .frame(width: 203, height: 277)
+                .padding(.bottom, 38)
+
+
+            // Title
+            Text("Welcome to Pixshoot")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.black)
+                .padding(.bottom, 2)
+
+            // Subtitle
+            Text("Get shot in any scale with just one click")
+                .font(.title2)
+                .frame(width: 267)
+                .foregroundColor(Color("Secondary"))
+                .multilineTextAlignment(.center)
+
+            
+
+            // Progress Indicator
+                        HStack(spacing: 10) {
+                            ForEach(0..<totalSteps, id: \.self) { index in
+                                ZStack {
+                                    Circle()
+                                        .fill(Color("BackgroundProgress"))
+                                        .frame(
+                                            width: index == currentStep ? 14 : 10,
+                                            height: index == currentStep ? 14 : 10)
+                                        .shadow(color: index == currentStep ? Color.blue.opacity(0.4) : Color.clear, radius: 5)
+
+                                    Circle()
+                                        .fill(index < currentStep + 1 ? Color("Primary") : Color.clear)
+                                        .frame(width: index == currentStep ? 8.4 : 6,
+                                               height: index == currentStep ? 8.4 : 6)
+                                        .animation(.easeInOut, value: currentStep)
                                 }
                             }
-                    }
-                    .padding(0)
-                    .padding(.top, 180)
-                    
-                    VStack(alignment: .leading, spacing: 19) {
-                        Text("Welcome to Pixshoot")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .topLeading)
-                        
-                        Text("Say goodbye to the hassle of asking strangers to retake your photo multiple times and hello to stunning shots in just one session!")
-                            .font(.body)
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity, alignment: .topLeading)
-                    }
-                    .padding(0)
-                    
-                    ProgressView(value: progress)
-                        .progressViewStyle(.linear)
-                        .tint(.black)
-                        .background(Color(red: 0.6, green: 0.58, blue: 0))
-                        
-                    
-                    VStack(alignment: .center, spacing: 10) {
-                        Text("Continue")
-                            .font(.body)
-                            .fontWeight(.bold)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(Color(red: 0.95, green: 0.86, blue: 0.04))
-                    }
-                    .padding(10)
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    .background(Color(red: 0.19, green: 0.19, blue: 0.19))
-                    .cornerRadius(9)
-                    .onTapGesture {
-                        onContinue()
-                    }
-                }
-                .padding(0)
-                .frame(width: 310, alignment: .topLeading)
+                        }
+                        .padding(.bottom, 16)
+                        .padding(.top, 99)
+
+            // Continue Button
+            Button(action: {
+                onContinue()
+            }) {
+                Text("Continue")
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("Primary"))
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color("Secondary"))
+                    .cornerRadius(10)
             }
+            .padding(.horizontal, 40)
+            .padding(.bottom, 20)
         }
+        .background(Color("Primary").edgesIgnoringSafeArea(.all))  // Customize color to match background color
     }
 }
 
 #Preview {
-        WelcomeOnBoarding(onContinue: {})
+    WelcomeOnBoarding(currentStep: .constant(0), totalSteps: 4, onContinue: {})
 }

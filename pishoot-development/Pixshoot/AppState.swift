@@ -13,8 +13,14 @@ class AppState: ObservableObject {
             UserDefaults.standard.set(hasCompletedOnboarding, forKey: "hasCompletedOnboarding")
         }
     }
+    @Published var hasCompletedTutorial: Bool {
+            didSet {
+                UserDefaults.standard.set(hasCompletedTutorial, forKey: "hasCompletedTutorial")
+            }
+        }
     
     init() {
         self.hasCompletedOnboarding = UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+        self.hasCompletedTutorial = UserDefaults.standard.bool(forKey: "hasCompletedTutorial")
     }
 }
