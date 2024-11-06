@@ -44,8 +44,6 @@
 		C0A7F6602CD7C497008EFC6B /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */; };
 		C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */; };
 		C0A7F6672CD855BC008EFC6B /* TutorialContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */; };
-		C0A7F6B12CD9CE9A008EFC6B /* progresview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6B02CD9CE9A008EFC6B /* progresview.swift */; };
-		C0A7F6B52CDA6DAA008EFC6B /* OnBView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6B42CDA6DA3008EFC6B /* OnBView.swift */; };
 		E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4802C354500005EB61A /* CameraManager.swift */; };
 		E9E5A4892C3545F4005EB61A /* PishootWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */; };
 		E9E5A48B2C3545F4005EB61A /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A48A2C3545F4005EB61A /* WatchContentView.swift */; };
@@ -120,8 +118,6 @@
 		C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialModel.swift; sourceTree = "<group>"; };
 		C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContent.swift; sourceTree = "<group>"; };
-		C0A7F6B02CD9CE9A008EFC6B /* progresview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = progresview.swift; sourceTree = "<group>"; };
-		C0A7F6B42CDA6DA3008EFC6B /* OnBView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBView.swift; sourceTree = "<group>"; };
 		E9E5A4802C354500005EB61A /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		E9E5A4862C3545F4005EB61A /* PixshootWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PixshootWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PishootWatchApp.swift; sourceTree = "<group>"; };
@@ -177,12 +173,10 @@
 		0F7399C82C3852D700324891 /* OnBoarding */ = {
 			isa = PBXGroup;
 			children = (
-				C0A7F6B42CDA6DA3008EFC6B /* OnBView.swift */,
 				0F7399C92C38531500324891 /* OnBoardingContainerView.swift */,
 				0F7399CB2C38534900324891 /* OnBoardingDataModel.swift */,
 				0F7399CD2C38536900324891 /* OnBoardingView.swift */,
 				0F7399D12C3853CB00324891 /* WelcomeOnBoarding.swift */,
-				C0A7F6B02CD9CE9A008EFC6B /* progresview.swift */,
 			);
 			path = OnBoarding;
 			sourceTree = "<group>";
@@ -437,7 +431,6 @@
 			files = (
 				0F8458D52C2AB4130033FED7 /* ContentView.swift in Sources */,
 				0F7399D22C3853CB00324891 /* WelcomeOnBoarding.swift in Sources */,
-				C0A7F6B52CDA6DAA008EFC6B /* OnBView.swift in Sources */,
 				0F8458D32C2AB4130033FED7 /* PishootApp.swift in Sources */,
 				C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */,
 				C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */,
@@ -463,7 +456,6 @@
 				0F8458EB2C2AB97E0033FED7 /* CaptureButton.swift in Sources */,
 				0F8458E52C2AB8800033FED7 /* CameraViewModel.swift in Sources */,
 				C0A7F6602CD7C497008EFC6B /* TutorialView.swift in Sources */,
-				C0A7F6B12CD9CE9A008EFC6B /* progresview.swift in Sources */,
 				0F7399D92C3861BF00324891 /* GuideView.swift in Sources */,
 				E9E5A49A2C354616005EB61A /* WatchConnectivityManager.swift in Sources */,
 				0F7399DF2C38637400324891 /* HighlightFrameKey.swift in Sources */,

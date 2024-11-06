@@ -33,14 +33,14 @@ struct CaptureButton: View {
                 if !isCapturing {
                     Circle()
                         .stroke(
-                            gyroViewModel.isPitchSuccess ? .green : .red,
+                            gyroViewModel.isPitchSuccess ? Color("Primary") : .white,
                             lineWidth: 4
                         )
-                        .frame(width: 60, height: 60)
+                        .frame(width: 70, height: 70)
 
                     Circle()
-                        .fill(gyroViewModel.isPitchSuccess ? .green : .red)
-                        .frame(width: 40, height: 40)
+                        .fill(gyroViewModel.isPitchSuccess ? Color("Primary") : .white)
+                        .frame(width: 57, height: 57)
                         .rotation3DEffect(
                             Angle(degrees: gyroViewModel.pitch * 180 / .pi),
                             axis: (x: 1, y: 0, z: 0),
@@ -50,24 +50,22 @@ struct CaptureButton: View {
 
                     Circle()
                         .stroke(
-                            gyroViewModel.isRollSuccess ? .green : .red,
-                            lineWidth: 3
+                            gyroViewModel.isRollSuccess ? Color("Primary") : .white,
+                            lineWidth: 2
                         )
-                        .frame(width: 20, height: 20)
-                        .offset(y: -50)
+                        .frame(width: 17, height: 17)
+                        .offset(y: -53)
 
                     Circle()
-                        .fill(gyroViewModel.isRollSuccess ? .green : .red)
-                        .frame(width: 15, height: 15)
-                        .offset(y: -50)
+                        .fill(gyroViewModel.isRollSuccess ? Color("Primary") : .white)
+                        .frame(width: 10, height: 10)
+                        .offset(y: -53)
                         .rotationEffect(
                             Angle(degrees: gyroViewModel.roll * 0.2 * 360 / .pi)
                         )
                 }
 
-                Circle()
-                    .stroke(Color.gray, lineWidth: 2)
-                    .frame(width: 75, height: 75)
+
 
                 Circle()
                     .trim(from: 0, to: animationProgress)

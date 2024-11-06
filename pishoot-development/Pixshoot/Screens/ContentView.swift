@@ -94,6 +94,7 @@ struct ContentView: View {
                                         isMultiframeOn: false,
                                         cameraViewModel: cameraViewModel,
                                         gyroViewModel: gyroViewModel)
+                                    
 
                                     BottomBarView(
                                         lastPhoto: lastPhotos.first,
@@ -112,7 +113,8 @@ struct ContentView: View {
                                         gyroViewModel: gyroViewModel,
                                         isLocked: $isLocked
                                     )
-                                    .padding(.bottom, 5)
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 20)
                                 }
 
                                 GyroView(
@@ -222,4 +224,8 @@ func checkDeviceCapabilities() -> Bool {
     let has2xZoom = wideAngleCamera?.maxAvailableVideoZoomFactor ?? 1.0 >= 2.0
 
     return hasUltraWide && has2xZoom
+}
+
+#Preview {
+    ContentView( tutorialSteps: tutorialSteps)
 }

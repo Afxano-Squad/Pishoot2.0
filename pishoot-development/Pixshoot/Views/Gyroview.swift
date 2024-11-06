@@ -10,9 +10,9 @@ struct GyroView: View {
                        // Portrait orientation: text appears at the top center
                        VStack {
                            Text(gyroViewModel.guidanceText)
-                               .foregroundColor(.white)
+                               .foregroundColor(gyroViewModel.isSuccess ? Color("Secondary") : .black)
                                .padding()
-                               .background(Color.black.opacity(0.7))
+                               .background(gyroViewModel.isSuccess ? Color("Primary") : .white)
                                .cornerRadius(10)
                                .rotationEffect(gyroViewModel.rotationAngle)
                                .padding(.top, 30)
@@ -26,9 +26,9 @@ struct GyroView: View {
                            }
                            
                            Text(gyroViewModel.guidanceText)
-                               .foregroundColor(.white)
+                               .foregroundColor(gyroViewModel.isSuccess ? Color("Secondary") : .black)
                                .padding()
-                               .background(Color.black.opacity(0.7))
+                               .background(gyroViewModel.isSuccess ? Color("Primary") : .white)
                                .cornerRadius(10)
                                .rotationEffect(gyroViewModel.rotationAngle)
                            

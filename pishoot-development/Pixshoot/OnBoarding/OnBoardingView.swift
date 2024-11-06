@@ -20,17 +20,14 @@ struct OnBoardingView: View {
             VStack {
                 if data.imageName == "OnBoarding1" {
                     VStack {
-                        Spacer()
-                        
                         Image(data.imageName)
                             .resizable()
-                            .scaledToFit()
-                            .padding(.horizontal, 0)
-                            .padding(.bottom, -28)
-                            .frame(width: geometry.size.width * 0.9, height: geometry.size.height * 0.55)
+                            .scaledToFill()
+                            .padding(.bottom, 40)
+                            .frame(width: geometry.size.width * 0.95)
                             
                     }
-                    .frame(width: geometry.size.width)
+                    .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
                     .background(Color("Primary"))
                 }else if data.imageName == "OnBoarding2" {
                     
@@ -45,14 +42,14 @@ struct OnBoardingView: View {
                     VStack{
                         Image(data.imageName)
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(width: geometry.size.width, height: geometry.size.height * 0.55)
                     }
                     .background(Color("Primary"))
                 }
                 
                 VStack(alignment: .leading /*, spacing: 38*/) {
-                    VStack(alignment: .leading, spacing: 10){
+                    VStack(alignment: .center, spacing: 15){
                         Text(data.title)
                             .font(.title)
                             .fontWeight(.bold)
@@ -67,8 +64,10 @@ struct OnBoardingView: View {
                         Text(data.description)
                             .font(.body)
                             .foregroundColor(.white)
+                            .frame(alignment: .center)
+
                         //                            .frame(maxWidth: .infinity, alignment: .topLeading)
-                            .lineSpacing(12)
+                            .lineSpacing(10)
                     }
                        
                     

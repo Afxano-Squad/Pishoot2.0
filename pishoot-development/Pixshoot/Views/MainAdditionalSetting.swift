@@ -86,7 +86,7 @@ struct MainAdditionalSetting: View {
                             )
                             .frame(width: 40, height: 40)
                             .foregroundColor(
-                                isFlashOn ? Color("pishootYellow") : .white
+                                isFlashOn ? Color("Primary") : .white
                             )
                             .background(Color.black.opacity(0.5))
                             .clipShape(Circle())
@@ -116,7 +116,7 @@ struct MainAdditionalSetting: View {
                         }) {
                             Image(systemName: "target")
                                 .foregroundColor(
-                                    isMarkerOn ? Color("pishootYellow") : .white
+                                    isMarkerOn ? Color("Primary") : .white
                                 )
                                 .frame(width: 40, height: 40)
                                 .background(Color.black.opacity(0.5))
@@ -133,7 +133,7 @@ struct MainAdditionalSetting: View {
                         }) {
                             Image(systemName: "grid")
                                 .foregroundColor(
-                                    isGridOn ? Color("pishootYellow") : .white
+                                    isGridOn ? Color("Primary") : .white
                                 )
                                 .frame(width: 40, height: 40)
                                 .background(Color.black.opacity(0.5))
@@ -151,7 +151,7 @@ struct MainAdditionalSetting: View {
                             Image(systemName: "timer")
                                 .foregroundColor(
                                     cameraViewModel.timerDuration == 0
-                                        ? .white : Color("pishootYellow")
+                                        ? .white : Color("Primary")
                                 )
                                 .frame(width: 40, height: 40)
                                 .background(Color.black.opacity(0.5))
@@ -177,7 +177,7 @@ struct MainAdditionalSetting: View {
                             Image(systemName: "rectangle.stack.fill")
                                 .foregroundColor(
                                     isMultiRatio
-                                        ? Color("pishootYellow") : .white
+                                        ? Color("Primary") : .white
                                 )
                                 .frame(width: 40, height: 40)
                                 .background(Color.black.opacity(0.5))
@@ -214,7 +214,7 @@ struct MainAdditionalSetting: View {
                         Text("0.5x")
                             .foregroundColor(
                                 selectedZoomLevel == 0.5
-                                    ? Color("pishootYellow") : .white
+                                    ? Color("Primary") : .white
                             )
                             .padding(10)
                             .rotationEffect(gyroViewModel.rotationAngle)
@@ -228,7 +228,7 @@ struct MainAdditionalSetting: View {
                         Text("1x")
                             .foregroundColor(
                                 selectedZoomLevel == 1.0
-                                    ? Color("pishootYellow") : .white
+                                    ? Color("Primary") : .white
                             )
                             .padding(10)
                             .rotationEffect(gyroViewModel.rotationAngle)
@@ -242,7 +242,7 @@ struct MainAdditionalSetting: View {
                         Text("2x")
                             .foregroundColor(
                                 selectedZoomLevel == 2.0
-                                    ? Color("pishootYellow") : .white
+                                    ? Color("Primary") : .white
                             )
                             .padding(10)
                             .rotationEffect(gyroViewModel.rotationAngle)
@@ -265,7 +265,7 @@ struct MainAdditionalSetting: View {
                     Image(systemName: "timer")
                         .foregroundColor(
                             cameraViewModel.timerDuration == 0
-                                ? .white : Color("pishootYellow")
+                                ? .white : Color("Primary")
                         )
                         .padding(10)
                         .background(Color.black.opacity(0.5))
@@ -279,7 +279,7 @@ struct MainAdditionalSetting: View {
                     Text("3s")
                         .foregroundColor(
                             cameraViewModel.timerDuration == 3
-                                ? Color("pishootYellow") : .white
+                                ? Color("Primary") : .white
                         )
                         .padding(10)
                         .rotationEffect(gyroViewModel.rotationAngle)
@@ -291,7 +291,7 @@ struct MainAdditionalSetting: View {
                     Text("10s")
                         .foregroundColor(
                             cameraViewModel.timerDuration == 10
-                                ? Color("pishootYellow") : .white
+                                ? Color("Primary") : .white
                         )
                         .padding(10)
                         .rotationEffect(gyroViewModel.rotationAngle)
@@ -303,7 +303,7 @@ struct MainAdditionalSetting: View {
                     Text("Off")
                         .foregroundColor(
                             cameraViewModel.timerDuration == 0
-                                ? Color("pishootYellow") : .white
+                                ? Color("Primary") : .white
                         )
                         .padding(10)
                         .rotationEffect(gyroViewModel.rotationAngle)
