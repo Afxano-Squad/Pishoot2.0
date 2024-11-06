@@ -11,14 +11,13 @@ struct OnBoardingDataModel {
     var imageName: String
     var title: String
     var description: String
-    var progress: Float
+    
 }
 
 extension OnBoardingDataModel {
     static var data: [OnBoardingDataModel] = [
-        OnBoardingDataModel(imageName: "PositionAsYouWish", title: "Position as you wish", description: "Set custom markers before handing your phone to a stranger. These markers help you position yourself faster and perfectly.", progress: 0.40),
-        OnBoardingDataModel(imageName: "TripleZoomPhotos", title: "Triple Zoom Photos", description: "Capture three photos at different zoom levels with a single click. This ensures you get a variety of shots, from wide-angle to close-up, all in one go.", progress: 0.60),
-        OnBoardingDataModel(imageName: "MultiRatioPhotoScale", title: "Multi Ratio Photo Scale", description: "Capture three photos at different zoom levels and different photo ratio with a single click. This ensures you get a variety of shots.", progress: 0.80),
-        OnBoardingDataModel(imageName: "SeeYourAppleWatch", title: "See Your Apple Watch", description: "Use your Apple Watch to see the markers and adjust your position quickly and easily, without needing to check your phone.", progress: 1.00)
+        OnBoardingDataModel(imageName: "OnBoarding1", title: "3-in-1 Photos with a Single Click", description: "Capture three images with one click, each at a different zoom level. This way, you’ll get a variety of shots in a single capture, from close-ups to wide angles."),
+        OnBoardingDataModel(imageName: "OnBoarding2", title: "Secure Your Perfect Angle", description: "Before giving over your phone, mark framing position you want to ensure you receive the exact frame you want."),
+        OnBoardingDataModel(imageName: "OnBoarding3", title: "Feel the Perfect Shot", description: "Your Apple Watch will give you haptic feedback when the picture is taken. Now you'll know when to smile confidently.")
     ]
 }

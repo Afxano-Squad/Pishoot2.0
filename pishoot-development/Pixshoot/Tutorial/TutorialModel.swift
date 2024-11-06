@@ -11,7 +11,8 @@ import SwiftUI
 struct TutorialStep {
     let overlayWidth: CGFloat
     let overlayHeight: CGFloat
-    let overlayPosition: CGPoint
+    let overlayPositionX: CGFloat
+    let overlayPositionY: CGFloat
     let image: String
     let imageWidth: CGFloat
     let imageHeight: CGFloat
