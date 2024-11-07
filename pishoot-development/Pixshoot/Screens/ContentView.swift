@@ -54,10 +54,7 @@ struct ContentView: View {
                                     .frame(width: width, height: height)
                                     .clipped()
                                     .overlay(
-                                        BlackScreenView(
-                                            animationProgress:
-                                                $animationProgress
-                                        )
+                                        BlackScreenView()
                                         .opacity(
                                             cameraViewModel.isBlackScreenVisible
                                                 ? 1 : 0)

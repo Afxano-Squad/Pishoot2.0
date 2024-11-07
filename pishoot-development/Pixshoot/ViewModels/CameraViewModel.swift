@@ -40,6 +40,7 @@ class CameraViewModel: ObservableObject {
     var session: AVCaptureMultiCamSession? {
         cameraManager.session
     }
+   
 
     init(cameraManager: CameraManager = CameraManager.shared) {
         self.cameraManager = cameraManager
@@ -146,4 +147,12 @@ class CameraViewModel: ObservableObject {
     func setZoomLevel(zoomLevel: CGFloat) {
         cameraManager.setZoomLevel(zoomLevel: zoomLevel)
     }
+    
+    func triggerBlackScreen() {
+            isBlackScreenVisible = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                self.isBlackScreenVisible = false
+            }
+        }
+    
 }

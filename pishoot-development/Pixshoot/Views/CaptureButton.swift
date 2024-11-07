@@ -54,12 +54,12 @@ struct CaptureButton: View {
                             lineWidth: 2
                         )
                         .frame(width: 17, height: 17)
-                        .offset(y: -53)
+                        .offset(y: -49)
 
                     Circle()
                         .fill(gyroViewModel.isRollSuccess ? Color("Primary") : .white)
                         .frame(width: 10, height: 10)
-                        .offset(y: -53)
+                        .offset(y: -49)
                         .rotationEffect(
                             Angle(degrees: gyroViewModel.roll * 0.2 * 360 / .pi)
                         )
