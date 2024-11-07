@@ -109,21 +109,21 @@ struct MainAdditionalSetting: View {
                                 .animation(.easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
                         }
 
-                        // button marker
-                        Button(action: {
-                            isMarkerOn.toggle()
-
-                        }) {
-                            Image(systemName: "target")
-                                .foregroundColor(
-                                    isMarkerOn ? Color("Primary") : .white
-                                )
-                                .frame(width: 40, height: 40)
-                                .background(Color.black.opacity(0.5))
-                                .clipShape(Circle())
-                                .rotationEffect(gyroViewModel.rotationAngle)
-                                .animation(.easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
-                        }
+//                        // button marker
+//                        Button(action: {
+//                            isMarkerOn.toggle()
+//
+//                        }) {
+//                            Image(systemName: "target")
+//                                .foregroundColor(
+//                                    isMarkerOn ? Color("Primary") : .white
+//                                )
+//                                .frame(width: 40, height: 40)
+//                                .background(Color.black.opacity(0.5))
+//                                .clipShape(Circle())
+//                                .rotationEffect(gyroViewModel.rotationAngle)
+//                                .animation(.easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
+//                        }
 
                         // button grid
                         Button(action: {
