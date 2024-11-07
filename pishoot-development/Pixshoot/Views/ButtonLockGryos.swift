@@ -24,7 +24,7 @@ struct ButtonLockGyros: View {
         }) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.white, lineWidth: 2)
+                    .stroke(isLocked ? Color("Primary") : .white, lineWidth: 2)
                     .frame(width: 57, height: 57)
 
                 // Overlay both icons and control their visibility
@@ -32,7 +32,7 @@ struct ButtonLockGyros: View {
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: isLocked ? 30 : 0, height: 43)
-                    .foregroundColor(.green)
+                    .foregroundColor(Color("Primary"))
                     .opacity(isLocked ? 1 : 0)
                     .animation(.easeInOut(duration: 0.4), value: isLocked)
 
