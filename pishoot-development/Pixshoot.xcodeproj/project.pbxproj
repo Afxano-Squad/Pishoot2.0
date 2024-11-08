@@ -44,6 +44,7 @@
 		C0A7F6602CD7C497008EFC6B /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */; };
 		C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */; };
 		C0A7F6672CD855BC008EFC6B /* TutorialContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */; };
+		C0A7F8262CDC6AB2008EFC6B /* dumycontent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F8242CDC6AA6008EFC6B /* dumycontent.swift */; };
 		E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4802C354500005EB61A /* CameraManager.swift */; };
 		E9E5A4892C3545F4005EB61A /* PishootWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */; };
 		E9E5A48B2C3545F4005EB61A /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A48A2C3545F4005EB61A /* WatchContentView.swift */; };
@@ -118,6 +119,7 @@
 		C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialModel.swift; sourceTree = "<group>"; };
 		C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContent.swift; sourceTree = "<group>"; };
+		C0A7F8242CDC6AA6008EFC6B /* dumycontent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dumycontent.swift; sourceTree = "<group>"; };
 		E9E5A4802C354500005EB61A /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		E9E5A4862C3545F4005EB61A /* PixshootWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PixshootWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PishootWatchApp.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */,
 				C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */,
 				C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */,
+				C0A7F8242CDC6AA6008EFC6B /* dumycontent.swift */,
 			);
 			path = Tutorial;
 			sourceTree = "<group>";
@@ -441,6 +444,7 @@
 				C053C5CD2CCF444900DEC909 /* gyroview.swift in Sources */,
 				0F8458EF2C2ABA2C0033FED7 /* BottomBarView.swift in Sources */,
 				0F7399DB2C3862BB00324891 /* GuideStep.swift in Sources */,
+				C0A7F8262CDC6AB2008EFC6B /* dumycontent.swift in Sources */,
 				C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */,
 				C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */,
 				279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */,
@@ -617,7 +621,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -661,7 +665,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -705,7 +709,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
@@ -738,7 +742,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = MPKF668WL2;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;

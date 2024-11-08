@@ -16,21 +16,43 @@ struct BlackOverlayWithHole: View {
         ZStack {
             if currentStepIndex < tutorialSteps.count {
                 let step = tutorialSteps[currentStepIndex]
-                
+
                 GeometryReader { geometry in
                     Color.black.opacity(0.5)
                         .ignoresSafeArea()
                         .mask(
                             ZStack {
                                 Rectangle()
-                                    .frame(width: geometry.size.width, height: geometry.size.height)
+                                    .frame(
+                                        width: geometry.size.width,
+                                        height: geometry.size.height)
 
                                 RoundedRectangle(cornerRadius: 25)
-                                    .frame(width: step.overlayWidth, height: step.overlayHeight)
-                                    .position(x: UIScreen.main.bounds.width / 2 + step.overlayPositionX, y: UIScreen.main.bounds.height / 2 + step.overlayPositionY)
+                                    .frame(
+                                        width: step.overlayWidth,
+                                        height: step.overlayHeight
+                                    )
+                                    .position(
+                                        x: UIScreen.main.bounds.width / 2
+                                            + step.overlayPositionX,
+                                        y: UIScreen.main.bounds.height / 2
+                                            + step.overlayPositionY
+                                    )
                                     .blendMode(.destinationOut)
+
+                                // Add two holes for the first tutorial step
+                                if currentStepIndex == 3 {
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .frame(width: 150, height: 70)
+                                        .position(
+                                            x: UIScreen.main.bounds.width / 2,
+                                            y: 120
+                                        )
+                                        .blendMode(.destinationOut)
+                                }
                             }
                             .compositingGroup()
+
                         )
                 }
 
@@ -56,12 +78,15 @@ struct BlackOverlayWithHole: View {
                             onTutorialComplete()  // Call completion handler
                         }
                     }) {
-                        Text(currentStepIndex < tutorialSteps.count - 1 ? "Next" : "Finish")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.orange)
-                            .cornerRadius(10)
+                        Text(
+                            currentStepIndex < tutorialSteps.count - 1
+                                ? "Next" : "Finish"
+                        )
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.orange)
+                        .cornerRadius(10)
                     }
                 }
                 .frame(width: step.overlayWidth, height: step.overlayHeight)

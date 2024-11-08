@@ -135,13 +135,13 @@ struct ContentView: View {
 //                                    }
 //                                }
                                 // Overlay BlackOverlayWithHole if tutorial is not completed
-                                if !appState.hasCompletedTutorial {
-                                    BlackOverlayWithHole(tutorialSteps: tutorialSteps) {
-                                        appState.hasCompletedTutorial = true
-                                    }
-                                    .transition(.opacity)  // Add transition for a smooth appearance
-                                    .animation(.easeInOut, value: appState.hasCompletedTutorial)
-                                }
+//                                if !appState.hasCompletedTutorial {
+//                                    BlackOverlayWithHole(tutorialSteps: tutorialSteps) {
+//                                        appState.hasCompletedTutorial = true
+//                                    }
+//                                    .transition(.opacity)  // Add transition for a smooth appearance
+//                                    .animation(.easeInOut, value: appState.hasCompletedTutorial)
+//                                }
                                 //                                    BlackOverlayWithHole(tutorialSteps: tutorialSteps)
                             }
                         }

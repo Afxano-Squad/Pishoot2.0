@@ -53,8 +53,8 @@ struct BlackScreenView: View {
     private func startProgress() {
            progress = 0
            timer?.invalidate() // Reset any existing timer
-           timer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
-               withAnimation(.linear(duration: 0.05)) {
+           timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { _ in
+               withAnimation(.linear(duration: 1)) {
                    if progress < 1.0 {
                        progress += 0.01 // Increment progress
                    } else {
