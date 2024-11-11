@@ -17,8 +17,8 @@ struct ContentView: View {
     @State var isAdditionalSettingsOpen: Bool = false
     @Environment(\.scenePhase) private var scenePhase
 
-    @State private var showGuide =
-        UserDefaults.standard.bool(forKey: "hasSeenGuide") == false
+    @State private var showGuide = !UserDefaults.standard.bool(forKey: "hasCompletedTutorial")
+
     @State private var highlightFrame = CGRect.zero
     @State private var guideStepIndex = 0
     @State private var chevronButtonTapped = false
@@ -28,7 +28,7 @@ struct ContentView: View {
 
     // Tutorial
     @EnvironmentObject var appState: AppState
-    let tutorialSteps: [TutorialStep]
+    @State var currentStepIndex = 0
 
     var body: some View {
         Group {
@@ -55,9 +55,10 @@ struct ContentView: View {
                                     .clipped()
                                     .overlay(
                                         BlackScreenView()
-                                        .opacity(
-                                            cameraViewModel.isBlackScreenVisible
-                                                ? 1 : 0)
+                                            .opacity(
+                                                cameraViewModel
+                                                    .isBlackScreenVisible
+                                                    ? 1 : 0)
                                     )
 
                                     Spacer()
@@ -76,30 +77,33 @@ struct ContentView: View {
 
                                 VStack {
                                     Spacer()
-
-                                    MainAdditionalSetting(
-                                        selectedZoomLevel: $cameraViewModel
-                                            .selectedZoomLevel,
-                                        isMarkerOn: $isMarkerOn,
-                                        isGridOn: $isGridOn,
-                                        isMultiRatio: $cameraViewModel
-                                            .isMultiRatio,
-                                        toggleFlash: {
-                                            cameraViewModel.toggleFlash()
-                                        },
-                                        isFlashOn: cameraViewModel.isFlashOn,
-                                        isMultiframeOn: false,
-                                        cameraViewModel: cameraViewModel,
-                                        gyroViewModel: gyroViewModel)
+                                    if appState.hasCompletedTutorial{
+                                        MainAdditionalSetting(
+                                            selectedZoomLevel: $cameraViewModel
+                                                .selectedZoomLevel,
+                                            isMarkerOn: $isMarkerOn,
+                                            isGridOn: $isGridOn,
+                                            isMultiRatio: $cameraViewModel
+                                                .isMultiRatio,
+                                            toggleFlash: {
+                                                cameraViewModel.toggleFlash()
+                                            },
+                                            isFlashOn: cameraViewModel.isFlashOn,
+                                            isMultiframeOn: false,
+                                            cameraViewModel: cameraViewModel,
+                                            gyroViewModel: gyroViewModel)
+                                    }
                                     
 
                                     BottomBarView(
                                         lastPhoto: lastPhotos.first,
                                         captureAction: {
-                                            cameraViewModel.capturePhotos {
-                                                images in
-                                                self.lastPhotos = images
-                                            }
+                                            if !appState.hasCompletedTutorial && currentStepIndex == tutorialSteps.count - 1 {
+                                                    completeTutorial()
+                                                }
+                                                cameraViewModel.capturePhotos { images in
+                                                    self.lastPhotos = images
+                                                }
                                         },
                                         openPhotosApp: {
                                             PhotoLibraryHelper.openPhotosApp()
@@ -118,31 +122,24 @@ struct ContentView: View {
                                     gyroViewModel: gyroViewModel,
                                     isMarkerOn: $isMarkerOn)
 
-//                                if showGuide {
-//                                    ZStack {
-//                                        GuideView(
-//                                            isPresented: $showGuide,
-//                                            isAdditionalSettingsOpen:
-//                                                $isAdditionalSettingsOpen,
-//                                            isMarkerOn: $isMarkerOn,
-//                                            steps: guideSteps
-//                                        )
-//                                        .onPreferenceChange(
-//                                            HighlightFrameKey.self
-//                                        ) { value in
-//                                            self.highlightFrame = value
-//                                        }
-//                                    }
-//                                }
-                                // Overlay BlackOverlayWithHole if tutorial is not completed
-//                                if !appState.hasCompletedTutorial {
-//                                    BlackOverlayWithHole(tutorialSteps: tutorialSteps) {
-//                                        appState.hasCompletedTutorial = true
-//                                    }
-//                                    .transition(.opacity)  // Add transition for a smooth appearance
-//                                    .animation(.easeInOut, value: appState.hasCompletedTutorial)
-//                                }
-                                //                                    BlackOverlayWithHole(tutorialSteps: tutorialSteps)
+                                if !appState.hasCompletedTutorial {
+                                    BlackOverlayWithHole(
+                                        currentStepIndex: $currentStepIndex, tutorialSteps: tutorialSteps,
+                                        onTutorialComplete: {
+                                            showGuide = false
+                                        },
+                                        isLocked: $isLocked
+                                    )
+                                    .frame(
+                                        width: UIScreen.main.bounds.width,
+                                        height: UIScreen.main.bounds.height
+                                    )
+                                    .position(
+                                        x: UIScreen.main.bounds.width / 2,
+                                        y: UIScreen.main.bounds.height / 2
+                                    )
+                                    .ignoresSafeArea()
+                                }
                             }
                         }
                     } else {
@@ -154,6 +151,9 @@ struct ContentView: View {
             }
         }
         .statusBar(hidden: true)
+        .onChange(of: appState.hasCompletedTutorial) { hasCompleted in
+            showGuide = !hasCompleted
+        }
         .onChange(of: scenePhase) { newPhase in
             handleScenePhaseChange(newPhase)
         }
@@ -161,8 +161,12 @@ struct ContentView: View {
             isDeviceSupported = checkDeviceCapabilities()
         }
 
-        
+    }
 
+    private func completeTutorial() {
+        showGuide = false
+        appState.hasCompletedTutorial = true
+        UserDefaults.standard.set(true, forKey: "hasCompletedTutorial")
     }
 
     // Fungsi overlayGrid untuk menampilkan grid overlay saat isGridOn aktif
@@ -224,5 +228,5 @@ func checkDeviceCapabilities() -> Bool {
 }
 
 #Preview {
-    ContentView( tutorialSteps: tutorialSteps)
+    ContentView()
 }
