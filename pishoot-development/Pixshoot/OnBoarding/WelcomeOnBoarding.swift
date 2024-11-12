@@ -52,7 +52,7 @@ struct WelcomeOnBoarding: View {
                                         .shadow(color: index == currentStep ? Color.blue.opacity(0.4) : Color.clear, radius: 5)
 
                                     Circle()
-                                        .fill(index < currentStep + 1 ? Color("Primary") : Color.clear)
+                                        .fill(index < currentStep + 1 ? Color("Button") : Color.clear)
                                         .frame(width: index == currentStep ? 8.4 : 6,
                                                height: index == currentStep ? 8.4 : 6)
                                         .animation(.easeInOut, value: currentStep)
@@ -68,10 +68,10 @@ struct WelcomeOnBoarding: View {
             }) {
                 Text("Continue")
                     .fontWeight(.bold)
-                    .foregroundColor(Color("Primary"))
+                    .foregroundColor(Color("Secondary"))
                     .frame(maxWidth: .infinity)
                     .padding()
-                    .background(Color("Secondary"))
+                    .background(Color("Button"))
                     .cornerRadius(10)
             }
             .padding(.horizontal, 40)

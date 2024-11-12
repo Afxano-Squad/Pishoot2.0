@@ -14,7 +14,7 @@ struct PishootApp: App {
     var body: some Scene {
         WindowGroup {
             if appState.hasCompletedOnboarding {
-                ContentView( tutorialSteps: tutorialSteps)
+                ContentView()
                     .environmentObject(appState)
             } else {
                 OnBoardingContainerView()

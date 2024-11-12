@@ -9,33 +9,54 @@ import SwiftUI
 
 let tutorialSteps: [TutorialStep] = [
     TutorialStep(
-        overlayWidth: 200,
-        overlayHeight: 150,
-        overlayPositionX: -150,
+        overlayWidth: UIScreen.main.bounds.width ,
+        overlayHeight: UIScreen.main.bounds.height ,
+        overlayPositionX: 0,
+        overlayPositionY: 0,
+        image: "hand.point.up.left.fill",
+        imageWidth: 100,
+        imageHeight: 150,
+        text: "First, point your first shoot"
+    ),
+    TutorialStep(
+        overlayWidth: 75,
+        overlayHeight: 85,
+        overlayPositionX: 140,
         overlayPositionY: 300,
         image: "hand.point.up.left.fill",
         imageWidth: 100,
         imageHeight: 150,
-        text: "Set the frame to the angle you want before requesting someone to take your picture."
+        text: "Lock your photo position by tap lock button"
     ),
     TutorialStep(
-        overlayWidth: 220,
-        overlayHeight: 180,
-        overlayPositionX: 180,
-        overlayPositionY: 320,
-        image: "hand.tap.fill",
-        imageWidth: 120,
-        imageHeight: 160,
-        text: "Ensure the camera is stable and clear."
-    ),
-    TutorialStep(
-        overlayWidth: 250,
-        overlayHeight: 170,
+        overlayWidth: UIScreen.main.bounds.width,
+        overlayHeight: UIScreen.main.bounds.height,
         overlayPositionX: 0,
-        overlayPositionY: 330,
+        overlayPositionY: 0,
+        image: "",
+        imageWidth: 0,
+        imageHeight: 0,
+        text: ""
+    ),
+    TutorialStep(
+        overlayWidth: 100,
+        overlayHeight: 120,
+        overlayPositionX: 0,
+        overlayPositionY: 300,
         image: "camera",
         imageWidth: 130,
         imageHeight: 170,
         text: "Press the shutter button to take a photo."
+    ),
+    TutorialStep(
+        overlayWidth: UIScreen.main.bounds.width,
+        overlayHeight: UIScreen.main.bounds.height,
+        overlayPositionX: 0,
+        overlayPositionY: 0,
+        image: "",
+        imageWidth: 0,
+        imageHeight: 0,
+        text: ""
     )
+    
 ]
