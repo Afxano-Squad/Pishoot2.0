@@ -43,7 +43,6 @@ struct MainAdditionalSetting: View {
                                 .transition(.scale)
                         }
                         .offset(y: -50)  // Position the popup above the button
-
                     }
 
                     // pop up multiframe
@@ -108,22 +107,6 @@ struct MainAdditionalSetting: View {
                                 .rotationEffect(gyroViewModel.rotationAngle)
                                 .animation(.easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
                         }
-
-//                        // button marker
-//                        Button(action: {
-//                            isMarkerOn.toggle()
-//
-//                        }) {
-//                            Image(systemName: "target")
-//                                .foregroundColor(
-//                                    isMarkerOn ? Color("Primary") : .white
-//                                )
-//                                .frame(width: 40, height: 40)
-//                                .background(Color.black.opacity(0.5))
-//                                .clipShape(Circle())
-//                                .rotationEffect(gyroViewModel.rotationAngle)
-//                                .animation(.easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
-//                        }
 
                         // button grid
                         Button(action: {
@@ -285,6 +268,20 @@ struct MainAdditionalSetting: View {
                         .rotationEffect(gyroViewModel.rotationAngle)
                         .animation(.easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
                 }
+                
+                Button(action: {
+                    cameraViewModel.timerDuration = 5
+                }) {
+                    Text("5s")
+                        .foregroundColor(
+                            cameraViewModel.timerDuration == 5
+                                ? Color("Primary") : .white
+                        )
+                        .padding(10)
+                        .rotationEffect(gyroViewModel.rotationAngle)
+                        .animation(.easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
+                }
+                
                 Button(action: {
                     cameraViewModel.timerDuration = 10
                 }) {
@@ -314,10 +311,7 @@ struct MainAdditionalSetting: View {
             .background(Color.black.opacity(0.5))
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
-
     }
-
-    
 }
 
 #Preview {
