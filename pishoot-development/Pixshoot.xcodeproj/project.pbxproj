@@ -624,6 +624,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Pixshoot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to allow you to take photos.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app requires background location access to tag your photos with location data.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires location access to tag photos with location information.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to upload photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -668,6 +670,8 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Pixshoot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to allow you to take photos.";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app requires background location access to tag your photos with location data.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires location access to tag photos with location information.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We need access to your photo library to allow you to upload photos";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

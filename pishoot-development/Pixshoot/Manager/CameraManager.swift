@@ -102,13 +102,20 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     }
     
     func capturePhotos(completion: @escaping ([UIImage]) -> Void) {
-        guard let _ = session, !isCapturingPhoto else { return }
+        guard let session = session, !isCapturingPhoto else { return }
         isCapturingPhoto = true
         capturedImages.removeAll()
         self.completion = completion
         
-        let photoSettings = AVCapturePhotoSettings()
-        
+        // Prepare photo settings with the HEIF codec if available
+        let photoSettings: AVCapturePhotoSettings
+        if wideAngleOutput?.availablePhotoCodecTypes.contains(.hevc) == true {
+            photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+        } else {
+            // Fallback if HEIF (HEVC codec) is not available
+            photoSettings = AVCapturePhotoSettings()
+        }
+
         captureOrientation = DeviceOrientationManager.shared.currentOrientation
         
         guard let wideAngleCamera = wideAngleCamera else { return }
@@ -125,28 +132,40 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
         if isFlashOn {
             turnTorch(on: true)
         }
+        
+        // Delay to show black screen effect, then capture photos in HEIF format
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.isBlackScreenVisible = true
-            
             self.ultraWideOutput?.capturePhoto(with: photoSettings, delegate: self)
             self.wideAngleOutput?.capturePhoto(with: photoSettings, delegate: self)
         }
     }
+
     
     func captureZoomedPhotos() {
         guard let wideAngleCamera = wideAngleCamera else { return }
         do {
             try wideAngleCamera.lockForConfiguration()
             wideAngleCamera.videoZoomFactor = 2.0
-            let zoomedPhotoSettings = AVCapturePhotoSettings()
+            
+            // Prepare photo settings with HEIF codec if available
+            let zoomedPhotoSettings: AVCapturePhotoSettings
+            if wideAngleOutput?.availablePhotoCodecTypes.contains(.hevc) == true {
+                zoomedPhotoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
+            } else {
+                zoomedPhotoSettings = AVCapturePhotoSettings()
+            }
+            
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.wideAngleOutput?.capturePhoto(with: zoomedPhotoSettings, delegate: self)
             }
+            
             wideAngleCamera.unlockForConfiguration()
         } catch {
             print("Error setting zoom factor: \(error)")
         }
     }
+
     
     private func saveImagesToPhotoLibrary(images: [UIImage]) {
             PhotoLibraryHelper.saveImagesToAlbum(images: images)

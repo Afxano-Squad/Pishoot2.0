@@ -69,7 +69,7 @@ struct CaptureButton: View {
 
                 Circle()
                     .trim(from: 0, to: animationProgress)
-                    .stroke(Color("pishootYellow"), lineWidth: 10)
+                    .stroke(Color("Primary"), lineWidth: 10)
                     .frame(width: 65, height: 65)
                     .rotationEffect(Angle(degrees: -90))
             }
