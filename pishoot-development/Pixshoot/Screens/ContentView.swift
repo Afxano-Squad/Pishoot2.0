@@ -197,6 +197,7 @@ struct ContentView: View {
             cameraViewModel.notifyPhoneInactive()
             print("App became inactive")
         case .background:
+            cameraViewModel.notifyPhoneInactive()
             print("App went to background")
             if isDeviceSupported {
                 cameraViewModel.stopSession()
