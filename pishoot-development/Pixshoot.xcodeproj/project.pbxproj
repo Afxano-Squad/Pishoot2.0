@@ -35,6 +35,12 @@
 		0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */; };
 		279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279E1D9E2C36E21D0078C2A1 /* Marker.swift */; };
 		27ECB80D2C3856E8004FFBA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8458D62C2AB4140033FED7 /* Assets.xcassets */; };
+		674E43F62CE64822004ED50E /* FrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E43F22CE64822004ED50E /* FrameModel.swift */; };
+		674E43F72CE64822004ED50E /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E43F52CE64822004ED50E /* PhotoPicker.swift */; };
+		674E43F82CE64822004ED50E /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E43F02CE64822004ED50E /* ARViewContainer.swift */; };
+		674E43F92CE64822004ED50E /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E43F12CE64822004ED50E /* CameraController.swift */; };
+		674E43FA2CE64822004ED50E /* GreenOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E43F42CE64822004ED50E /* GreenOverlayView.swift */; };
+		674E43FB2CE64822004ED50E /* FrameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E43F32CE64822004ED50E /* FrameViewModel.swift */; };
 		679A619C2CD669860054688B /* AccessibilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A619B2CD669860054688B /* AccessibilityExtensions.swift */; };
 		679A61A22CD67A350054688B /* benar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 679A61A12CD67A350054688B /* benar.mp3 */; };
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
@@ -109,6 +115,12 @@
 		0F8458F02C2ABA8C0033FED7 /* PhotoThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoThumbnailView.swift; sourceTree = "<group>"; };
 		0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAdditionalSetting.swift; sourceTree = "<group>"; };
 		279E1D9E2C36E21D0078C2A1 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		674E43F02CE64822004ED50E /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
+		674E43F12CE64822004ED50E /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		674E43F22CE64822004ED50E /* FrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameModel.swift; sourceTree = "<group>"; };
+		674E43F32CE64822004ED50E /* FrameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewModel.swift; sourceTree = "<group>"; };
+		674E43F42CE64822004ED50E /* GreenOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenOverlayView.swift; sourceTree = "<group>"; };
+		674E43F52CE64822004ED50E /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		679A619B2CD669860054688B /* AccessibilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityExtensions.swift; sourceTree = "<group>"; };
 		679A61A12CD67A350054688B /* benar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = benar.mp3; sourceTree = "<group>"; };
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
@@ -197,6 +209,12 @@
 		0F8458C62C2AB4130033FED7 = {
 			isa = PBXGroup;
 			children = (
+				674E43F02CE64822004ED50E /* ARViewContainer.swift */,
+				674E43F12CE64822004ED50E /* CameraController.swift */,
+				674E43F22CE64822004ED50E /* FrameModel.swift */,
+				674E43F32CE64822004ED50E /* FrameViewModel.swift */,
+				674E43F42CE64822004ED50E /* GreenOverlayView.swift */,
+				674E43F52CE64822004ED50E /* PhotoPicker.swift */,
 				679A61A12CD67A350054688B /* benar.mp3 */,
 				679A619B2CD669860054688B /* AccessibilityExtensions.swift */,
 				E9E5A4982C3545FD005EB61A /* Shared */,
@@ -430,6 +448,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F8458D52C2AB4130033FED7 /* ContentView.swift in Sources */,
+				674E43F62CE64822004ED50E /* FrameModel.swift in Sources */,
+				674E43F72CE64822004ED50E /* PhotoPicker.swift in Sources */,
+				674E43F82CE64822004ED50E /* ARViewContainer.swift in Sources */,
+				674E43F92CE64822004ED50E /* CameraController.swift in Sources */,
+				674E43FA2CE64822004ED50E /* GreenOverlayView.swift in Sources */,
+				674E43FB2CE64822004ED50E /* FrameViewModel.swift in Sources */,
 				0F7399D22C3853CB00324891 /* WelcomeOnBoarding.swift in Sources */,
 				0F8458D32C2AB4130033FED7 /* PishootApp.swift in Sources */,
 				C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */,
@@ -617,7 +641,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = 74HCH446S4;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -663,7 +687,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = 74HCH446S4;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -709,7 +733,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 74HCH446S4;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
@@ -742,7 +766,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 74HCH446S4;
+				DEVELOPMENT_TEAM = 6K8Z3XG69D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;

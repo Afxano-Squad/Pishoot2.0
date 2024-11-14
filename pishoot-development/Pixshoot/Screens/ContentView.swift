@@ -231,6 +231,6 @@ func checkDeviceCapabilities() -> Bool {
     return hasUltraWide && has2xZoom
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}
