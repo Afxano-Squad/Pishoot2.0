@@ -154,8 +154,9 @@ struct ContentView: View {
         .onChange(of: appState.hasCompletedTutorial) { hasCompleted in
             showGuide = !hasCompleted
         }
-        .onChange(of: scenePhase) { newPhase in
-            handleScenePhaseChange(newPhase)
+        
+        .onChange(of: scenePhase) {
+            handleScenePhaseChange(scenePhase)
         }
         .onAppear {
             isDeviceSupported = checkDeviceCapabilities()
@@ -182,6 +183,7 @@ struct ContentView: View {
     private func handleScenePhaseChange(_ newPhase: ScenePhase) {
         switch newPhase {
         case .active:
+            cameraViewModel.notifyPhoneActive()
             print("App became active")
             if isDeviceSupported {
                 cameraViewModel.startSession()
@@ -192,6 +194,7 @@ struct ContentView: View {
                 }
             }
         case .inactive:
+            cameraViewModel.notifyPhoneInactive()
             print("App became inactive")
         case .background:
             print("App went to background")

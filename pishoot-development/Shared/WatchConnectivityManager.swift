@@ -15,6 +15,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     @Published var position: CGPoint = CGPoint(x: 99, y: 90)
     @Published var isWatchSizeSet : Bool = false
     @Published var isCapturePhoto = false
+    @Published var isPhoneInactive = false
 #if os(iOS)
     @Published var previewImage: UIImage?
     var takePictureOnWatch: (() -> Void)?
@@ -65,6 +66,25 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
+    func notifyPhoneisInactive() {
+        guard let session = session, session.isReachable else { return }
+        
+        let message = ["event": "phoneInactive"]
+        session.sendMessage(message, replyHandler: nil) { error in
+            print("Error sending phone inactive notification to watch: \(error.localizedDescription)")
+        }
+    }
+    
+    func notifyPhoneisActive() {
+        guard let session = session, session.isReachable else { return }
+        
+        let message = ["event": "phoneActive"]
+        session.sendMessage(message, replyHandler: nil) { error in
+            print("Error sending phone inactive notification to watch: \(error.localizedDescription)")
+        }
+    }
+    
+    
     private func resizeImage(_ image: UIImage, to size: CGSize) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
         image.draw(in: CGRect(origin: .zero, size: size))
@@ -107,7 +127,17 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [self] in
+            if let event = message["event"] as? String, event == "phoneInactive" {
+                self.isPhoneInactive = true
+                print("Received notification: Phone is inactive")
+            }
+            
+            if let event = message["event"] as? String, event == "phoneActive" {
+                self.isPhoneInactive = false
+                print("Received notification: Phone is inactive")
+            }
+            
             if let imageData = message["previewImage"] as? Data {
 #if os(iOS)
                 self.previewImage = UIImage(data: imageData)
