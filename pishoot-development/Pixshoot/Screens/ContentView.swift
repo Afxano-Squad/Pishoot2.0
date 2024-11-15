@@ -68,7 +68,7 @@ struct ContentView: View {
 
                                 if isGridOn {
                                     RuleOf3GridView(
-                                        lineColor: .white, lineWidth: 1
+                                        lineColor: .white, lineWidth: 0.5
                                     )
                                     .frame(width: width, height: height)
                                     .padding(.top, verticalPadding)
