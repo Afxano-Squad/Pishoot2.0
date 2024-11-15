@@ -10,15 +10,15 @@ import SwiftUI
 
 struct RuleOf3GridView: View {
     
-    var lineColor: Color = .white
-    var lineWidth: CGFloat = 1
+    var lineColor: Color = .red
+    var lineWidth: CGFloat = 0.5
     
     var body: some View {
         GeometryReader { geometry in
             Path { path in
                 let width = geometry.size.width
                 let height = geometry.size.height
-                let cornerLength: CGFloat = 20  // Panjang garis sudut
+                let cornerLength: CGFloat = 20
                 
                 // Horizontal Lines (Rule of Thirds)
                 path.move(to: CGPoint(x: 0, y: height / 3))
@@ -34,7 +34,6 @@ struct RuleOf3GridView: View {
                 path.move(to: CGPoint(x: 2 * width / 3, y: 0))
                 path.addLine(to: CGPoint(x: 2 * width / 3, y: height))
                 
-                // Corner Lines (Only short lines at each corner)
                 // Top Left Corner
                 path.move(to: CGPoint(x: 0, y: 0))
                 path.addLine(to: CGPoint(x: cornerLength, y: 0))
