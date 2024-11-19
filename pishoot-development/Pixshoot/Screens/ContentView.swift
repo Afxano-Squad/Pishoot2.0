@@ -42,7 +42,6 @@ struct ContentView: View {
                                 (geometry.size.height - height) / 6
 
                             ZStack {
-
                                 VStack {
                                     Spacer()
 
@@ -74,6 +73,8 @@ struct ContentView: View {
                                     .padding(.top, verticalPadding)
                                     .padding(.bottom, verticalPadding + 10)
                                 }
+
+                                        RollView()
 
                                 VStack {
                                     Spacer()
