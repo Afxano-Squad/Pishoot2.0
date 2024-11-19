@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var gyroViewModel = GyroViewModel()
+    @StateObject private var acclerometerViewModel = AcclerometerViewModel()
     @StateObject private var cameraViewModel = CameraViewModel()
     @State private var lastPhotos: [UIImage] = []
     @State var isMarkerOn: Bool = false
@@ -112,7 +113,7 @@ struct ContentView: View {
                                         isCapturing: $cameraViewModel
                                             .isCapturingPhoto,
                                         animationProgress: $animationProgress,
-                                        gyroViewModel: gyroViewModel,
+                                        gyroViewModel: gyroViewModel, acclerometerViewModel: acclerometerViewModel,
                                         isLocked: $isLocked
                                     )
                                     .padding(.top, 10)

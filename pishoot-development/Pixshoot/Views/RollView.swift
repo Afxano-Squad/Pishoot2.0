@@ -11,14 +11,14 @@ struct RollView: View {
             VStack{
                 Text(accelerationText)
                     .font(.title)
-            } 
+            }
             
             HStack {
                 Spacer()
                 VStack(alignment: .trailing) {
                     ForEach(0..<numberOfBars, id: \.self) { index in
                         Rectangle()
-                            .fill(index == calculateDynamicIndex() ? Color.yellow.opacity(0.5) : Color.gray)
+                            .fill(index == calculateDynamicIndex() ? Color.white.opacity(0.5) : Color.white.opacity(0.3))
                             .frame(width: calculateWidth(for: index), height: 10)
                     }
                 }
@@ -60,7 +60,7 @@ struct RollView: View {
     
     func calculateDynamicIndex() -> Int {
         let midIndex = numberOfBars / 2
-        let scaledZ = Int(viewModel.accelerationZ * 5) // Adjust the multiplier for sensitivity as needed
+        let scaledZ = Int(viewModel.accelerationZ * 6.5) // Adjust the multiplier for sensitivity as needed
         let adjustedIndex = midIndex + scaledZ
         
         // Ensure the index stays within bounds
