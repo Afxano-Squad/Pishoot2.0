@@ -10,38 +10,116 @@ import RealityKit
 import ARKit
 
 struct ContentView: View {
-    @State var arView = ARView(frame: .zero)
-    @StateObject private var frameViewModel: FrameViewModel
-    @State private var isCapturingPhoto = false
+    @StateObject private var gyroViewModel = GyroViewModel()
+    @StateObject private var acclerometerViewModel = AcclerometerViewModel()
+    @StateObject private var cameraViewModel = CameraViewModel()
+    @State private var lastPhotos: [UIImage] = []
+    @State var isMarkerOn: Bool = false
+    @State var isGridOn: Bool = false  // Status grid overlay
+    @State var isAdditionalSettingsOpen: Bool = false
+    @Environment(\.scenePhase) private var scenePhase
 
-    init() {
-        let arViewInstance = ARView(frame: .zero)
-        _arView = State(initialValue: arViewInstance)
-        _frameViewModel = StateObject(wrappedValue: FrameViewModel(arView: arViewInstance))
-    }
+    @State private var showGuide = !UserDefaults.standard.bool(forKey: "hasCompletedTutorial")
+
+    @State private var highlightFrame = CGRect.zero
+    @State private var guideStepIndex = 0
+    @State private var chevronButtonTapped = false
+    @State var animationProgress: CGFloat = 0
+    @State private var isDeviceSupported: Bool = false
+    @State private var isLocked = false
+
+    // Tutorial
+    @EnvironmentObject var appState: AppState
+    @State var currentStepIndex = 0
 
     var body: some View {
-        ZStack {
-            ARViewContainer(arView: $arView)
-                .edgesIgnoringSafeArea(.all)
-            
-            if frameViewModel.model.anchor != nil {
-                GreenOverlay(overlayColor: frameViewModel.model.overlayColor)
-                    .transition(.scale)
-                    .animation(.easeInOut, value: frameViewModel.model.anchor)
-            }
+        Group {
+            if isDeviceSupported {
+                VStack {
+                    if let session = cameraViewModel.session {
+                        GeometryReader { geometry in
+                            let width = geometry.size.width
+                            let height = width * 16 / 9
+                            let verticalPadding =
+                                (geometry.size.height - height) / 6
 
-            VStack {
-                Spacer()
+                            ZStack {
 
-                if !frameViewModel.model.alignmentStatus.isEmpty {
-                    Text(frameViewModel.model.alignmentStatus)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.black.opacity(0.7))
-                        .cornerRadius(10)
-                        .padding(.bottom, 20)
-                }
+                                VStack {
+                                    Spacer()
+
+                                    CameraPreviewView(
+                                        session: session,
+                                        countdown: $cameraViewModel.countdown,
+                                        isGridOn: $isGridOn
+                                    )
+                                    .frame(width: width, height: height)
+                                    .clipped()
+                                    .overlay(
+                                        BlackScreenView()
+                                            .opacity(
+                                                cameraViewModel
+                                                    .isBlackScreenVisible
+                                                    ? 1 : 0)
+                                    )
+
+                                    Spacer()
+                                }
+                                .padding(.top, verticalPadding)
+                                .padding(.bottom, verticalPadding + 12)
+
+                                if isGridOn {
+                                    RuleOf3GridView(
+                                        lineColor: .white, lineWidth: 0.5
+                                    )
+                                    .frame(width: width, height: height)
+                                    .padding(.top, verticalPadding)
+                                    .padding(.bottom, verticalPadding + 10)
+                                }
+                                
+                                AcclerometerView(acleroViewModel: acclerometerViewModel, isLocked: $isLocked)
+                                VStack {
+                                    Spacer()
+                                    if appState.hasCompletedTutorial{
+                                        MainAdditionalSetting(
+//                                            selectedZoomLevel: $cameraViewModel
+//                                                .selectedZoomLevel,
+//                                            isMarkerOn: $isMarkerOn,
+                                            isGridOn: $isGridOn,
+//                                            isMultiRatio: $cameraViewModel
+//                                                .isMultiRatio,
+                                            toggleFlash: {
+                                                cameraViewModel.toggleFlash()
+                                            },
+                                            isFlashOn: cameraViewModel.isFlashOn,
+//                                            isMultiframeOn: false,
+                                            cameraViewModel: cameraViewModel,
+                                            gyroViewModel: gyroViewModel)
+                                    }
+                                    
+
+                                    BottomBarView(
+                                        lastPhoto: lastPhotos.first,
+                                        captureAction: {
+                                            if !appState.hasCompletedTutorial && currentStepIndex == tutorialSteps.count - 1 {
+                                                    completeTutorial()
+                                                }
+                                                cameraViewModel.capturePhotos { images in
+                                                    self.lastPhotos = images
+                                                }
+                                        },
+                                        openPhotosApp: {
+                                            PhotoLibraryHelper.openPhotosApp()
+                                        },
+                                        isCapturing: $cameraViewModel
+                                            .isCapturingPhoto,
+                                        animationProgress: $animationProgress,
+                                        gyroViewModel: gyroViewModel, acclerometerViewModel: acclerometerViewModel,
+                                        isLocked: $isLocked
+                                    )
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 20)
+                                }
 
                 HStack {
                     Spacer()
