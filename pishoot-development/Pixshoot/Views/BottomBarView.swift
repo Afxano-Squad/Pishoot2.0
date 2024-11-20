@@ -14,6 +14,7 @@ struct BottomBarView: View {
     @Binding var isCapturing: Bool
     @Binding var animationProgress: CGFloat
     @ObservedObject var gyroViewModel: GyroViewModel  // This must be present
+    @ObservedObject var acclerometerViewModel: AcclerometerViewModel
     @Binding var isLocked: Bool
 
     var body: some View {
@@ -40,7 +41,7 @@ struct BottomBarView: View {
             HStack(alignment: .center) {
                 Spacer()
                 ButtonLockGyros(
-                    gyroViewModel: gyroViewModel, isLocked: $isLocked)
+                    gyroViewModel: gyroViewModel, acclerometerViewModel: acclerometerViewModel, isLocked: $isLocked)
             }
             .padding()
             .padding(.bottom)
@@ -53,6 +54,6 @@ struct BottomBarView: View {
 #Preview {
     BottomBarView(
         lastPhoto: nil, captureAction: {}, openPhotosApp: {},
-        isCapturing: .constant(false), animationProgress: .constant(0.5), gyroViewModel: GyroViewModel(),
+        isCapturing: .constant(false), animationProgress: .constant(0.5), gyroViewModel: GyroViewModel(), acclerometerViewModel: AcclerometerViewModel(),
         isLocked: .constant(false))
 }

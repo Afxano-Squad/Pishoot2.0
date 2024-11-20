@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @StateObject private var gyroViewModel = GyroViewModel()
+    @StateObject private var acclerometerViewModel = AcclerometerViewModel()
     @StateObject private var cameraViewModel = CameraViewModel()
     @State private var lastPhotos: [UIImage] = []
     @State var isMarkerOn: Bool = false
@@ -74,22 +75,23 @@ struct ContentView: View {
                                     .padding(.top, verticalPadding)
                                     .padding(.bottom, verticalPadding + 10)
                                 }
-
+                                
+                                AcclerometerView(acleroViewModel: acclerometerViewModel, isLocked: $isLocked)
                                 VStack {
                                     Spacer()
                                     if appState.hasCompletedTutorial{
                                         MainAdditionalSetting(
-                                            selectedZoomLevel: $cameraViewModel
-                                                .selectedZoomLevel,
-                                            isMarkerOn: $isMarkerOn,
+//                                            selectedZoomLevel: $cameraViewModel
+//                                                .selectedZoomLevel,
+//                                            isMarkerOn: $isMarkerOn,
                                             isGridOn: $isGridOn,
-                                            isMultiRatio: $cameraViewModel
-                                                .isMultiRatio,
+//                                            isMultiRatio: $cameraViewModel
+//                                                .isMultiRatio,
                                             toggleFlash: {
                                                 cameraViewModel.toggleFlash()
                                             },
                                             isFlashOn: cameraViewModel.isFlashOn,
-                                            isMultiframeOn: false,
+//                                            isMultiframeOn: false,
                                             cameraViewModel: cameraViewModel,
                                             gyroViewModel: gyroViewModel)
                                     }
@@ -111,7 +113,7 @@ struct ContentView: View {
                                         isCapturing: $cameraViewModel
                                             .isCapturingPhoto,
                                         animationProgress: $animationProgress,
-                                        gyroViewModel: gyroViewModel,
+                                        gyroViewModel: gyroViewModel, acclerometerViewModel: acclerometerViewModel,
                                         isLocked: $isLocked
                                     )
                                     .padding(.top, 10)

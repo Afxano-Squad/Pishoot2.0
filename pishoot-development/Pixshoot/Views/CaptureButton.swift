@@ -32,40 +32,13 @@ struct CaptureButton: View {
             ZStack {
                 if !isCapturing {
                     Circle()
-                        .stroke(
-                            gyroViewModel.isPitchSuccess ? Color("Primary") : .white,
-                            lineWidth: 4
-                        )
+                        .stroke(Color.white, lineWidth: 3)
                         .frame(width: 70, height: 70)
-
+                        .rotationEffect(Angle(degrees: -90))
                     Circle()
-                        .fill(gyroViewModel.isPitchSuccess ? Color("Primary") : .white)
-                        .frame(width: 57, height: 57)
-                        .rotation3DEffect(
-                            Angle(degrees: gyroViewModel.pitch * 180 / .pi),
-                            axis: (x: 1, y: 0, z: 0),
-                            anchor: .center,
-                            perspective: 0
-                        )
-
-                    Circle()
-                        .stroke(
-                            gyroViewModel.isRollSuccess ? Color("Primary") : .white,
-                            lineWidth: 2
-                        )
-                        .frame(width: 17, height: 17)
-                        .offset(y: -49)
-
-                    Circle()
-                        .fill(gyroViewModel.isRollSuccess ? Color("Primary") : .white)
-                        .frame(width: 10, height: 10)
-                        .offset(y: -49)
-                        .rotationEffect(
-                            Angle(degrees: gyroViewModel.roll * 0.2 * 360 / .pi)
-                        )
+                        .fill(Color.white)
+                        .frame(width: 60, height: 60)
                 }
-
-
 
                 Circle()
                     .trim(from: 0, to: animationProgress)

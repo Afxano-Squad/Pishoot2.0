@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ButtonLockGyros: View {
     @ObservedObject var gyroViewModel: GyroViewModel
+    @ObservedObject var acclerometerViewModel: AcclerometerViewModel
     @Binding var isLocked: Bool
 
     var body: some View {
@@ -17,9 +18,10 @@ struct ButtonLockGyros: View {
                 isLocked.toggle()
             }
             if isLocked {
-                gyroViewModel.lockGyroCoordinates()
+                acclerometerViewModel.lockAcceleration()
+                
             } else {
-                gyroViewModel.resetGyroValues()
+                acclerometerViewModel.resetAcceleration()
             }
         }) {
             ZStack {
@@ -44,9 +46,6 @@ struct ButtonLockGyros: View {
                     .opacity(isLocked ? 0 : 1)
                     .animation(.easeInOut(duration: 0.4), value: isLocked)
             }
-            .rotationEffect(gyroViewModel.rotationAngle)
-            .animation(
-                .easeInOut(duration: 0.3), value: gyroViewModel.rotationAngle)
         }
         .animation(
             .spring(response: 0.4, dampingFraction: 0.6), value: isLocked)
