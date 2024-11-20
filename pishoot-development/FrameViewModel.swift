@@ -14,7 +14,7 @@ class FrameViewModel: ObservableObject {
     @Published var model = FrameModel()
     private var timer: Timer?
     var arView: ARView
-    lazy var cameraController = CameraController(arView: arView) // Memberikan arView sebagai argumen
+    lazy var cameraController = CameraController(arView: arView)
 
     init(arView: ARView) {
         self.arView = arView
@@ -42,8 +42,6 @@ class FrameViewModel: ObservableObject {
             completion()
         }
     }
-
-
 
     private func addFrame(to arView: ARView) {
         if let cameraTransform = arView.session.currentFrame?.camera.transform {
