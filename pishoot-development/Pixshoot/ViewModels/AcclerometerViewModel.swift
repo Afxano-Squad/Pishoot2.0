@@ -1,25 +1,24 @@
-//
-//  Untitled.swift
-//  Pixshoot
-//
-//  Created by Yuriko AIshinselo on 21/11/24.
-//
-
-import Foundation
 import Combine
 
-class AcclerometerViewModel: ObservableObject {
+class AccelerometerViewModel: ObservableObject {
     private var accelerometerManager = AccelerometerManager()
     private var cancellables = Set<AnyCancellable>()
 
     @Published var accelerationZ: Double = 0.0
-    @Published var lockedBaselineZ: Double? = nil // Change this to clarify the purpose
+    @Published var accelerationX: Double = 0.0
+    @Published var lockedBaselineZ: Double? = nil
+    @Published var lockedBaselineX: Double? = nil
 
     init() {
-        // Subscribe to accelerometer updates
         accelerometerManager.$accelerationZ
-            .sink { [weak self] newAcceleration in
-                self?.accelerationZ = newAcceleration
+            .sink { [weak self] newZ in
+                self?.accelerationZ = newZ
+            }
+            .store(in: &cancellables)
+
+        accelerometerManager.$accelerationX
+            .sink { [weak self] newX in
+                self?.accelerationX = newX
             }
             .store(in: &cancellables)
     }
@@ -33,12 +32,12 @@ class AcclerometerViewModel: ObservableObject {
     }
 
     func lockAcceleration() {
-        // Set the current acceleration as the baseline and reset the rectangle
         lockedBaselineZ = accelerationZ
+        lockedBaselineX = accelerationX
     }
 
     func resetAcceleration() {
-        // Clear the baseline to unlock
         lockedBaselineZ = nil
+        lockedBaselineX = nil
     }
 }

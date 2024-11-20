@@ -12,7 +12,7 @@ import RealityKit
 struct ButtonLockGyros: View {
     @ObservedObject var gyroViewModel: GyroViewModel
     @ObservedObject var frameViewModel: FrameViewModel
-    @ObservedObject var acclerometerViewModel: AcclerometerViewModel
+    @ObservedObject var acclerometerViewModel: AccelerometerViewModel
     @Binding var isLocked: Bool
     
     var model = FrameModel()

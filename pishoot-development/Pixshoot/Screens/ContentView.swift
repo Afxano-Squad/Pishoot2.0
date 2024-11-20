@@ -15,7 +15,7 @@ struct ContentView: View {
     @StateObject private var gyroViewModel = GyroViewModel()
     @StateObject private var cameraViewModel = CameraViewModel()
     @StateObject private var frameViewModel: FrameViewModel
-    @StateObject private var acclerometerViewModel = AcclerometerViewModel()
+    @StateObject private var acclerometerViewModel = AccelerometerViewModel()
     
     @State private var lastPhotos: [UIImage] = []
     @State private var isGridOn: Bool = false

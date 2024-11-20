@@ -17,7 +17,7 @@ struct BottomBarView: View {
     @Binding var animationProgress: CGFloat
     @ObservedObject var gyroViewModel: GyroViewModel  // This must be present]
     @ObservedObject var frameViewModel: FrameViewModel
-    @ObservedObject var acclerometerViewModel: AcclerometerViewModel
+    @ObservedObject var acclerometerViewModel: AccelerometerViewModel
     @Binding var isLocked: Bool
     var arView: ARView
     
