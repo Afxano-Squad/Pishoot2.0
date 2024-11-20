@@ -6,21 +6,25 @@
 //
 
 import SwiftUI
+import ARKit
+import RealityKit
 
 struct ButtonLockGyros: View {
     @ObservedObject var gyroViewModel: GyroViewModel
+    @ObservedObject var frameViewModel: FrameViewModel
+    var model = FrameModel()
+    var arView: ARView
+    
+    
     @Binding var isLocked: Bool
 
     var body: some View {
         Button(action: {
+            frameViewModel.toggleFrame(at: arView)
             withAnimation(.easeInOut(duration: 0.4)) {
                 isLocked.toggle()
             }
-            if isLocked {
-                gyroViewModel.lockGyroCoordinates()
-            } else {
-                gyroViewModel.resetGyroValues()
-            }
+            
         }) {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)

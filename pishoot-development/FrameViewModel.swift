@@ -43,7 +43,7 @@ class FrameViewModel: ObservableObject {
         }
     }
 
-    private func addFrame(to arView: ARView) {
+    func addFrame(to arView: ARView) {
         if let cameraTransform = arView.session.currentFrame?.camera.transform {
             let modelEntity = createPhotoFrame()
             let distance: Float = -0.5
@@ -57,7 +57,7 @@ class FrameViewModel: ObservableObject {
         }
     }
 
-    private func removeFrame(from arView: ARView) {
+    func removeFrame(from arView: ARView) {
         if let anchor = model.anchor {
             arView.scene.removeAnchor(anchor)
             model.anchor = nil

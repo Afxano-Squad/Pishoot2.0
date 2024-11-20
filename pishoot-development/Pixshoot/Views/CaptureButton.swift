@@ -13,6 +13,7 @@ struct CaptureButton: View {
     @Binding var isCapturing: Bool
     @Binding var animationProgress: CGFloat
     @ObservedObject var gyroViewModel: GyroViewModel
+    @ObservedObject var frameViewModel: FrameViewModel
     @Binding var isLocked: Bool
 
     // Tambahkan AVAudioPlayer untuk memutar suara
@@ -135,11 +136,11 @@ struct CaptureButton: View {
     }
 }
 
-#Preview {
-    // Provide a sample GyroViewModel if necessary for previewing
-    CaptureButton(
-        action: {
-            print("Capture picture action triggered")  // Replace with your capture logic
-        }, isCapturing: .constant(false), animationProgress: .constant(0.5),
-        gyroViewModel: GyroViewModel(), isLocked: .constant(false))
-}
+//#Preview {
+//    // Provide a sample GyroViewModel if necessary for previewing
+//    CaptureButton(
+//        action: {
+//            print("Capture picture action triggered")  // Replace with your capture logic
+//        }, isCapturing: .constant(false), animationProgress: .constant(0.5),
+//        gyroViewModel: GyroViewModel(), isLocked: .constant(false))
+//}

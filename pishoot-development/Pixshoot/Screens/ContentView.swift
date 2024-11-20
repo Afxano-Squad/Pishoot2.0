@@ -9,17 +9,37 @@ import SwiftUI
 import RealityKit
 import ARKit
 
-struct ContentView: View {
-    @State var arView = ARView(frame: .zero)
-    @StateObject private var frameViewModel: FrameViewModel
-    @State private var isCapturingPhoto = false
 
+struct ContentView: View {
+    
+    @StateObject private var gyroViewModel = GyroViewModel()
+    @StateObject private var cameraViewModel = CameraViewModel()
+    @StateObject private var frameViewModel: FrameViewModel
+    
+    @State private var lastPhotos: [UIImage] = []
+    @State private var isGridOn: Bool = false
+    @Environment(\.scenePhase) private var scenePhase
+    
+    @State private var showGuide = !UserDefaults.standard.bool(forKey: "hasCompletedTutorial")
+    @State private var highlightFrame = CGRect.zero
+    @State private var guideStepIndex = 0
+    @State private var animationProgress: CGFloat = 0
+    @State private var isDeviceSupported: Bool = false
+    @State private var isLocked = false
+    
+    @EnvironmentObject var appState: AppState
+    @State private var currentStepIndex = 0
+    
+    @State private var arView = ARView(frame: .zero)
+    
+    @State private var isCapturingPhoto = false
+    
     init() {
         let arViewInstance = ARView(frame: .zero)
         _arView = State(initialValue: arViewInstance)
         _frameViewModel = StateObject(wrappedValue: FrameViewModel(arView: arViewInstance))
     }
-
+    
     var body: some View {
         ZStack {
             ARViewContainer(arView: $arView)
@@ -30,10 +50,10 @@ struct ContentView: View {
                     .transition(.scale)
                     .animation(.easeInOut, value: frameViewModel.model.anchor)
             }
-
+            
             VStack {
                 Spacer()
-
+                
                 if !frameViewModel.model.alignmentStatus.isEmpty {
                     Text(frameViewModel.model.alignmentStatus)
                         .foregroundColor(.white)
@@ -42,44 +62,132 @@ struct ContentView: View {
                         .cornerRadius(10)
                         .padding(.bottom, 20)
                 }
-
-                HStack {
-                    Spacer()
-                    Spacer()
-
-                    Button(action: {
-                        guard !isCapturingPhoto else { return }
-                        isCapturingPhoto = true
-                        frameViewModel.capturePhoto(from: arView) {
-                            isCapturingPhoto = false
+                
+                BottomBarView(
+                    lastPhoto: lastPhotos.first,
+                    captureAction: {
+                        if !appState.hasCompletedTutorial && currentStepIndex == tutorialSteps.count - 1 {
+                            completeTutorial()
                         }
-                    }) {
-                        Circle()
-                            .fill(Color.white)
-                            .frame(width: 80, height: 80)
-                            .overlay(
-                                Circle()
-                                    .stroke(Color.gray, lineWidth: 4)
-                                    .frame(width: 70, height: 70)
-                            )
+                        cameraViewModel.capturePhotos { images in
+                            self.lastPhotos = images
+                        }
+                    },
+                    openPhotosApp: {
+                        PhotoLibraryHelper.openPhotosApp()
+                    },
+                    isCapturing: $cameraViewModel.isCapturingPhoto,
+                    animationProgress: $animationProgress,
+                    gyroViewModel: gyroViewModel,
+                    frameViewModel: frameViewModel,
+                    isLocked: $isLocked, arView: arView
+                )
+                .padding(.top, 10)
+                .padding(.bottom, 20)
+            }
+            
+            HStack {
+                Spacer()
+                
+                Button(action: {
+                    guard !isCapturingPhoto else { return }
+                    isCapturingPhoto = true
+                    frameViewModel.capturePhoto(from: arView) {
+                        isCapturingPhoto = false
                     }
-
-
-                    Spacer()
-                    Button(action: {
-                        frameViewModel.toggleFrame(at: arView)
-                    }) {
-                        Image(systemName: "lock.square.fill")
-                            .resizable()
-                            .frame(width: 40, height: 40)
-                            .foregroundColor(.white)
-                    }
-
-                    Spacer()
+                }) {
+                    Circle()
+                        .fill(Color.white)
+                        .frame(width: 80, height: 80)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.gray, lineWidth: 4)
+                                .frame(width: 70, height: 70)
+                        )
                 }
-                .padding(.bottom, 50)
+                
+                Spacer()
+                
+                Button(action: {
+                    frameViewModel.toggleFrame(at: arView)
+                }) {
+                    Image(systemName: "lock.square.fill")
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .foregroundColor(.white)
+                }
+                
+                Spacer()
+            }
+            .padding(.bottom, 50)
+        }
+        .onChange(of: scenePhase, perform: handleScenePhaseChange)
+    }
+    
+    private func completeTutorial() {
+        showGuide = false
+        appState.hasCompletedTutorial = true
+        UserDefaults.standard.set(true, forKey: "hasCompletedTutorial")
+    }
+    
+    // Function to display grid overlay when isGridOn is active
+    func overlayGrid() -> some View {
+        ZStack {
+            if isGridOn {
+                RuleOf3GridView(lineColor: .white, lineWidth: 1)
+                    .edgesIgnoringSafeArea(.all)
             }
         }
-
     }
+    
+    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
+        switch newPhase {
+        case .active:
+            cameraViewModel.notifyPhoneActive()
+            print("App became active")
+            if isDeviceSupported {
+                cameraViewModel.startSession()
+                PhotoLibraryHelper.fetchLastPhoto { image in
+                    if let image = image {
+                        self.lastPhotos = [image]
+                    }
+                }
+            }
+        case .inactive:
+            cameraViewModel.notifyPhoneInactive()
+            print("App became inactive")
+        case .background:
+            cameraViewModel.notifyPhoneInactive()
+            print("App went to background")
+            if isDeviceSupported {
+                cameraViewModel.stopSession()
+            }
+        @unknown default:
+            print("Unkown scene phase")
+        }
+    }
+}
+
+func checkDeviceCapabilities() -> Bool {
+    let deviceTypes: [AVCaptureDevice.DeviceType] = [
+        .builtInWideAngleCamera,
+        .builtInUltraWideCamera,
+    ]
+    
+    let discoverySession = AVCaptureDevice.DiscoverySession(
+        deviceTypes: deviceTypes,
+        mediaType: .video,
+        position: .back
+    )
+    
+    let hasUltraWide = discoverySession.devices.contains {
+        $0.deviceType == .builtInUltraWideCamera
+    }
+    
+    let wideAngleCamera = AVCaptureDevice.default(
+        .builtInWideAngleCamera, for: .video, position: .back
+    )
+    let has2xZoom = wideAngleCamera?.maxAvailableVideoZoomFactor ?? 1.0 >= 2.0
+    
+    return hasUltraWide && has2xZoom
 }
