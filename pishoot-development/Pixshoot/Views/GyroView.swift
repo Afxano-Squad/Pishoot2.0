@@ -2,8 +2,6 @@ import SwiftUI
 
 struct GyroView: View {
     @ObservedObject var gyroViewModel: GyroViewModel
-    @Binding var isMarkerOn: Bool
-
     var body: some View {
         ZStack {
                    if gyroViewModel.orientationManager.currentOrientation == .portrait || gyroViewModel.orientationManager.currentOrientation == .portraitUpsideDown {
@@ -48,5 +46,5 @@ struct GyroView: View {
 }
 
 #Preview {
-    GyroView(gyroViewModel: GyroViewModel(), isMarkerOn: .constant(false))
+    GyroView(gyroViewModel: GyroViewModel())
 }

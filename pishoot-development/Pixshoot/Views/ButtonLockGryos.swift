@@ -12,17 +12,24 @@ import RealityKit
 struct ButtonLockGyros: View {
     @ObservedObject var gyroViewModel: GyroViewModel
     @ObservedObject var frameViewModel: FrameViewModel
+    @ObservedObject var acclerometerViewModel: AcclerometerViewModel
+    @Binding var isLocked: Bool
+    
     var model = FrameModel()
     var arView: ARView
     
     
-    @Binding var isLocked: Bool
-
     var body: some View {
         Button(action: {
             frameViewModel.toggleFrame(at: arView)
             withAnimation(.easeInOut(duration: 0.4)) {
                 isLocked.toggle()
+            }
+            if isLocked {
+                acclerometerViewModel.lockAcceleration()
+                
+            } else {
+                acclerometerViewModel.resetAcceleration()
             }
             
         }) {
@@ -30,7 +37,7 @@ struct ButtonLockGyros: View {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(isLocked ? Color("Primary") : .white, lineWidth: 2)
                     .frame(width: 57, height: 57)
-
+                
                 // Overlay both icons and control their visibility
                 Image(systemName: "lock")
                     .resizable()
@@ -39,7 +46,7 @@ struct ButtonLockGyros: View {
                     .foregroundColor(Color("Primary"))
                     .opacity(isLocked ? 1 : 0)
                     .animation(.easeInOut(duration: 0.4), value: isLocked)
-
+                
                 Image(systemName: "lock.open")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -54,6 +61,6 @@ struct ButtonLockGyros: View {
         }
         .animation(
             .spring(response: 0.4, dampingFraction: 0.6), value: isLocked)
-
+        
     }
 }

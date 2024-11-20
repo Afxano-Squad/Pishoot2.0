@@ -15,6 +15,7 @@ struct ContentView: View {
     @StateObject private var gyroViewModel = GyroViewModel()
     @StateObject private var cameraViewModel = CameraViewModel()
     @StateObject private var frameViewModel: FrameViewModel
+    @StateObject private var acclerometerViewModel = AcclerometerViewModel()
     
     @State private var lastPhotos: [UIImage] = []
     @State private var isGridOn: Bool = false
@@ -41,87 +42,174 @@ struct ContentView: View {
     }
     
     var body: some View {
-        ZStack {
-            ARViewContainer(arView: $arView)
-                .edgesIgnoringSafeArea(.all)
-            
-            if frameViewModel.model.anchor != nil {
-                GreenOverlay(overlayColor: frameViewModel.model.overlayColor)
-                    .transition(.scale)
-                    .animation(.easeInOut, value: frameViewModel.model.anchor)
-            }
-            
-            VStack {
-                Spacer()
-                
-                if !frameViewModel.model.alignmentStatus.isEmpty {
-                    Text(frameViewModel.model.alignmentStatus)
-                        .foregroundColor(.white)
-                        .padding()
-                        .background(Color.black.opacity(0.7))
-                        .cornerRadius(10)
-                        .padding(.bottom, 20)
-                }
-                
-                BottomBarView(
-                    lastPhoto: lastPhotos.first,
-                    captureAction: {
-                        if !appState.hasCompletedTutorial && currentStepIndex == tutorialSteps.count - 1 {
-                            completeTutorial()
+        Group {
+            if isDeviceSupported {
+                VStack {
+                    if let session = cameraViewModel.session {
+                        GeometryReader { geometry in
+                            let width = geometry.size.width
+                            let height = width * 16 / 9
+                            let verticalPadding =
+                            (geometry.size.height - height) / 6
+                            
+                            ZStack {
+                                VStack {
+                                    Spacer()
+                                    
+                                    CameraPreviewView(
+                                        session: session,
+                                        countdown: $cameraViewModel.countdown,
+                                        isGridOn: $isGridOn
+                                    )
+                                    .frame(width: width, height: height)
+                                    .clipped()
+                                    .overlay(
+                                        BlackScreenView()
+                                            .opacity(
+                                                cameraViewModel
+                                                    .isBlackScreenVisible
+                                                ? 1 : 0)
+                                    )
+                                    
+                                    Spacer()
+                                }
+                                .padding(.top, verticalPadding)
+                                .padding(.bottom, verticalPadding + 12)
+                                
+                                if isGridOn {
+                                    RuleOf3GridView(
+                                        lineColor: .white, lineWidth: 0.5
+                                    )
+                                    .frame(width: width, height: height)
+                                    .padding(.top, verticalPadding)
+                                    .padding(.bottom, verticalPadding + 10)
+                                }
+                                
+                                ARViewContainer(arView: $arView)
+                                    .edgesIgnoringSafeArea(.all)
+                                
+                                if frameViewModel.model.anchor != nil {
+                                    GreenOverlay(overlayColor: frameViewModel.model.overlayColor)
+                                        .transition(.scale)
+                                        .animation(.easeInOut, value: frameViewModel.model.anchor)
+                                }
+                                
+                                AcclerometerView(acleroViewModel: acclerometerViewModel, isLocked: $isLocked)
+                                
+                                VStack {
+                                    Spacer()
+                                    if appState.hasCompletedTutorial{
+                                        MainAdditionalSetting(
+                                            isGridOn: $isGridOn,
+                                            toggleFlash: {
+                                                cameraViewModel.toggleFlash()
+                                            },
+                                            isFlashOn: cameraViewModel.isFlashOn,
+                                            cameraViewModel: cameraViewModel,
+                                            gyroViewModel: gyroViewModel)
+                                    }
+                                    
+                                    
+                                    if !frameViewModel.model.alignmentStatus.isEmpty {
+                                        Text(frameViewModel.model.alignmentStatus)
+                                            .foregroundColor(.white)
+                                            .padding()
+                                            .background(Color.black.opacity(0.7))
+                                            .cornerRadius(10)
+                                            .padding(.bottom, 20)
+                                    }
+                                    
+                                    BottomBarView(
+                                        lastPhoto: lastPhotos.first,
+                                        captureAction: {
+                                            if !appState.hasCompletedTutorial && currentStepIndex == tutorialSteps.count - 1 {
+                                                completeTutorial()
+                                            }
+                                            cameraViewModel.capturePhotos { images in
+                                                self.lastPhotos = images
+                                            }
+                                        },
+                                        openPhotosApp: {
+                                            PhotoLibraryHelper.openPhotosApp()
+                                        },
+                                        isCapturing: $cameraViewModel.isCapturingPhoto,
+                                        animationProgress: $animationProgress,
+                                        gyroViewModel: gyroViewModel,
+                                        frameViewModel: frameViewModel, acclerometerViewModel: acclerometerViewModel,
+                                        isLocked: $isLocked, arView: arView
+                                    )
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 20)
+                                }
+                                
+                                HStack {
+                                    Spacer()
+                                    
+                                    Button(action: {
+                                        guard !isCapturingPhoto else { return }
+                                        isCapturingPhoto = true
+                                        frameViewModel.capturePhoto(from: arView) {
+                                            isCapturingPhoto = false
+                                        }
+                                    }) {
+                                        Circle()
+                                            .fill(Color.white)
+                                            .frame(width: 80, height: 80)
+                                            .overlay(
+                                                Circle()
+                                                    .stroke(Color.gray, lineWidth: 4)
+                                                    .frame(width: 70, height: 70)
+                                            )
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                }
+                                .padding(.bottom, 50)
+                            }
+                            
+                            GyroView(
+                                gyroViewModel: gyroViewModel)
+                            
+                            if !appState.hasCompletedTutorial {
+                                BlackOverlayWithHole(
+                                    currentStepIndex: $currentStepIndex, tutorialSteps: tutorialSteps,
+                                    onTutorialComplete: {
+                                        showGuide = false
+                                    },
+                                    isLocked: $isLocked
+                                )
+                                .frame(
+                                    width: UIScreen.main.bounds.width,
+                                    height: UIScreen.main.bounds.height
+                                )
+                                .position(
+                                    x: UIScreen.main.bounds.width / 2,
+                                    y: UIScreen.main.bounds.height / 2
+                                )
+                                .ignoresSafeArea()
+                            }
                         }
-                        cameraViewModel.capturePhotos { images in
-                            self.lastPhotos = images
-                        }
-                    },
-                    openPhotosApp: {
-                        PhotoLibraryHelper.openPhotosApp()
-                    },
-                    isCapturing: $cameraViewModel.isCapturingPhoto,
-                    animationProgress: $animationProgress,
-                    gyroViewModel: gyroViewModel,
-                    frameViewModel: frameViewModel,
-                    isLocked: $isLocked, arView: arView
-                )
-                .padding(.top, 10)
-                .padding(.bottom, 20)
-            }
-            
-            HStack {
-                Spacer()
-                
-                Button(action: {
-                    guard !isCapturingPhoto else { return }
-                    isCapturingPhoto = true
-                    frameViewModel.capturePhoto(from: arView) {
-                        isCapturingPhoto = false
+                    } else {
+                        Text("Camera not available")
                     }
-                }) {
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 80, height: 80)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.gray, lineWidth: 4)
-                                .frame(width: 70, height: 70)
-                        )
                 }
-                
-                Spacer()
-                
-                Button(action: {
-                    frameViewModel.toggleFrame(at: arView)
-                }) {
-                    Image(systemName: "lock.square.fill")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .foregroundColor(.white)
-                }
-                
-                Spacer()
+            } else {
+                UnsupportedDeviceView()
             }
-            .padding(.bottom, 50)
         }
-        .onChange(of: scenePhase, perform: handleScenePhaseChange)
+        .statusBar(hidden: true)
+        .onChange(of: appState.hasCompletedTutorial) { hasCompleted in
+            showGuide = !hasCompleted
+        }
+        
+        .onChange(of: scenePhase) {
+            handleScenePhaseChange(scenePhase)
+        }
+        .onAppear {
+            isDeviceSupported = checkDeviceCapabilities()
+        }
+        
     }
     
     private func completeTutorial() {
@@ -190,4 +278,7 @@ func checkDeviceCapabilities() -> Bool {
     let has2xZoom = wideAngleCamera?.maxAvailableVideoZoomFactor ?? 1.0 >= 2.0
     
     return hasUltraWide && has2xZoom
+    
 }
+
+

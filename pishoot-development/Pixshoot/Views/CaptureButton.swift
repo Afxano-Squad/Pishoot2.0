@@ -15,14 +15,14 @@ struct CaptureButton: View {
     @ObservedObject var gyroViewModel: GyroViewModel
     @ObservedObject var frameViewModel: FrameViewModel
     @Binding var isLocked: Bool
-
+    
     // Tambahkan AVAudioPlayer untuk memutar suara
     @State private var audioPlayer: AVAudioPlayer?
-
+    
     // Variabel untuk menyimpan kondisi sebelumnya dari pitch dan roll
     @State private var previousPitchSuccess = false
     @State private var previousRollSuccess = false
-
+    
     var body: some View {
         Button(action: {
             self.action()
@@ -33,41 +33,16 @@ struct CaptureButton: View {
             ZStack {
                 if !isCapturing {
                     Circle()
-                        .stroke(
-                            gyroViewModel.isPitchSuccess ? Color("Primary") : .white,
-                            lineWidth: 4
-                        )
+                        .stroke(Color.white, lineWidth: 3)
                         .frame(width: 70, height: 70)
-
+                        .rotationEffect(Angle(degrees: -90))
                     Circle()
-                        .fill(gyroViewModel.isPitchSuccess ? Color("Primary") : .white)
-                        .frame(width: 57, height: 57)
-                        .rotation3DEffect(
-                            Angle(degrees: gyroViewModel.pitch * 180 / .pi),
-                            axis: (x: 1, y: 0, z: 0),
-                            anchor: .center,
-                            perspective: 0
-                        )
-
-                    Circle()
-                        .stroke(
-                            gyroViewModel.isRollSuccess ? Color("Primary") : .white,
-                            lineWidth: 2
-                        )
-                        .frame(width: 17, height: 17)
-                        .offset(y: -49)
-
-                    Circle()
-                        .fill(gyroViewModel.isRollSuccess ? Color("Primary") : .white)
-                        .frame(width: 10, height: 10)
-                        .offset(y: -49)
-                        .rotationEffect(
-                            Angle(degrees: gyroViewModel.roll * 0.2 * 360 / .pi)
-                        )
+                        .fill(Color.white)
+                        .frame(width: 60, height: 60)
                 }
-
-
-
+                
+                
+                
                 Circle()
                     .trim(from: 0, to: animationProgress)
                     .stroke(Color("Primary"), lineWidth: 10)
@@ -102,7 +77,7 @@ struct CaptureButton: View {
             }
         }
     }
-
+    
     // Fungsi untuk menyiapkan audio player
     func prepareAudioPlayer() {
         if let soundURL = Bundle.main.url(forResource: "benar", withExtension: "mp3") {
@@ -116,11 +91,11 @@ struct CaptureButton: View {
             print("Audio file not found.")
         }
     }
-
+    
     func playSuccessSound() {
         audioPlayer?.play()
     }
-
+    
     // Fungsi untuk memeriksa apakah pitch dan roll keduanya sukses
     func checkSuccessConditions() {
         // Hanya mainkan suara jika pitch dan roll sukses, dan kondisinya baru berubah
@@ -129,7 +104,7 @@ struct CaptureButton: View {
                 playSuccessSound()
             }
         }
-
+        
         // Simpan kondisi saat ini sebagai kondisi sebelumnya
         previousPitchSuccess = gyroViewModel.isPitchSuccess
         previousRollSuccess = gyroViewModel.isRollSuccess

@@ -16,10 +16,11 @@ struct BottomBarView: View {
     @Binding var isCapturing: Bool
     @Binding var animationProgress: CGFloat
     @ObservedObject var gyroViewModel: GyroViewModel  // This must be present]
-    @ObservedObject var frameViewModel: FrameViewModel // ini terbaru.
+    @ObservedObject var frameViewModel: FrameViewModel
+    @ObservedObject var acclerometerViewModel: AcclerometerViewModel
     @Binding var isLocked: Bool
     var arView: ARView
-
+    
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
@@ -29,7 +30,7 @@ struct BottomBarView: View {
             }
             .padding()
             .padding(.bottom)
-
+            
             HStack {
                 Spacer()
                 CaptureButton(
@@ -40,11 +41,11 @@ struct BottomBarView: View {
                     isLocked: $isLocked)
                 Spacer()
             }
-
+            
             HStack(alignment: .center) {
                 Spacer()
                 ButtonLockGyros(
-                    gyroViewModel: gyroViewModel, frameViewModel: frameViewModel, arView: arView, isLocked: $isLocked)
+                    gyroViewModel: gyroViewModel, frameViewModel: frameViewModel, acclerometerViewModel: acclerometerViewModel, isLocked: $isLocked, arView: arView)
             }
             .padding()
             .padding(.bottom)
