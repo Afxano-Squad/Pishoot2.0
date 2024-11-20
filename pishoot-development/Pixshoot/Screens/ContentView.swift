@@ -5,8 +5,9 @@
 //  Created by Muhammad Zikrurridho Afwani on 25/06/24.
 //
 
-import AVFoundation
 import SwiftUI
+import RealityKit
+import ARKit
 
 struct ContentView: View {
     @StateObject private var gyroViewModel = GyroViewModel()
@@ -120,119 +121,43 @@ struct ContentView: View {
                                     .padding(.bottom, 20)
                                 }
 
-                                GyroView(
-                                    gyroViewModel: gyroViewModel,
-                                    isMarkerOn: $isMarkerOn)
+                HStack {
+                    Spacer()
+                    Spacer()
 
-                                if !appState.hasCompletedTutorial {
-                                    BlackOverlayWithHole(
-                                        currentStepIndex: $currentStepIndex, tutorialSteps: tutorialSteps,
-                                        onTutorialComplete: {
-                                            showGuide = false
-                                        },
-                                        isLocked: $isLocked
-                                    )
-                                    .frame(
-                                        width: UIScreen.main.bounds.width,
-                                        height: UIScreen.main.bounds.height
-                                    )
-                                    .position(
-                                        x: UIScreen.main.bounds.width / 2,
-                                        y: UIScreen.main.bounds.height / 2
-                                    )
-                                    .ignoresSafeArea()
-                                }
-                            }
+                    Button(action: {
+                        guard !isCapturingPhoto else { return }
+                        isCapturingPhoto = true
+                        frameViewModel.capturePhoto(from: arView) {
+                            isCapturingPhoto = false
                         }
-                    } else {
-                        Text("Camera not available")
+                    }) {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 80, height: 80)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.gray, lineWidth: 4)
+                                    .frame(width: 70, height: 70)
+                            )
                     }
-                }
-            } else {
-                UnsupportedDeviceView()
-            }
-        }
-        .statusBar(hidden: true)
-        .onChange(of: appState.hasCompletedTutorial) { hasCompleted in
-            showGuide = !hasCompleted
-        }
-        
-        .onChange(of: scenePhase) {
-            handleScenePhaseChange(scenePhase)
-        }
-        .onAppear {
-            isDeviceSupported = checkDeviceCapabilities()
-        }
 
-    }
 
-    private func completeTutorial() {
-        showGuide = false
-        appState.hasCompletedTutorial = true
-        UserDefaults.standard.set(true, forKey: "hasCompletedTutorial")
-    }
-
-    // Fungsi overlayGrid untuk menampilkan grid overlay saat isGridOn aktif
-    func overlayGrid() -> some View {
-        ZStack {
-            if isGridOn {
-                RuleOf3GridView(lineColor: .white, lineWidth: 1)
-                    .edgesIgnoringSafeArea(.all)
-            }
-        }
-    }
-
-    private func handleScenePhaseChange(_ newPhase: ScenePhase) {
-        switch newPhase {
-        case .active:
-            cameraViewModel.notifyPhoneActive()
-            print("App became active")
-            if isDeviceSupported {
-                cameraViewModel.startSession()
-                PhotoLibraryHelper.fetchLastPhoto { image in
-                    if let image = image {
-                        self.lastPhotos = [image]
+                    Spacer()
+                    Button(action: {
+                        frameViewModel.toggleFrame(at: arView)
+                    }) {
+                        Image(systemName: "lock.square.fill")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.white)
                     }
+
+                    Spacer()
                 }
+                .padding(.bottom, 50)
             }
-        case .inactive:
-            cameraViewModel.notifyPhoneInactive()
-            print("App became inactive")
-        case .background:
-            cameraViewModel.notifyPhoneInactive()
-            print("App went to background")
-            if isDeviceSupported {
-                cameraViewModel.stopSession()
-            }
-        @unknown default:
-            print("Unknown scene phase")
         }
+
     }
-}
-
-func checkDeviceCapabilities() -> Bool {
-    let deviceTypes: [AVCaptureDevice.DeviceType] = [
-        .builtInWideAngleCamera,
-        .builtInUltraWideCamera,
-    ]
-
-    let discoverySession = AVCaptureDevice.DiscoverySession(
-        deviceTypes: deviceTypes,
-        mediaType: .video,
-        position: .back
-    )
-
-    let hasUltraWide = discoverySession.devices.contains {
-        $0.deviceType == .builtInUltraWideCamera
-    }
-
-    let wideAngleCamera = AVCaptureDevice.default(
-        .builtInWideAngleCamera, for: .video, position: .back)
-    let has2xZoom = wideAngleCamera?.maxAvailableVideoZoomFactor ?? 1.0 >= 2.0
-
-    return hasUltraWide && has2xZoom
-}
-
-#Preview {
-    ContentView()
 }

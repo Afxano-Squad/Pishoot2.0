@@ -35,6 +35,11 @@
 		0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */; };
 		279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 279E1D9E2C36E21D0078C2A1 /* Marker.swift */; };
 		27ECB80D2C3856E8004FFBA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8458D62C2AB4140033FED7 /* Assets.xcassets */; };
+		674E45E02CEB17C7004ED50E /* ARViewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E45DF2CEB17C7004ED50E /* ARViewContainer.swift */; };
+		674E45E62CEB1AFB004ED50E /* FrameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E45E42CEB1AFB004ED50E /* FrameViewModel.swift */; };
+		674E45E82CEB1AFB004ED50E /* GreenOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E45E52CEB1AFB004ED50E /* GreenOverlayView.swift */; };
+		674E45E92CEB1AFB004ED50E /* FrameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E45E32CEB1AFB004ED50E /* FrameModel.swift */; };
+		674E45EA2CEB1AFB004ED50E /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E45E22CEB1AFB004ED50E /* CameraController.swift */; };
 		679A619C2CD669860054688B /* AccessibilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A619B2CD669860054688B /* AccessibilityExtensions.swift */; };
 		679A61A22CD67A350054688B /* benar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 679A61A12CD67A350054688B /* benar.mp3 */; };
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
@@ -112,6 +117,11 @@
 		0F8458F02C2ABA8C0033FED7 /* PhotoThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoThumbnailView.swift; sourceTree = "<group>"; };
 		0F8458F42C2BB7AB0033FED7 /* MainAdditionalSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAdditionalSetting.swift; sourceTree = "<group>"; };
 		279E1D9E2C36E21D0078C2A1 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		674E45DF2CEB17C7004ED50E /* ARViewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewContainer.swift; sourceTree = "<group>"; };
+		674E45E22CEB1AFB004ED50E /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
+		674E45E32CEB1AFB004ED50E /* FrameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameModel.swift; sourceTree = "<group>"; };
+		674E45E42CEB1AFB004ED50E /* FrameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameViewModel.swift; sourceTree = "<group>"; };
+		674E45E52CEB1AFB004ED50E /* GreenOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenOverlayView.swift; sourceTree = "<group>"; };
 		679A619B2CD669860054688B /* AccessibilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityExtensions.swift; sourceTree = "<group>"; };
 		679A61A12CD67A350054688B /* benar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = benar.mp3; sourceTree = "<group>"; };
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
@@ -204,6 +214,11 @@
 		0F8458C62C2AB4130033FED7 = {
 			isa = PBXGroup;
 			children = (
+				674E45E22CEB1AFB004ED50E /* CameraController.swift */,
+				674E45E32CEB1AFB004ED50E /* FrameModel.swift */,
+				674E45E42CEB1AFB004ED50E /* FrameViewModel.swift */,
+				674E45E52CEB1AFB004ED50E /* GreenOverlayView.swift */,
+				674E45DF2CEB17C7004ED50E /* ARViewContainer.swift */,
 				679A61A12CD67A350054688B /* benar.mp3 */,
 				679A619B2CD669860054688B /* AccessibilityExtensions.swift */,
 				E9E5A4982C3545FD005EB61A /* Shared */,
@@ -474,7 +489,12 @@
 				0F7399E32C386CE600324891 /* AppState.swift in Sources */,
 				0F3E79972C43BF9A0057F279 /* UnsupportedDeviceView.swift in Sources */,
 				E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */,
+				674E45E62CEB1AFB004ED50E /* FrameViewModel.swift in Sources */,
+				674E45E82CEB1AFB004ED50E /* GreenOverlayView.swift in Sources */,
+				674E45E92CEB1AFB004ED50E /* FrameModel.swift in Sources */,
+				674E45EA2CEB1AFB004ED50E /* CameraController.swift in Sources */,
 				C0A7F6672CD855BC008EFC6B /* TutorialContent.swift in Sources */,
+				674E45E02CEB17C7004ED50E /* ARViewContainer.swift in Sources */,
 				0F7399E12C3863AF00324891 /* GuideSteps.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,7 +655,7 @@
 				INFOPLIST_FILE = Pixshoot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pixshoot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to allow you to take photos.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to use AR features.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app requires background location access to tag your photos with location data.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires location access to tag photos with location information.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save photos";
@@ -644,7 +664,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "";
-				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
@@ -681,7 +701,7 @@
 				INFOPLIST_FILE = Pixshoot/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Pixshoot;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.photography";
-				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to allow you to take photos.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to use AR features.";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "This app requires background location access to tag your photos with location data.";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app requires location access to tag photos with location information.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We need access to your photo library to save photos";
@@ -690,7 +710,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UIRequiredDeviceCapabilities = "";
-				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Dark;
