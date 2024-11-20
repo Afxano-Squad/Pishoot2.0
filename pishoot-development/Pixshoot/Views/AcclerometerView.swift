@@ -8,17 +8,13 @@ struct AcclerometerView: View {
 
     var body: some View {
         ZStack {
-//            VStack {
-//                Text(accelerationText)
-//                    .font(.title)
-//            }
 
             HStack {
                 Spacer()
                 VStack(alignment: .trailing) {
                     ForEach(0..<numberOfBars, id: \.self) { index in
                         Rectangle()
-                            .fill(index == calculateDynamicIndex() ? Color.yellow : Color.white.opacity(0.3))
+                            .fill(index == calculateDynamicIndex() ? Color.yellow.opacity(0.5) : Color.white.opacity(0.3))
                             .frame(width: calculateWidth(for: index), height: 10)
                     }
                 }
@@ -39,9 +35,6 @@ struct AcclerometerView: View {
         .onDisappear {
             acleroViewModel.stop()
         }
-//        .onChange(of: acleroViewModel.accelerationZ) { _,newAccelerationZ in
-//            accelerationText = String(format: "Z-Acceleration: %.4f", newAccelerationZ)
-//        }
     }
 
     func calculateWidth(for index: Int) -> CGFloat {

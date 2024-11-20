@@ -50,9 +50,6 @@ struct CaptureButton: View {
             .accessibilityHint(isCapturing ? "Capturing in progress" : "Tap to capture a picture")
         }
         .accessibilityElement(children: .combine) // Menggabungkan semua elemen dalam Button
-        .onAppear {
-            prepareAudioPlayer() // Siapkan audio player untuk suara sukses
-        }
         .onChange(of: isCapturing) { _, newValue in
             if !newValue {
                 withAnimation(.linear(duration: 0.3)) {
@@ -60,52 +57,14 @@ struct CaptureButton: View {
                 }
             }
         }
-        .onChange(of: gyroViewModel.isPitchSuccess) { _, newValue in
-            checkSuccessConditions() // Cek kondisi ketika pitch berubah
-            UIAccessibility.post(notification: .announcement, argument: newValue ? "Pitch level is correct" : "Adjust the pitch level")
-        }
-        .onChange(of: gyroViewModel.isRollSuccess) { _, newValue in
-            checkSuccessConditions() // Cek kondisi ketika roll berubah
-            UIAccessibility.post(notification: .announcement, argument: newValue ? "Roll level is correct" : "Adjust the roll level")
-        }
-        .onChange(of: isLocked) { locked in
-            if !locked {
-                gyroViewModel.resetGyroValues()
-            }
-        }
     }
 
-    // Fungsi untuk menyiapkan audio player
-    func prepareAudioPlayer() {
-        if let soundURL = Bundle.main.url(forResource: "benar", withExtension: "mp3") {
-            do {
-                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
-                audioPlayer?.prepareToPlay()
-            } catch {
-                print("Failed to load sound: \(error)")
-            }
-        } else {
-            print("Audio file not found.")
-        }
-    }
 
     func playSuccessSound() {
         audioPlayer?.play()
     }
 
-    // Fungsi untuk memeriksa apakah pitch dan roll keduanya sukses
-    func checkSuccessConditions() {
-        // Hanya mainkan suara jika pitch dan roll sukses, dan kondisinya baru berubah
-        if gyroViewModel.isPitchSuccess && gyroViewModel.isRollSuccess {
-            if !previousPitchSuccess || !previousRollSuccess {
-                playSuccessSound()
-            }
-        }
 
-        // Simpan kondisi saat ini sebagai kondisi sebelumnya
-        previousPitchSuccess = gyroViewModel.isPitchSuccess
-        previousRollSuccess = gyroViewModel.isRollSuccess
-    }
 }
 
 #Preview {
