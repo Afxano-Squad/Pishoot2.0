@@ -81,17 +81,11 @@ struct ContentView: View {
                                     Spacer()
                                     if appState.hasCompletedTutorial{
                                         MainAdditionalSetting(
-//                                            selectedZoomLevel: $cameraViewModel
-//                                                .selectedZoomLevel,
-//                                            isMarkerOn: $isMarkerOn,
                                             isGridOn: $isGridOn,
-//                                            isMultiRatio: $cameraViewModel
-//                                                .isMultiRatio,
                                             toggleFlash: {
                                                 cameraViewModel.toggleFlash()
                                             },
                                             isFlashOn: cameraViewModel.isFlashOn,
-//                                            isMultiframeOn: false,
                                             cameraViewModel: cameraViewModel,
                                             gyroViewModel: gyroViewModel)
                                     }
