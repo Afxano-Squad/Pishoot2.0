@@ -16,13 +16,7 @@ struct CaptureButton: View {
     @ObservedObject var frameViewModel: FrameViewModel
     @Binding var isLocked: Bool
     
-    // Tambahkan AVAudioPlayer untuk memutar suara
-    @State private var audioPlayer: AVAudioPlayer?
-    
-    // Variabel untuk menyimpan kondisi sebelumnya dari pitch dan roll
-    @State private var previousPitchSuccess = false
-    @State private var previousRollSuccess = false
-    
+
     var body: some View {
         Button(action: {
             self.action()
@@ -59,11 +53,6 @@ struct CaptureButton: View {
                 withAnimation(.linear(duration: 0.3)) {
                     self.animationProgress = 0
                 }
-            }
-        }
-        .onChange(of: isLocked) { locked in
-            if !locked {
-                gyroViewModel.resetGyroValues()
             }
         }
     }
