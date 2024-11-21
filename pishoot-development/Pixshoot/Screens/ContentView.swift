@@ -85,18 +85,19 @@ struct ContentView: View {
                                     .padding(.bottom, verticalPadding + 10)
                                 }
                                 
-                                ARViewContainer(arView: $arView)
-                                    .edgesIgnoringSafeArea(.all)
+//                                ARViewContainer(arView: $arView)
+//                                    .edgesIgnoringSafeArea(.all)
+//                                
+//                                if frameViewModel.model.anchor != nil {
+//                                    GreenOverlay(overlayColor: frameViewModel.model.overlayColor)
+//                                        .transition(.scale)
+//                                        .animation(.easeInOut, value: frameViewModel.model.anchor)
+//                                }
                                 
-                                if frameViewModel.model.anchor != nil {
-                                    GreenOverlay(overlayColor: frameViewModel.model.overlayColor)
-                                        .transition(.scale)
-                                        .animation(.easeInOut, value: frameViewModel.model.anchor)
-                                }
-                                
-                                AcclerometerView(acleroViewModel: acclerometerViewModel, isLocked: $isLocked)
+                                AcclerometerView(accleroViewModel: acclerometerViewModel, isLocked: $isLocked)
                                 
                                 VStack {
+                                    GuidanceTextView(gyroViewModel: gyroViewModel, accleroViewModel: acclerometerViewModel)
                                     Spacer()
                                     if appState.hasCompletedTutorial{
                                         MainAdditionalSetting(
@@ -108,16 +109,15 @@ struct ContentView: View {
                                             cameraViewModel: cameraViewModel,
                                             gyroViewModel: gyroViewModel)
                                     }
-                                    
-                                    
-                                    if !frameViewModel.model.alignmentStatus.isEmpty {
-                                        Text(frameViewModel.model.alignmentStatus)
-                                            .foregroundColor(.white)
-                                            .padding()
-                                            .background(Color.black.opacity(0.7))
-                                            .cornerRadius(10)
-                                            .padding(.bottom, 20)
-                                    }
+                                                                
+//                                    if !frameViewModel.model.alignmentStatus.isEmpty {
+//                                        Text(frameViewModel.model.alignmentStatus)
+//                                            .foregroundColor(.white)
+//                                            .padding()
+//                                            .background(Color.black.opacity(0.7))
+//                                            .cornerRadius(10)
+//                                            .padding(.bottom, 20)
+//                                    }
                                     
                                     BottomBarView(
                                         lastPhoto: lastPhotos.first,
@@ -142,34 +142,32 @@ struct ContentView: View {
                                     .padding(.bottom, 20)
                                 }
                                 
-                                HStack {
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        guard !isCapturingPhoto else { return }
-                                        isCapturingPhoto = true
-                                        frameViewModel.capturePhoto(from: arView) {
-                                            isCapturingPhoto = false
-                                        }
-                                    }) {
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(width: 80, height: 80)
-                                            .overlay(
-                                                Circle()
-                                                    .stroke(Color.gray, lineWidth: 4)
-                                                    .frame(width: 70, height: 70)
-                                            )
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                }
-                                .padding(.bottom, 50)
+//                                HStack {
+//                                    Spacer()
+//                                    
+//                                    Button(action: {
+//                                        guard !isCapturingPhoto else { return }
+//                                        isCapturingPhoto = true
+//                                        frameViewModel.capturePhoto(from: arView) {
+//                                            isCapturingPhoto = false
+//                                        }
+//                                    }) {
+//                                        Circle()
+//                                            .fill(Color.white)
+//                                            .frame(width: 80, height: 80)
+//                                            .overlay(
+//                                                Circle()
+//                                                    .stroke(Color.gray, lineWidth: 4)
+//                                                    .frame(width: 70, height: 70)
+//                                            )
+//                                    }
+//                                    
+//                                    Spacer()
+//                                    
+//                                }
+//                                .padding(.bottom, 50)
                             }
                             
-                            GyroView(
-                                gyroViewModel: gyroViewModel)
                             
                             if !appState.hasCompletedTutorial {
                                 BlackOverlayWithHole(
