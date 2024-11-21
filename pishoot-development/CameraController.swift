@@ -53,7 +53,6 @@ class CameraController: NSObject, ObservableObject {
         // Mengaktifkan pengambilan foto resolusi tinggi
         photoOutput.isHighResolutionCaptureEnabled = true
     }
-
     
     /// Memulai proses pengambilan foto
     func capturePhoto(completion: @escaping (UIImage?) -> Void) {

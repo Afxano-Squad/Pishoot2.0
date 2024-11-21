@@ -165,13 +165,30 @@ struct ContentView: View {
             }
         }
         .statusBar(hidden: true)
-        .onChange(of: appState.hasCompletedTutorial) { hasCompleted in
+        .onChange(of: appState.hasCompletedTutorial) { _,hasCompleted in
             showGuide = !hasCompleted
         }
         
         .onChange(of: scenePhase) {
             handleScenePhaseChange(scenePhase)
+            
         }
+        
+        .onAppear {
+                    // MODIFIED: Mengecek dukungan perangkat dan memulai sesi kamera di sini
+                    print("Checking device capabilities...")
+                    isDeviceSupported = checkDeviceCapabilities()
+                    if isDeviceSupported {
+                        print("Device supported, starting camera session...")
+//                        cameraViewModel.startSession()
+                        PhotoLibraryHelper.fetchLastPhoto { image in
+                            if let image = image {
+                                self.lastPhotos = [image]
+                            }
+                        }
+                    }
+                }
+        
         .onAppear {
             isDeviceSupported = checkDeviceCapabilities()
         }
@@ -200,7 +217,7 @@ struct ContentView: View {
             cameraViewModel.notifyPhoneActive()
             print("App became active")
             if isDeviceSupported {
-                cameraViewModel.startSession()
+//                cameraViewModel.startSession()
                 PhotoLibraryHelper.fetchLastPhoto { image in
                     if let image = image {
                         self.lastPhotos = [image]
@@ -246,3 +263,4 @@ func checkDeviceCapabilities() -> Bool {
     return hasUltraWide && has2xZoom
     
 }
+

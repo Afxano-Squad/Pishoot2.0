@@ -8,6 +8,7 @@ import SwiftUI
 import AVFoundation
 import Combine
 
+
 class CameraViewModel: ObservableObject {
     private var cameraManager: CameraManager
     private var cancellables = Set<AnyCancellable>()

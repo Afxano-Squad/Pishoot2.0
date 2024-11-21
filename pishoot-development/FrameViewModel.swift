@@ -10,9 +10,9 @@ import RealityKit
 import SwiftUI
 import ARKit
 
-protocol CameraDelegate {
-    func didCaptureComplete(image: UIImage?) -> Void
-}
+//protocol CameraDelegate {
+//    func didCaptureComplete(image: UIImage?) -> Void
+//}
 
 class FrameViewModel: ObservableObject {
     
@@ -40,7 +40,7 @@ class FrameViewModel: ObservableObject {
         
         cameraController.capturePhoto { [weak self] (image: UIImage?) in
             self?.isCapturingPhoto = true
-            
+            print("photo capture is working.")
         }
     }
     

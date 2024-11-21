@@ -19,10 +19,8 @@ struct CaptureButton: View {
 
     var body: some View {
         Button(action: {
+            action()
             guard !frameViewModel.isCapturingPhoto else { return }
-            frameViewModel.isCapturingPhoto = true
-            
-            frameViewModel.capturePhoto()
             
         }) {
             Circle()
@@ -43,6 +41,4 @@ struct CaptureButton: View {
             }
         }
     }
-
-
 }
