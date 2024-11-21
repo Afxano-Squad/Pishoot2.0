@@ -12,10 +12,11 @@ import ARKit
 
 class FrameViewModel: ObservableObject {
     @Published var model = FrameModel()
+    @Published var isFrameCorrect: Bool = true
     private var timer: Timer?
     var arView: ARView
     lazy var cameraController = CameraController(arView: arView)
-
+    
     init(arView: ARView) {
         self.arView = arView
     }
@@ -120,13 +121,16 @@ class FrameViewModel: ObservableObject {
             if angle <= acceptableAngle {
                 model.overlayColor = .green
                 model.alignmentStatus = "Pas, sudah dalam kotak!"
+                isFrameCorrect = true
             } else {
                 model.overlayColor = .red
                 model.alignmentStatus = "Belum pas bang, masukin kotak"
+                isFrameCorrect = false
             }
         } else {
             model.overlayColor = .red
             model.alignmentStatus = "Belum pas bang, masukin kotak"
+            isFrameCorrect = false
         }
     }
 }

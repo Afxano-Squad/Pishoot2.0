@@ -38,7 +38,9 @@ struct BottomBarView: View {
                     isCapturing: $isCapturing,
                     animationProgress: $animationProgress,
                     gyroViewModel: gyroViewModel, frameViewModel: frameViewModel,
+                    accelerometerViewModel: acclerometerViewModel,
                     isLocked: $isLocked)
+                .disabled(!acclerometerViewModel.isAcclero)
                 Spacer()
             }
             

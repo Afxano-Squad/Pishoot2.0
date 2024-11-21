@@ -14,18 +14,20 @@ struct CaptureButton: View {
     @Binding var animationProgress: CGFloat
     @ObservedObject var gyroViewModel: GyroViewModel
     @ObservedObject var frameViewModel: FrameViewModel
+    @ObservedObject var accelerometerViewModel: AccelerometerViewModel
     @Binding var isLocked: Bool
     
-
     var body: some View {
         Button(action: {
+            
             self.action()
             withAnimation(.linear(duration: 0.5)) {
                 self.animationProgress = 1
             }
+            
         }) {
             ZStack {
-                if !isCapturing {
+                if !isCapturing{
                     Circle()
                         .stroke(Color.white, lineWidth: 3)
                         .frame(width: 70, height: 70)
@@ -47,7 +49,7 @@ struct CaptureButton: View {
             .accessibilityHint(isCapturing ? "Capturing in progress" : "Tap to capture a picture")
         }
         .accessibilityElement(children: .combine) // Menggabungkan semua elemen dalam Button
-
+        
         .onChange(of: isCapturing) { _, newValue in
             if !newValue {
                 withAnimation(.linear(duration: 0.3)) {
@@ -56,8 +58,8 @@ struct CaptureButton: View {
             }
         }
     }
-
-
+    
+    
 }
 
 //#Preview {
