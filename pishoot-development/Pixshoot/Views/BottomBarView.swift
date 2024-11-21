@@ -41,6 +41,7 @@ struct BottomBarView: View {
                     accelerometerViewModel: acclerometerViewModel,
                     isLocked: $isLocked)
                 .disabled(!acclerometerViewModel.isAcclero)
+                .opacity(acclerometerViewModel.isAcclero ? 1.0 : 0.5)
                 Spacer()
             }
             
