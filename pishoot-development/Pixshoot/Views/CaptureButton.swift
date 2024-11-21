@@ -19,35 +19,23 @@ struct CaptureButton: View {
 
     var body: some View {
         Button(action: {
-            self.action()
-            withAnimation(.linear(duration: 0.5)) {
-                self.animationProgress = 1
-            }
+            guard !frameViewModel.isCapturingPhoto else { return }
+            frameViewModel.isCapturingPhoto = true
+            
+            frameViewModel.capturePhoto()
+            
         }) {
-            ZStack {
-                if !isCapturing {
+            Circle()
+                .fill(Color.white)
+                .frame(width: 80, height: 80)
+                .overlay(
                     Circle()
-                        .stroke(Color.white, lineWidth: 3)
+                        .stroke(Color.gray, lineWidth: 4)
                         .frame(width: 70, height: 70)
-                        .rotationEffect(Angle(degrees: -90))
-                    Circle()
-                        .fill(Color.white)
-                        .frame(width: 60, height: 60)
-                }
-                
-                
-                
-                Circle()
-                    .trim(from: 0, to: animationProgress)
-                    .stroke(Color("Primary"), lineWidth: 10)
-                    .frame(width: 65, height: 65)
-                    .rotationEffect(Angle(degrees: -90))
-            }
-            .accessibilityLabel("Capture")
-            .accessibilityHint(isCapturing ? "Capturing in progress" : "Tap to capture a picture")
+                )
         }
+        
         .accessibilityElement(children: .combine) // Menggabungkan semua elemen dalam Button
-
         .onChange(of: isCapturing) { _, newValue in
             if !newValue {
                 withAnimation(.linear(duration: 0.3)) {

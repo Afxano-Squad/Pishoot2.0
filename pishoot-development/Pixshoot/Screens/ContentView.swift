@@ -132,30 +132,6 @@ struct ContentView: View {
                                     .padding(.bottom, 20)
                                 }
                                 
-                                HStack {
-                                    Spacer()
-                                    
-                                    Button(action: {
-                                        guard !frameViewModel.isCapturingPhoto else { return }
-                                        frameViewModel.isCapturingPhoto = true
-                                        
-                                        frameViewModel.capturePhoto()
-                                        
-                                    }) {
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(width: 80, height: 80)
-                                            .overlay(
-                                                Circle()
-                                                    .stroke(Color.gray, lineWidth: 4)
-                                                    .frame(width: 70, height: 70)
-                                            )
-                                    }
-                                    
-                                    Spacer()
-                                    
-                                }
-                                .padding(.bottom, 50)
                             }
                             
                             GyroView(
