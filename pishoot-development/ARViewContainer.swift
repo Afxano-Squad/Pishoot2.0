@@ -75,18 +75,4 @@ class ARViewCoordinator: NSObject, ARSessionDelegate {
         print("ARSession was interrupted")
     }
 
-//    func sessionInterruptionEnded(_ session: ARSession) {
-//        print("ARSession interruption ended")
-//        restartARSession(for: session)
-//    }
-
-//    private func restartARSession(for session: ARSession) {
-//        guard ARViewContainer.isSessionStarted else {
-//            print("AR session not active, skipping restart")
-//            return
-//        }
-//        let configuration = ARWorldTrackingConfiguration()
-//        session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-//        print("AR session restarted")
-//    }
 }

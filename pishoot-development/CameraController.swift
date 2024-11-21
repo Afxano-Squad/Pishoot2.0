@@ -12,6 +12,8 @@ import UIKit
 import ARKit
 
 class CameraController: NSObject, ObservableObject {
+    
+    @Published var CameraManager: CameraManager?
     var captureSession: AVCaptureSession?
     var photoOutput: AVCapturePhotoOutput?
 
@@ -52,12 +54,13 @@ class CameraController: NSObject, ObservableObject {
         photoOutput.isHighResolutionCaptureEnabled = true
     }
 
+    
     /// Memulai proses pengambilan foto
     func capturePhoto(completion: @escaping (UIImage?) -> Void) {
         setupCamera()
-
+        CameraManager?.isCapturingPhoto = true
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
-            self.captureSession?.startRunning() // Mulai sesi kamera
+            self.captureSession?.startRunning()
             print("Camera session started")
 
             DispatchQueue.main.async {

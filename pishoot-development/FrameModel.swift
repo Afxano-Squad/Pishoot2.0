@@ -11,6 +11,6 @@ import SwiftUI
 
 struct FrameModel {
     var anchor: AnchorEntity?
-    var overlayColor: Color = .red
+    var overlayColor: Color = .white
     var alignmentStatus: String = "Belum pas bang, masukin kotak"
 }

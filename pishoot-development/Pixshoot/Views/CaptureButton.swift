@@ -34,7 +34,6 @@ struct CaptureButton: View {
                         .frame(width: 70, height: 70)
                 )
         }
-        
         .accessibilityElement(children: .combine) // Menggabungkan semua elemen dalam Button
         .onChange(of: isCapturing) { _, newValue in
             if !newValue {
@@ -47,12 +46,3 @@ struct CaptureButton: View {
 
 
 }
-
-//#Preview {
-//    // Provide a sample GyroViewModel if necessary for previewing
-//    CaptureButton(
-//        action: {
-//            print("Capture picture action triggered")  // Replace with your capture logic
-//        }, isCapturing: .constant(false), animationProgress: .constant(0.5),
-//        gyroViewModel: GyroViewModel(), isLocked: .constant(false))
-//}

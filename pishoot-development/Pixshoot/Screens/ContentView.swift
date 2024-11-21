@@ -33,7 +33,7 @@ struct ContentView: View {
     
     @State private var arView = ARView(frame: .zero)
     
-//    @State private var isCapturingPhoto = false
+    //    @State private var isCapturingPhoto = false
     
     init() {
         let arViewInstance = ARView(frame: .zero)
@@ -246,5 +246,3 @@ func checkDeviceCapabilities() -> Bool {
     return hasUltraWide && has2xZoom
     
 }
-
-

@@ -15,18 +15,19 @@ protocol CameraDelegate {
 }
 
 class FrameViewModel: ObservableObject {
+    
     @Published var model = FrameModel()
     @Published var isCapturingPhoto: Bool = false
     
     private var timer: Timer?
     var arView: ARView
     lazy var cameraController = CameraController(arView: arView)
-
+    
     init(arView: ARView) {
         self.arView = arView
         self.cameraController.delegate = self
     }
-
+    
     func toggleFrame(at arView: ARView) {
         if model.anchor != nil {
             removeFrame(from: arView)
@@ -34,15 +35,15 @@ class FrameViewModel: ObservableObject {
             addFrame(to: arView)
         }
     }
-
+    
     func capturePhoto() {
         
-        
         cameraController.capturePhoto { [weak self] (image: UIImage?) in
-
+            self?.isCapturingPhoto = true
+            
         }
     }
-
+    
     func addFrame(to arView: ARView) {
         if let cameraTransform = arView.session.currentFrame?.camera.transform {
             let modelEntity = createPhotoFrame()
@@ -56,7 +57,7 @@ class FrameViewModel: ObservableObject {
             startLiveAlignmentCheck(arView: arView)
         }
     }
-
+    
     func removeFrame(from arView: ARView) {
         if let anchor = model.anchor {
             arView.scene.removeAnchor(anchor)
@@ -64,53 +65,69 @@ class FrameViewModel: ObservableObject {
         }
         stopLiveAlignmentCheck()
     }
-
+    
     private func createPhotoFrame() -> AnchorEntity {
-        let frameThickness: Float = 0.005
-        let outerSize: Float = 0.2
-        let material = SimpleMaterial(color: .black, isMetallic: true)
-
-        let top = ModelEntity(mesh: MeshResource.generateBox(size: [outerSize, frameThickness, frameThickness]), materials: [material])
-        let bottom = ModelEntity(mesh: MeshResource.generateBox(size: [outerSize, frameThickness, frameThickness]), materials: [material])
-        let left = ModelEntity(mesh: MeshResource.generateBox(size: [frameThickness, outerSize, frameThickness]), materials: [material])
-        let right = ModelEntity(mesh: MeshResource.generateBox(size: [frameThickness, outerSize, frameThickness]), materials: [material])
-
-        top.position = [0, (outerSize - frameThickness) / 2, 0]
-        bottom.position = [0, -(outerSize - frameThickness) / 2, 0]
-        left.position = [-(outerSize - frameThickness) / 2, 0, 0]
-        right.position = [(outerSize - frameThickness) / 2, 0, 0]
+        let frameThickness: Float = 0.004
+        let outerWidth: Float = 0.06
+        let outerHeight: Float = 0.12
+        let dashLength: Float = 0.02
+        let dashSpacing: Float = 0.01
+        let material = UnlitMaterial(color: .yellow)  // Gantilah ke UnlitMaterial
 
         let anchor = AnchorEntity(world: [0, 0, 0])
-        anchor.addChild(top)
-        anchor.addChild(bottom)
-        anchor.addChild(left)
-        anchor.addChild(right)
+
+        func createDashedLine(length: Float, axis: SIMD3<Float>, positionOffset: SIMD3<Float>) {
+            var currentLength: Float = 0
+            while currentLength < length {
+                let dash = ModelEntity(mesh: MeshResource.generateBox(size: [axis.x != 0 ? dashLength : frameThickness,
+                                                                                 axis.y != 0 ? dashLength : frameThickness,
+                                                                                 frameThickness]),
+                                           materials: [material])
+                dash.position = positionOffset + (axis * (currentLength + dashLength / 2))
+                anchor.addChild(dash)
+                currentLength += dashLength + dashSpacing
+            }
+        }
+
+        createDashedLine(length: outerWidth - dashLength, axis: SIMD3<Float>(1, 0, 0), positionOffset: SIMD3<Float>(-outerWidth / 2 + dashLength / 2, outerHeight / 2, 0))
+        createDashedLine(length: outerWidth - dashLength, axis: SIMD3<Float>(1, 0, 0), positionOffset: SIMD3<Float>(-outerWidth / 2 + dashLength / 2, -outerHeight / 2, 0))
+        createDashedLine(length: outerHeight - dashLength, axis: SIMD3<Float>(0, 1, 0), positionOffset: SIMD3<Float>(-outerWidth / 2, -outerHeight / 2 + dashLength / 2, 0))
+        createDashedLine(length: outerHeight - dashLength, axis: SIMD3<Float>(0, 1, 0), positionOffset: SIMD3<Float>(outerWidth / 2, -outerHeight / 2 + dashLength / 2, 0))
+
+        let plusHorizontal = ModelEntity(mesh: MeshResource.generateBox(size: [dashLength, frameThickness, frameThickness]), materials: [material])
+        let plusVertical = ModelEntity(mesh: MeshResource.generateBox(size: [frameThickness, dashLength, frameThickness]), materials: [material])
+        plusHorizontal.position = SIMD3<Float>(0, 0, 0)
+        plusVertical.position = SIMD3<Float>(0, 0, 0)
+        anchor.addChild(plusHorizontal)
+        anchor.addChild(plusVertical)
 
         return anchor
     }
 
+
+    
     private func startLiveAlignmentCheck(arView: ARView) {
         timer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { _ in
             self.checkOverlayColor(arView: arView)
         }
     }
-
+    
     private func stopLiveAlignmentCheck() {
         timer?.invalidate()
         timer = nil
     }
-
+    
     private func checkOverlayColor(arView: ARView) {
         guard let anchor = model.anchor else { return }
         guard let cameraTransform = arView.session.currentFrame?.camera.transform else { return }
-
+        
         let anchorPosition = anchor.transform.translation
         let cameraPosition = cameraTransform.translation
-
+        
         let distance = simd_distance(anchorPosition, cameraPosition)
         let acceptableDistance: Float = 0.5
         let acceptableAngle: Float = 15.0
-
+        
         if distance <= acceptableDistance {
             let cameraForward = cameraTransform.columns.2
             let anchorForward = anchor.transform.matrix.columns.2
@@ -118,7 +135,7 @@ class FrameViewModel: ObservableObject {
             let angle = acos(dot(cameraForward, anchorForward) / (length(cameraForward) * length(anchorForward))) * (180.0 / .pi)
             
             if angle <= acceptableAngle {
-                model.overlayColor = .green
+                model.overlayColor = .yellow
                 model.alignmentStatus = "Pas, sudah dalam kotak!"
             } else {
                 model.overlayColor = .red
@@ -132,18 +149,18 @@ class FrameViewModel: ObservableObject {
     
     // Menghentikan sesi kamera dan melanjutkan kembali ke AR session
     func returnToARSession() {
-
+        
         // Hentikan sesi kamera
         cameraController.captureSession?.stopRunning()
         cameraController.captureSession = nil // **Perubahan: Set `captureSession` menjadi `nil` untuk memastikan direset**
         print("Camera session stopped")
-
+        
         // Lanjutkan AR session
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
             let configuration = ARWorldTrackingConfiguration()
             self.arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
             print("AR session resumed") // Log menandakan AR session dilanjutkan
-
+            
         }
     }
 }
