@@ -10,12 +10,11 @@ import SwiftUI
 struct AcclerometerView: View {
     @ObservedObject var accleroViewModel: AccelerometerViewModel
     let numberOfBars = 15
-    @State private var accelerationText: String = "Y-Acceleration: 0.0"
     @Binding var isLocked: Bool
     
     var body: some View {
         VStack {
-            // Z-Axis roll view
+            // Z-Axis Roll View
             ZStack {
                 HStack {
                     Spacer()
@@ -31,7 +30,6 @@ struct AcclerometerView: View {
                     }
                 }
                 
-                // Highlight center bar
                 HStack {
                     Spacer()
                     VStack(alignment: .trailing) {
@@ -40,6 +38,34 @@ struct AcclerometerView: View {
                             .frame(width: 60, height: 10)
                     }
                 }
+            }
+            
+            
+            ZStack {
+                VStack {
+                    HStack(alignment: .top) {
+                        ForEach(0..<numberOfBars, id: \.self) { index in
+                            Rectangle()
+                                .fill(
+                                    index == accleroViewModel.calculateDynamicIndexX() ?
+                                    Color.blue.opacity(0.7) : Color.white.opacity(0.3)
+                                )
+                                .frame(width: 10, height: calculateHeight(for: index))
+                        }
+                    }
+                    Spacer()
+                }
+                
+                
+                VStack{
+                    HStack {
+                        Rectangle()
+                            .fill(accleroViewModel.calculateDynamicIndexX() == numberOfBars / 2 ? Color.blue : Color.white)
+                            .frame(width: 10, height: 60)
+                    }
+                    Spacer()
+                }
+                
             }
         }
         .onAppear {
@@ -62,7 +88,7 @@ struct AcclerometerView: View {
         }
     }
     
-    // For X-axis dynamic bar height (optional)
+    // For X-axis dynamic bar height
     func calculateHeight(for index: Int) -> CGFloat {
         let dynamicIndex = accleroViewModel.calculateDynamicIndexX()
         if index == dynamicIndex {
@@ -73,4 +99,8 @@ struct AcclerometerView: View {
             return 20
         }
     }
+}
+
+#Preview{
+    AcclerometerView(accleroViewModel: AccelerometerViewModel(), isLocked: .constant(true ))
 }
