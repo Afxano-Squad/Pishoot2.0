@@ -27,6 +27,7 @@ struct AcclerometerView: View {
                                     Color.yellow.opacity(0.7) : Color.white.opacity(0.3)
                                 )
                                 .frame(width: calculateWidth(for: index), height: 10)
+                            //add haptic later. (if the gyro is align)
                         }
                     }
                 }
@@ -40,36 +41,35 @@ struct AcclerometerView: View {
                     }
                 }
             }
-            .padding()
-            .overlay(Text("Roll View (Z)").font(.headline).foregroundColor(.white), alignment: .top)
+            
 
             // Roll View for Acceleration X
-            ZStack {
-                VStack {
-                    Spacer()
-                    HStack {
-                        ForEach(0..<numberOfBars, id: \.self) { index in
-                            Rectangle()
-                                .fill(
-                                    index == calculateDynamicIndexX() ?
-                                    Color.blue.opacity(0.7) : Color.white.opacity(0.3)
-                                )
-                                .frame(width: 10, height: calculateHeight(for: index))
-                        }
-                    }
-                }
-
-                VStack {
-                    Spacer()
-                    HStack {
-                        Rectangle()
-                            .fill(calculateDynamicIndexX() == numberOfBars / 2 ? Color.blue : Color.white)
-                            .frame(width: 10, height: 60)
-                    }
-                }
-            }
-            .padding()
-            .overlay(Text("Roll View (X)").font(.headline).foregroundColor(.white), alignment: .top)
+//            ZStack {
+//                VStack {
+//                    Spacer()
+//                    HStack {
+//                        ForEach(0..<numberOfBars, id: \.self) { index in
+//                            Rectangle()
+//                                .fill(
+//                                    index == calculateDynamicIndexX() ?
+//                                    Color.blue.opacity(0.7) : Color.white.opacity(0.3)
+//                                )
+//                                .frame(width: 10, height: calculateHeight(for: index))
+//                        }
+//                    }
+//                }
+//
+//                VStack {
+//                    Spacer()
+//                    HStack {
+//                        Rectangle()
+//                            .fill(calculateDynamicIndexX() == numberOfBars / 2 ? Color.blue : Color.white)
+//                            .frame(width: 10, height: 60)
+//                    }
+//                }
+//            }
+//            .padding()
+//            .overlay(Text("Roll View (X)").font(.headline).foregroundColor(.white), alignment: .top)
         }
         .onAppear {
             acleroViewModel.start()

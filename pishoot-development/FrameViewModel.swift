@@ -10,14 +10,21 @@ import RealityKit
 import SwiftUI
 import ARKit
 
+protocol CameraDelegate {
+    func didCaptureComplete(image: UIImage?) -> Void
+}
+
 class FrameViewModel: ObservableObject {
     @Published var model = FrameModel()
+    @Published var isCapturingPhoto: Bool = false
+    
     private var timer: Timer?
     var arView: ARView
     lazy var cameraController = CameraController(arView: arView)
 
     init(arView: ARView) {
         self.arView = arView
+        self.cameraController.delegate = self
     }
 
     func toggleFrame(at arView: ARView) {
@@ -28,18 +35,11 @@ class FrameViewModel: ObservableObject {
         }
     }
 
-    func capturePhoto(from arView: ARView, completion: @escaping () -> Void) {
+    func capturePhoto() {
+        
+        
         cameraController.capturePhoto { [weak self] (image: UIImage?) in
-            guard let self = self else { return }
-            if let image = image {
-                print("Photo captured successfully")
-                UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-            } else {
-                print("Failed to capture photo")
-            }
 
-            self.cameraController.returnToARSession()
-            completion()
         }
     }
 
@@ -129,6 +129,32 @@ class FrameViewModel: ObservableObject {
             model.alignmentStatus = "Belum pas bang, masukin kotak"
         }
     }
+    
+    // Menghentikan sesi kamera dan melanjutkan kembali ke AR session
+    func returnToARSession() {
+
+        // Hentikan sesi kamera
+        cameraController.captureSession?.stopRunning()
+        cameraController.captureSession = nil // **Perubahan: Set `captureSession` menjadi `nil` untuk memastikan direset**
+        print("Camera session stopped")
+
+        // Lanjutkan AR session
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
+            let configuration = ARWorldTrackingConfiguration()
+            self.arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+            print("AR session resumed") // Log menandakan AR session dilanjutkan
+
+        }
+    }
+}
+
+extension FrameViewModel: CameraDelegate{
+    func didCaptureComplete(image: UIImage?) {
+        print("Capture Complete and photo saved!")
+        isCapturingPhoto = false
+        self.returnToARSession()
+    }
+    
 }
 
 extension simd_float4x4 {

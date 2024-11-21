@@ -14,16 +14,17 @@ import ARKit
 class CameraController: NSObject, ObservableObject {
     var captureSession: AVCaptureSession?
     var photoOutput: AVCapturePhotoOutput?
-    var arView: ARView?
 
+    var delegate: CameraDelegate?
+    
     init(arView: ARView) {
-        self.arView = arView
         super.init()
-        setupCamera()
+        setupCamera() // Inisialisasi sesi kamera saat controller dibuat
     }
 
+    /// Mengatur ulang sesi kamera untuk memastikan dimulai dari awal setiap kali digunakan
     private func setupCamera() {
-        captureSession = AVCaptureSession()
+        captureSession = AVCaptureSession() // Membuat ulang `AVCaptureSession`
         photoOutput = AVCapturePhotoOutput()
 
         guard let captureSession = captureSession,
@@ -38,26 +39,25 @@ class CameraController: NSObject, ObservableObject {
             print("Failed to add video input")
             return
         }
+
         captureSession.addInput(videoInput)
-        print("Video input added to session")
+        print("Video input added to session") // Log menandakan input kamera berhasil ditambahkan
 
         if captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
-            print("Photo output added to session")
+            print("Photo output added to session") // Log menandakan output kamera berhasil ditambahkan
         }
 
-        // Enable high-resolution capture
+        // Mengaktifkan pengambilan foto resolusi tinggi
         photoOutput.isHighResolutionCaptureEnabled = true
     }
 
+    /// Memulai proses pengambilan foto
     func capturePhoto(completion: @escaping (UIImage?) -> Void) {
-        guard let arView = arView else { return }
-        arView.session.pause()
-        print("AR session paused")
+        setupCamera()
 
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
-            guard let session = self.captureSession else { return }
-            session.startRunning()
+            self.captureSession?.startRunning() // Mulai sesi kamera
             print("Camera session started")
 
             DispatchQueue.main.async {
@@ -67,36 +67,17 @@ class CameraController: NSObject, ObservableObject {
                     return
                 }
 
-                // Ensure high-resolution settings are valid
-                guard photoOutput.isHighResolutionCaptureEnabled else {
-                    print("High resolution capture not enabled")
-                    completion(nil)
-                    return
-                }
-
                 let settings = AVCapturePhotoSettings()
                 settings.isHighResolutionPhotoEnabled = true
-                photoOutput.capturePhoto(with: settings, delegate: self)
+                photoOutput.capturePhoto(with: settings, delegate: self) // Mengambil foto
             }
         }
     }
 
-    func returnToARSession() {
-        guard let arView = self.arView else { return }
-        
-        captureSession?.stopRunning()
-        captureSession = nil // Pastikan AVCaptureSession dihentikan
-        print("Camera session stopped")
-        
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
-            let configuration = ARWorldTrackingConfiguration()
-            arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-            print("AR session resumed")
-        }
-    }
 }
 
 extension CameraController: AVCapturePhotoCaptureDelegate {
+    /// Delegate untuk memproses foto yang telah diambil
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
             print("Error capturing photo: \(error.localizedDescription)")
@@ -111,8 +92,12 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
 
         DispatchQueue.main.async {
             print("Photo captured successfully")
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) // Save the photo to the photo library
-            self.returnToARSession()
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) // Menyimpan foto ke galeri
+            self.delegate?.didCaptureComplete(image: image)
+            
+            
+// Kembali ke AR session setelah foto selesai diproses
+//            self.returnToARSession()
         }
     }
 }

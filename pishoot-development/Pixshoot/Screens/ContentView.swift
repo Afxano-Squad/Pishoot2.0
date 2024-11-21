@@ -33,7 +33,7 @@ struct ContentView: View {
     
     @State private var arView = ARView(frame: .zero)
     
-    @State private var isCapturingPhoto = false
+//    @State private var isCapturingPhoto = false
     
     init() {
         let arViewInstance = ARView(frame: .zero)
@@ -109,16 +109,6 @@ struct ContentView: View {
                                             gyroViewModel: gyroViewModel)
                                     }
                                     
-                                    
-                                    if !frameViewModel.model.alignmentStatus.isEmpty {
-                                        Text(frameViewModel.model.alignmentStatus)
-                                            .foregroundColor(.white)
-                                            .padding()
-                                            .background(Color.black.opacity(0.7))
-                                            .cornerRadius(10)
-                                            .padding(.bottom, 20)
-                                    }
-                                    
                                     BottomBarView(
                                         lastPhoto: lastPhotos.first,
                                         captureAction: {
@@ -146,11 +136,11 @@ struct ContentView: View {
                                     Spacer()
                                     
                                     Button(action: {
-                                        guard !isCapturingPhoto else { return }
-                                        isCapturingPhoto = true
-                                        frameViewModel.capturePhoto(from: arView) {
-                                            isCapturingPhoto = false
-                                        }
+                                        guard !frameViewModel.isCapturingPhoto else { return }
+                                        frameViewModel.isCapturingPhoto = true
+                                        
+                                        frameViewModel.capturePhoto()
+                                        
                                     }) {
                                         Circle()
                                             .fill(Color.white)
