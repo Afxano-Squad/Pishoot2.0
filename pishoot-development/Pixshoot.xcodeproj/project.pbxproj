@@ -37,9 +37,12 @@
 		27ECB80D2C3856E8004FFBA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F8458D62C2AB4140033FED7 /* Assets.xcassets */; };
 		679A619C2CD669860054688B /* AccessibilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A619B2CD669860054688B /* AccessibilityExtensions.swift */; };
 		679A61A22CD67A350054688B /* benar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 679A61A12CD67A350054688B /* benar.mp3 */; };
+		C00213F52CED9576004BECDB /* anglelock.gif in Resources */ = {isa = PBXBuildFile; fileRef = C00213F42CED9576004BECDB /* anglelock.gif */; };
+		C00213F62CED9576004BECDB /* anglelock.gif in Resources */ = {isa = PBXBuildFile; fileRef = C00213F42CED9576004BECDB /* anglelock.gif */; };
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
 		C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C52CCF3D8700DEC909 /* GyroManager.swift */; };
 		C053C5CD2CCF444900DEC909 /* gyroview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5CC2CCF444400DEC909 /* gyroview.swift */; };
+		C088E1FD2CED98900095D824 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = C088E1FC2CED98900095D824 /* SDWebImageSwiftUI */; };
 		C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */; };
 		C0A7F6602CD7C497008EFC6B /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */; };
 		C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */; };
@@ -111,6 +114,7 @@
 		279E1D9E2C36E21D0078C2A1 /* Marker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
 		679A619B2CD669860054688B /* AccessibilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityExtensions.swift; sourceTree = "<group>"; };
 		679A61A12CD67A350054688B /* benar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = benar.mp3; sourceTree = "<group>"; };
+		C00213F42CED9576004BECDB /* anglelock.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = anglelock.gif; sourceTree = "<group>"; };
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
 		C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroViewModel.swift; sourceTree = "<group>"; };
 		C053C5CC2CCF444400DEC909 /* gyroview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gyroview.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C088E1FD2CED98900095D824 /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,9 +292,18 @@
 			path = Screens;
 			sourceTree = "<group>";
 		};
+		C00213FA2CED9584004BECDB /* VideoAsset */ = {
+			isa = PBXGroup;
+			children = (
+				C00213F42CED9576004BECDB /* anglelock.gif */,
+			);
+			path = VideoAsset;
+			sourceTree = "<group>";
+		};
 		C0A7F65B2CD7C489008EFC6B /* Tutorial */ = {
 			isa = PBXGroup;
 			children = (
+				C00213FA2CED9584004BECDB /* VideoAsset */,
 				C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */,
 				C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */,
 				C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */,
@@ -391,6 +405,9 @@
 				Base,
 			);
 			mainGroup = 0F8458C62C2AB4130033FED7;
+			packageReferences = (
+				C00213FD2CED97ED004BECDB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			productRefGroup = 0F8458D02C2AB4130033FED7 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -407,6 +424,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				679A61A22CD67A350054688B /* benar.mp3 in Resources */,
+				C00213F52CED9576004BECDB /* anglelock.gif in Resources */,
 				0F8458DA2C2AB4140033FED7 /* Preview Assets.xcassets in Resources */,
 				0F8458D72C2AB4140033FED7 /* Assets.xcassets in Resources */,
 			);
@@ -417,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9E5A4902C3545F5005EB61A /* Preview Assets.xcassets in Resources */,
+				C00213F62CED9576004BECDB /* anglelock.gif in Resources */,
 				27ECB80D2C3856E8004FFBA8 /* Assets.xcassets in Resources */,
 				E9E5A48D2C3545F5005EB61A /* Assets.xcassets in Resources */,
 			);
@@ -617,7 +636,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -663,7 +682,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -709,7 +728,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
@@ -742,7 +761,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
@@ -797,6 +816,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C00213FD2CED97ED004BECDB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C088E1FC2CED98900095D824 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C00213FD2CED97ED004BECDB /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0F8458C72C2AB4130033FED7 /* Project object */;
 }

@@ -9,54 +9,18 @@ import SwiftUI
 
 let tutorialSteps: [TutorialStep] = [
     TutorialStep(
-        overlayWidth: UIScreen.main.bounds.width ,
-        overlayHeight: UIScreen.main.bounds.height ,
-        overlayPositionX: 0,
-        overlayPositionY: 0,
-        image: "hand.point.up.left.fill",
-        imageWidth: 100,
-        imageHeight: 150,
-        text: "First, point your first shoot"
+        title: "Position Lock",
+        text: "On-screen guides will stranger capture exactly what you envisioned.",
+        gifName: "anglelock.gif"
     ),
     TutorialStep(
-        overlayWidth: 75,
-        overlayHeight: 85,
-        overlayPositionX: 140,
-        overlayPositionY: 300,
-        image: "hand.point.up.left.fill",
-        imageWidth: 100,
-        imageHeight: 150,
-        text: "Lock your photo position by tap lock button"
+        title: "Angle Lock",
+        text: "This feature ensures strangers gets the perfect angle you’re looking for!",
+        gifName: "anglelock.gif"
     ),
     TutorialStep(
-        overlayWidth: UIScreen.main.bounds.width,
-        overlayHeight: UIScreen.main.bounds.height,
-        overlayPositionX: 0,
-        overlayPositionY: 0,
-        image: "",
-        imageWidth: 0,
-        imageHeight: 0,
-        text: ""
-    ),
-    TutorialStep(
-        overlayWidth: 100,
-        overlayHeight: 120,
-        overlayPositionX: 0,
-        overlayPositionY: 300,
-        image: "camera",
-        imageWidth: 130,
-        imageHeight: 170,
-        text: "Press the shutter button to take a photo."
-    ),
-    TutorialStep(
-        overlayWidth: UIScreen.main.bounds.width,
-        overlayHeight: UIScreen.main.bounds.height,
-        overlayPositionX: 0,
-        overlayPositionY: 0,
-        image: "",
-        imageWidth: 0,
-        imageHeight: 0,
-        text: ""
+        title: "Guidance",
+        text: "Follow the guides until they light up, then capture your ideal frame.",
+        gifName: "anglelock.gif"
     )
-    
 ]
