@@ -84,10 +84,10 @@ class AccelerometerViewModel: ObservableObject {
         let currentIndex = calculateDynamicIndexX()
         if currentIndex < midIndex {
             isAccleroX = false
-            guidanceTextX = "Point up"
+            guidanceTextX = "Point down"
         } else if currentIndex > midIndex {
             isAccleroX = false
-            guidanceTextX = "Point down"
+            guidanceTextX = "Point up"
         } else {
             guidanceTextX = "You are centered!"
             isAccleroX = true
