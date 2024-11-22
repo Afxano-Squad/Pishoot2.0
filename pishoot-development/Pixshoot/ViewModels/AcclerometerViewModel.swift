@@ -8,10 +8,12 @@ class AccelerometerViewModel: ObservableObject {
     private var hapticGenerator: UIImpactFeedbackGenerator?
     @Published var accelerationZ: Double = 0.0
     @Published var accelerationX: Double = 0.0
-    @Published var isAcclero: Bool = false
+    @Published var isAccleroX: Bool = false
+    @Published var isAccleroZ: Bool = false
     @Published var lockedBaselineZ: Double? = nil
     @Published var lockedBaselineX: Double? = nil
-    @Published var guidanceText: String = ""
+    @Published var guidanceTextX: String = ""
+    @Published var guidanceTextZ: String = ""
     let numberOfBars = 15
 
     init(accelerometerManager: AccelerometerManager = AccelerometerManager()) {
@@ -22,14 +24,14 @@ class AccelerometerViewModel: ObservableObject {
         accelerometerManager.$accelerationZ
             .sink { [weak self] newZ in
                 self?.accelerationZ = newZ
-                self?.checkAcceleration()
+                self?.checkAccelerationZ()
             }
             .store(in: &cancellables)
 
         accelerometerManager.$accelerationX
             .sink { [weak self] newX in
                 self?.accelerationX = newX
-                self?.checkAcceleration()
+                self?.checkAccelerationX()
             }
             .store(in: &cancellables)
     }
@@ -54,22 +56,44 @@ class AccelerometerViewModel: ObservableObject {
         lockedBaselineX = nil
     }
     
-    func checkAcceleration() {
-        let previousSuccess = isAcclero
+    func checkAccelerationZ() {
+        let previousSuccess = isAccleroZ
         let midIndex = numberOfBars / 2
         let currentIndex = calculateDynamicIndexZ()
+        print("IsaccleroZ : \(isAccleroZ)")
+        print("IsaccleroX : \(isAccleroX)")
         if currentIndex < midIndex {
-            isAcclero = false
-            guidanceText = "Point up"
+            isAccleroZ = false
+            guidanceTextZ = "Point up"
         } else if currentIndex > midIndex {
-            isAcclero = false
-            guidanceText = "Point down"
+            isAccleroZ = false
+            guidanceTextZ = "Point down"
         } else {
-            guidanceText = "You are centered!"
-            isAcclero = true
+            guidanceTextZ = "You are centered!"
+            isAccleroZ = true
         }
         
-        if isAcclero && !previousSuccess{
+        if isAccleroZ && !previousSuccess{
+            hapticGenerator?.impactOccurred()
+        }
+    }
+    
+    func checkAccelerationX() {
+        let previousSuccess = isAccleroX
+        let midIndex = numberOfBars / 2
+        let currentIndex = calculateDynamicIndexX()
+        if currentIndex < midIndex {
+            isAccleroX = false
+            guidanceTextX = "Point up"
+        } else if currentIndex > midIndex {
+            isAccleroX = false
+            guidanceTextX = "Point down"
+        } else {
+            guidanceTextX = "You are centered!"
+            isAccleroX = true
+        }
+        
+        if isAccleroX && !previousSuccess{
             hapticGenerator?.impactOccurred()
         }
     }

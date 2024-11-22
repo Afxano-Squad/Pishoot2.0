@@ -94,10 +94,11 @@ struct ContentView: View {
 //                                        .animation(.easeInOut, value: frameViewModel.model.anchor)
 //                                }
                                 
-                                AcclerometerView(accleroViewModel: acclerometerViewModel, isLocked: $isLocked)
+                                AcclerometerView(accleroViewModel: acclerometerViewModel, gyroViewModel: gyroViewModel, isLocked: $isLocked)
+                                GuidanceTextView(gyroViewModel: gyroViewModel, accleroViewModel: acclerometerViewModel)
                                 
                                 VStack {
-                                    GuidanceTextView(gyroViewModel: gyroViewModel, accleroViewModel: acclerometerViewModel)
+                                    
                                     Spacer()
                                     if appState.hasCompletedTutorial{
                                         MainAdditionalSetting(
