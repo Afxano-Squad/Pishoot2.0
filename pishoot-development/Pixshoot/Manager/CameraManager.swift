@@ -132,7 +132,7 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     func toggleFlash() {
         isFlashOn.toggle()
     }
-    /// CAPTURE logic
+    /// CAPTURE logic yang kasi 3 gambar
     func capturePhotos(completion: @escaping ([UIImage]) -> Void) {
         guard let session = session else {
             print("Camera session is not initialized")
@@ -273,6 +273,7 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
             
             DispatchQueue.main.async {
                 print("Photo captured successfully")
+           
                 self.delegate?.didCaptureComplete(image: self.capturedImages.last)
 
             }

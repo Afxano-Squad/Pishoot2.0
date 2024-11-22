@@ -10,10 +10,6 @@ import RealityKit
 import SwiftUI
 import ARKit
 
-//protocol CameraDelegate {
-//    func didCaptureComplete(image: UIImage?) -> Void
-//}
-
 class FrameViewModel: ObservableObject {
     
     @Published var model = FrameModel()
@@ -35,6 +31,19 @@ class FrameViewModel: ObservableObject {
             addFrame(to: arView)
         }
     }
+    
+    private func pauseARSession() {
+        arView.session.pause()
+        print("AR session paused.")
+    }
+
+    private func resumeARSession() {
+        let configuration = ARWorldTrackingConfiguration()
+        arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        print("AR session resumed.")
+    }
+
+    
     
     func capturePhoto() {
         
