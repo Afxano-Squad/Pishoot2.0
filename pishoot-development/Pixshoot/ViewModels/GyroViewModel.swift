@@ -86,7 +86,7 @@ class GyroViewModel: ObservableObject {
         // Trigger haptic feedback only when transitioning from false to true
         if isSuccess && !previousSuccess {
             guidanceText = "Both Success!"
-            hapticGenerator?.impactOccurred()  // Trigger haptic feedback when success is first achieved
+//            hapticGenerator?.impactOccurred()
         }
     }
 
