@@ -116,17 +116,17 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     }
     
     
-    func stopSession() {
-        guard let session = session else {
-            print("Session is not initialized")
-            return
-        }
-        
-        if session.isRunning {
-            session.stopRunning()
-            print("Camera session stopped")
-        }
+func stopSession() {
+    guard let session = session else {
+        print("Session is not initialized")
+        return
     }
+    
+    if session.isRunning {
+        session.stopRunning()
+        print("Camera session stopped")
+    }
+}
     
     
     func toggleFlash() {

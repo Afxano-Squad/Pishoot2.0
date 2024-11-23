@@ -1,35 +1,26 @@
-//
-//  CameraController.swift
-//  FinalChallengeDummy3
-//
-//  Created by Farid Andika on 14/11/24.
-//
-
 import Foundation
 import AVFoundation
 import RealityKit
 import UIKit
 import ARKit
 
-
 class CameraController: NSObject, ObservableObject {
-    
+
     @Published var CameraManager: CameraManager?
     var captureSession: AVCaptureSession?
     var photoOutput: AVCapturePhotoOutput?
 
     var delegate: CameraDelegate?
-    var arView: ARView // MENYIMPAN REFERENSI ARVIEW UNTUK PAUSE DAN RESUME AR SESSION
+    var arView: ARView // Referensi ARView untuk pause dan resume
 
     init(arView: ARView) {
-        self.arView = arView // MENYIMPAN ARVIEW SEBAGAI PROPERTY
+        self.arView = arView
         super.init()
-        setupCamera() // INISIALISASI SESI KAMERA SAAT CONTROLLER DIBUAT
     }
 
-    /// Mengatur ulang sesi kamera untuk memastikan dimulai dari awal setiap kali digunakan
-    private func setupCamera() {
-        captureSession = AVCaptureSession() // MEMBUAT ULANG `AVCaptureSession`
+    // Fungsi untuk mengatur sesi kamera saat diperlukan
+    private func setupCamera(lense: AVCaptureDevice.DeviceType) {
+        captureSession = AVCaptureSession()
         photoOutput = AVCapturePhotoOutput()
 
         guard let captureSession = captureSession,
@@ -38,7 +29,7 @@ class CameraController: NSObject, ObservableObject {
             return
         }
 
-        guard let videoDevice = AVCaptureDevice.default(for: .video),
+        guard let videoDevice = AVCaptureDevice.default(lense, for: .video, position: .back),
               let videoInput = try? AVCaptureDeviceInput(device: videoDevice),
               captureSession.canAddInput(videoInput) else {
             print("Failed to add video input")
@@ -46,55 +37,117 @@ class CameraController: NSObject, ObservableObject {
         }
 
         captureSession.addInput(videoInput)
-        print("Video input added to session") // LOG MENANDAKAN INPUT KAMERA BERHASIL DITAMBAHKAN
+        print("Video input added to session")
 
         if captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
-            print("Photo output added to session") // LOG MENANDAKAN OUTPUT KAMERA BERHASIL DITAMBAHKAN
+            print("Photo output added to session")
         }
 
-        // MENGAKTIFKAN PENGAMBILAN FOTO RESOLUSI TINGGI
         photoOutput.isHighResolutionCaptureEnabled = true
     }
-    
-    /// Memulai proses pengambilan foto
-    func capturePhoto(completion: @escaping (UIImage?) -> Void) {
-        pauseARSession() // PAUSE AR SESSION SEBELUM MENGAMBIL FOTO
-        setupCamera()
+
+    func capturePhoto(completion: @escaping (UIImage?, UIImage?, UIImage?) -> Void) {
+        setupCamera(lense: .builtInWideAngleCamera)
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
             self.captureSession?.startRunning()
             print("Camera session started")
 
             DispatchQueue.main.async {
-                guard let photoOutput = self.photoOutput else {
-                    print("Photo output is nil")
-                    completion(nil)
-                    return
-                }
-
                 let settings = AVCapturePhotoSettings()
                 settings.isHighResolutionPhotoEnabled = true
-                photoOutput.capturePhoto(with: settings, delegate: self) // MENGAMBIL FOTO
+
+                // Foto pertama (Wide-angle)
+                self.photoOutput?.capturePhoto(with: settings, delegate: self)
+                print("First photo captured")
+
+                DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
+                    self.stopCameraSession()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        // Foto kedua (Ultra-wide)
+                        self.setupCamera(lense: .builtInUltraWideCamera)
+                        self.captureSession?.startRunning()
+                        print("Switched to ultra-wide camera")
+
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.photoOutput?.capturePhoto(with: settings, delegate: self)
+                            print("Second photo captured")
+
+                            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
+                                self.stopCameraSession()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    // Foto ketiga (Wide-angle dengan zoom)
+                                    self.setupCamera(lense: .builtInWideAngleCamera)
+                                    self.captureSession?.startRunning()
+                                    print("Switched back to wide-angle camera")
+
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        self.captureZoomedPhoto { image in
+                                            completion(nil, nil, image)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
-    // FUNGSI UNTUK MEM-PAUSE AR SESSION
-    private func pauseARSession() {
-        arView.session.pause() // MENGHENTIKAN SEMENTARA AR SESSION
+    func captureZoomedPhoto(completion: @escaping (UIImage?) -> Void) {
+        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+            print("Failed to access wide-angle camera")
+            completion(nil)
+            return
+        }
+
+        do {
+            try device.lockForConfiguration()
+            device.videoZoomFactor = 2.0 // Set zoom level to 2.0
+            device.unlockForConfiguration()
+
+            let settings = AVCapturePhotoSettings()
+            settings.isHighResolutionPhotoEnabled = true
+            self.photoOutput?.capturePhoto(with: settings, delegate: self)
+            print("Zoomed photo captured")
+        } catch {
+            print("Failed to set zoom: \(error.localizedDescription)")
+            completion(nil)
+        }
+    }
+
+
+
+    func pauseAndCapturePhoto() {
+        pauseARSession()
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.2) {
+            self.capturePhoto { _, _,_  in
+                self.resumeARSession()
+            }
+        }
+    }
+
+    func pauseARSession() {
+        arView.session.pause()
         print("AR session paused.")
     }
 
-    // FUNGSI UNTUK MELANJUTKAN AR SESSION
-    private func resumeARSession() {
+    func resumeARSession() {
         let configuration = ARWorldTrackingConfiguration()
         arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
         print("AR session resumed.")
     }
+
+    func stopCameraSession() {
+        captureSession?.stopRunning()
+        captureSession = nil
+        photoOutput = nil
+        print("Camera session stopped.")
+    }
 }
 
 extension CameraController: AVCapturePhotoCaptureDelegate {
-    /// Delegate untuk memproses foto yang telah diambil
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
             print("Error capturing photo: \(error.localizedDescription)")
@@ -109,9 +162,15 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
 
         DispatchQueue.main.async {
             print("Photo captured successfully")
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) // MENYIMPAN FOTO KE GALERI
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             self.delegate?.didCaptureComplete(image: image)
-            self.resumeARSession() // RESUME AR SESSION SETELAH FOTO DIAMBIL
+
+            // Resume AR session setelah foto diambil
+//            self.resumeARSession()
+
+            // Hentikan sesi kamera setelah selesai
+            self.stopCameraSession()
         }
     }
 }
+

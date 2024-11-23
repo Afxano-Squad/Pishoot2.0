@@ -32,22 +32,20 @@ class FrameViewModel: ObservableObject {
         }
     }
     
-    private func pauseARSession() {
-        arView.session.pause()
-        print("AR session paused.")
-    }
+    func pauseARSession() {
+            arView.session.pause()
+            print("AR session paused.")
+        }
 
-    private func resumeARSession() {
-        let configuration = ARWorldTrackingConfiguration()
-        arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-        print("AR session resumed.")
-    }
-
-    
+    func resumeARSession() {
+            let configuration = ARWorldTrackingConfiguration()
+            arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+            print("AR session resumed.")
+        }
     
     func capturePhoto() {
         
-        cameraController.capturePhoto { [weak self] (image: UIImage?) in
+        cameraController.capturePhoto { [weak self] (image: UIImage?, image2: UIImage?, image3: UIImage?) in
             self?.isCapturingPhoto = true
             print("photo capture is working.")
         }
