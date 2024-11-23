@@ -25,7 +25,7 @@ struct AcclerometerView: View {
                                 Rectangle()
                                     .fill(
                                         index == accleroViewModel.calculateDynamicIndexZ() ?
-                                        Color.yellow.opacity(0.7) : Color.white.opacity(0.3)
+                                        Color("Primary").opacity(0.7) : Color.white.opacity(0.3)
                                     )
                                     .frame(width: calculateWidth(for: index), height: 10)
                             }
@@ -36,7 +36,7 @@ struct AcclerometerView: View {
                         Spacer()
                         VStack(alignment: .trailing) {
                             Rectangle()
-                                .fill(accleroViewModel.calculateDynamicIndexZ() == numberOfBars / 2 ? Color.yellow : Color.white)
+                                .fill(accleroViewModel.calculateDynamicIndexZ() == numberOfBars / 2 ? Color("Primary") : Color.white)
                                 .frame(width: 60, height: 10)
                         }
                     }
@@ -49,7 +49,7 @@ struct AcclerometerView: View {
                                 Rectangle()
                                     .fill(
                                         index == accleroViewModel.calculateDynamicIndexX() ?
-                                        Color.blue.opacity(0.7) : Color.white.opacity(0.3)
+                                        Color("Primary").opacity(0.7) : Color.white.opacity(0.3)
                                     )
                                     .frame(width: 10, height: calculateHeight(for: index))
                             }
@@ -61,13 +61,13 @@ struct AcclerometerView: View {
                     VStack{
                         HStack {
                             Rectangle()
-                                .fill(accleroViewModel.calculateDynamicIndexX() == numberOfBars / 2 ? Color.blue : Color.white)
+                                .fill(accleroViewModel.calculateDynamicIndexX() == numberOfBars / 2 ? Color("Primary") : Color.white)
                                 .frame(width: 10, height: 60)
                         }
                         Spacer()
                     }
                     
-                }
+                }.padding(.top, 25)
             }
         }
         .onAppear {
