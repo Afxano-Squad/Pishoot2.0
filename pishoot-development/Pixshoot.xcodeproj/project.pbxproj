@@ -44,7 +44,6 @@
 		679A61A22CD67A350054688B /* benar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 679A61A12CD67A350054688B /* benar.mp3 */; };
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
 		C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C52CCF3D8700DEC909 /* GyroManager.swift */; };
-		C053C5CD2CCF444900DEC909 /* GyroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5CC2CCF444400DEC909 /* GyroView.swift */; };
 		C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */; };
 		C0A7F6602CD7C497008EFC6B /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */; };
 		C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */; };
@@ -126,7 +125,6 @@
 		679A61A12CD67A350054688B /* benar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = benar.mp3; sourceTree = "<group>"; };
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
 		C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroViewModel.swift; sourceTree = "<group>"; };
-		C053C5CC2CCF444400DEC909 /* GyroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroView.swift; sourceTree = "<group>"; };
 		C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLockGryos.swift; sourceTree = "<group>"; };
 		C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialModel.swift; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 			children = (
 				E90BBBF42CEE855C0030CDD1 /* AcclerometerView.swift */,
 				C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */,
-				C053C5CC2CCF444400DEC909 /* GyroView.swift */,
 				0F8458E82C2AB9170033FED7 /* CameraPreviewView.swift */,
 				0F8458EA2C2AB97E0033FED7 /* CaptureButton.swift */,
 				0F8458EC2C2AB9C20033FED7 /* TopBarView.swift */,
@@ -462,7 +459,6 @@
 				0F3E79912C42CB190057F279 /* DeviceOrientationManager.swift in Sources */,
 				0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */,
 				0F8458E92C2AB9170033FED7 /* CameraPreviewView.swift in Sources */,
-				C053C5CD2CCF444900DEC909 /* GyroView.swift in Sources */,
 				0F8458EF2C2ABA2C0033FED7 /* BottomBarView.swift in Sources */,
 				0F7399DB2C3862BB00324891 /* GuideStep.swift in Sources */,
 				C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */,
@@ -649,7 +645,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -695,7 +691,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"Pixshoot/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pixshoot/Info.plist;
@@ -741,7 +737,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;
@@ -774,7 +770,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"PixshootWatch Watch App/Preview Content\"";
-				DEVELOPMENT_TEAM = 6K8Z3XG69D;
+				DEVELOPMENT_TEAM = F37675VH96;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PixshootWatch;

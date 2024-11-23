@@ -94,7 +94,7 @@ struct ContentView: View {
                                         .animation(.easeInOut, value: frameViewModel.model.anchor)
                                 }
                                 
-                                AcclerometerView(acleroViewModel: acclerometerViewModel, isLocked: $isLocked)
+                                
                                 
                                 VStack {
                                     Spacer()
@@ -134,8 +134,7 @@ struct ContentView: View {
                                 
                             }
                             
-                            GyroView(
-                                gyroViewModel: gyroViewModel)
+                            AcclerometerView(accleroViewModel: acclerometerViewModel, gyroViewModel: gyroViewModel, isLocked: $isLocked)
                             
                             if !appState.hasCompletedTutorial {
                                 BlackOverlayWithHole(
