@@ -48,6 +48,8 @@ class CameraController: NSObject, ObservableObject {
     }
 
     func capturePhoto(completion: @escaping (UIImage?, UIImage?, UIImage?) -> Void) {
+        pauseARSession() // Pause AR session sebelum memulai sesi capture
+        
         setupCamera(lense: .builtInWideAngleCamera)
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.2) {
             self.captureSession?.startRunning()
@@ -57,9 +59,11 @@ class CameraController: NSObject, ObservableObject {
                 let settings = AVCapturePhotoSettings()
                 settings.isHighResolutionPhotoEnabled = true
 
-                // Foto pertama (Wide-angle)
-                self.photoOutput?.capturePhoto(with: settings, delegate: self)
-                print("First photo captured")
+                // Delay untuk memastikan stabilisasi kamera
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.photoOutput?.capturePhoto(with: settings, delegate: self)
+                    print("First photo captured")
+                }
 
                 DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
@@ -95,6 +99,8 @@ class CameraController: NSObject, ObservableObject {
     }
 
     func captureZoomedPhoto(completion: @escaping (UIImage?) -> Void) {
+        pauseARSession() // Pastikan AR session dihentikan
+
         guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             print("Failed to access wide-angle camera")
             completion(nil)
@@ -103,21 +109,36 @@ class CameraController: NSObject, ObservableObject {
 
         do {
             try device.lockForConfiguration()
-            device.videoZoomFactor = 2.0 // Set zoom level to 2.0
+            device.videoZoomFactor = 2.0
             device.unlockForConfiguration()
 
             let settings = AVCapturePhotoSettings()
             settings.isHighResolutionPhotoEnabled = true
+
             self.photoOutput?.capturePhoto(with: settings, delegate: self)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                do {
+                    try device.lockForConfiguration()
+                    device.videoZoomFactor = 1.0
+                    device.unlockForConfiguration()
+                    print("Camera zoom reset to normal (1.0)")
+                } catch {
+                    print("Failed to reset zoom: \(error.localizedDescription)")
+                }
+            }
+
             print("Zoomed photo captured")
         } catch {
             print("Failed to set zoom: \(error.localizedDescription)")
             completion(nil)
         }
+
+        resumeARSession() // Kembali ke AR session setelah selesai
     }
 
 
-
+    
     func pauseAndCapturePhoto() {
         pauseARSession()
         DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1) {
@@ -129,6 +150,8 @@ class CameraController: NSObject, ObservableObject {
 
     func pauseARSession() {
         arView.session.pause()
+        
+        
         print("AR session paused.")
     }
 
