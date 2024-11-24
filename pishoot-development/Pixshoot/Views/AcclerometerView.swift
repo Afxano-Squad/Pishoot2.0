@@ -41,6 +41,9 @@ struct AcclerometerView: View {
                         }
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, -85)
+                
             } else {
                 ZStack {
                     VStack {
@@ -67,7 +70,9 @@ struct AcclerometerView: View {
                         Spacer()
                     }
                     
-                }.padding(.top, 25)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, -50)
             }
         }
         .onAppear {

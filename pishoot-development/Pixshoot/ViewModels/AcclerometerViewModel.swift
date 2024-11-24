@@ -96,9 +96,6 @@ class AccelerometerViewModel: ObservableObject {
             hapticGenerator?.impactOccurred()
         }
         
-        //        let index = calculateDynamicIndexX()
-        //        print("Roll view index updated to: \(index)")
-        //        updateRollView(index: index)
     }
     
     func calculateDynamicIndexZ() -> Int {
