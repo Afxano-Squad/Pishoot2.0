@@ -111,42 +111,14 @@ class AccelerometerViewModel: ObservableObject {
     }
     
     func calculateDynamicIndexX() -> Int {
-            let midIndex = numberOfBars / 2
-            let offsetX = lockedBaselineX ?? 0.0
-            
-            // Hitung delta
-            let delta = accelerationX - offsetX
-            
-            // Normalisasi dan skalakan delta
-            let maxDelta = 0.5 // Nilai maksimum delta yang diharapkan
-            let normalizedDelta = delta / maxDelta // Normalisasi ke range -1 sampai 1
-            let scaledX = Int(normalizedDelta * Double(midIndex))
-            
-            // Hitung index final
-            let adjustedIndex = midIndex - scaledX // Kurangi dari midIndex untuk membalik arah
-            
-            // Debug log
-            print("""
-                X-axis Debug:
-                Current Acceleration: \(accelerationX)
-                Baseline: \(offsetX)
-                Raw Delta: \(delta)
-                Normalized Delta: \(normalizedDelta)
-                Scaled Value: \(scaledX)
-                Final Index: \(max(0, min(numberOfBars - 1, adjustedIndex)))
-                """)
-            
-            return max(0, min(numberOfBars - 1, adjustedIndex))
-        }
-        
-    
-    
-    //    func updateRollView(index: Int) {
-    //        DispatchQueue.main.async {
-    //            // Perbarui UI di sini
-    //            print("Updating roll view to index: \(index)")
-    //        }
-    //    }
+        let midIndex = numberOfBars / 2
+        let offsetX = lockedBaselineZ ?? 0.0
+        let adjustedX = accelerationZ - offsetX
+        let scaledX = Int(adjustedX * 6.5)
+        let adjustedIndex = midIndex + scaledX
+        print("AccelX: \(accelerationX), Final Index: \(adjustedIndex))")
+        return max(0, min(numberOfBars - 1, adjustedIndex))
+    }
     
     
 }
