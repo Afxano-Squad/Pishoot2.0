@@ -3,6 +3,9 @@ import Photos
 import UIKit
 import Combine
 
+protocol CameraDelegate {
+    func didCaptureComplete(image: UIImage?) -> Void
+}
 class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     var session: AVCaptureMultiCamSession?
     private var wideAngleOutput: AVCapturePhotoOutput?
@@ -25,28 +28,36 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     private var completion: (([UIImage]) -> Void)?
     
     static let shared = CameraManager()
+    var delegate: CameraDelegate?
     
     private override init() {
         super.init()
         setupSession()
     }
     
+    // MARK: - Setup Camera Session
     private func setupSession() {
         guard AVCaptureMultiCamSession.isMultiCamSupported else {
             print("Multi-cam not supported on this device")
             return
         }
         
-        let session = AVCaptureMultiCamSession()
-        self.session = session
+        session = AVCaptureMultiCamSession()
+        
+        guard let session = session else {
+            print("Failed to initialize session")
+            return
+        }
         
         session.beginConfiguration()
         
+        // Setup wide-angle and ultra-wide cameras
         setupCamera(.builtInWideAngleCamera, to: session)
         setupCamera(.builtInUltraWideCamera, to: session)
-        setupVideoDataOutput()
         
         session.commitConfiguration()
+        
+        print("Camera session configured successfully")
     }
     
     private func setupCamera(_ deviceType: AVCaptureDevice.DeviceType, to session: AVCaptureMultiCamSession) {
@@ -89,58 +100,87 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
         self.videoDataOutput = videoDataOutput
     }
     
+    
     func startSession() {
-        session?.startRunning()
+        guard let session = session else{
+            print("Session is not initialized")
+            return
+        }
+        
+        if !session.isRunning {
+            session.startRunning()
+            print("Camera session started")
+        } else {
+            print("Session already running")
+        }
     }
     
-    func stopSession() {
-        session?.stopRunning()
+    
+func stopSession() {
+    guard let session = session else {
+        print("Session is not initialized")
+        return
     }
+    
+    if session.isRunning {
+        session.stopRunning()
+        print("Camera session stopped")
+    }
+}
+    
     
     func toggleFlash() {
         isFlashOn.toggle()
     }
-    
+    /// CAPTURE logic yang kasi 3 gambar
     func capturePhotos(completion: @escaping ([UIImage]) -> Void) {
-        guard let session = session, !isCapturingPhoto else { return }
+        guard let session = session else {
+            print("Camera session is not initialized")
+            return
+        }
+        if session == nil {
+            print ("Session is nil, reinitializing")
+            setupSession()
+        }
+        
+        if !session.isRunning {
+            print("Camera session is not running. Starting it now.")
+            startSession()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.capturePhotos(completion: completion)
+            }
+            return
+        }
+        guard session.isRunning else {
+            print("ALREADY CAPTURING PHOTO")
+            startSession()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.capturePhotos(completion: completion) // Retry after session starts
+            }
+            return
+        }
+        guard !isCapturingPhoto else {
+            print("Already capturing photo")
+            return
+        }
+        
         isCapturingPhoto = true
         capturedImages.removeAll()
         self.completion = completion
         
-        // Prepare photo settings with the HEIF codec if available
-        let photoSettings: AVCapturePhotoSettings
-        if wideAngleOutput?.availablePhotoCodecTypes.contains(.hevc) == true {
-            photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
-        } else {
-            // Fallback if HEIF (HEVC codec) is not available
-            photoSettings = AVCapturePhotoSettings()
-        }
-
-        captureOrientation = DeviceOrientationManager.shared.currentOrientation
+        let photoSettings = AVCapturePhotoSettings()
+        photoSettings.flashMode = isFlashOn ? .on : .off
         
-        guard let wideAngleCamera = wideAngleCamera else { return }
-        do {
-            if wideAngleCamera.videoZoomFactor != 1.0 {
-                try wideAngleCamera.lockForConfiguration()
-                wideAngleCamera.videoZoomFactor = 1.0
-                wideAngleCamera.unlockForConfiguration()
-            }
-        } catch {
-            print("Error setting zoom factor: \(error)")
+        captureOrientation = orientationManager.currentOrientation
+        
+        guard let wideAngleOutput = wideAngleOutput else {
+            print("Wide Angle Camera output is not set")
+            return
         }
         
-        if isFlashOn {
-            turnTorch(on: true)
-        }
-        
-        // Delay to show black screen effect, then capture photos in HEIF format
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.isBlackScreenVisible = true
-            self.ultraWideOutput?.capturePhoto(with: photoSettings, delegate: self)
-            self.wideAngleOutput?.capturePhoto(with: photoSettings, delegate: self)
-        }
+        print("Capturing photo from wide-angle camera...")
+        wideAngleOutput.capturePhoto(with: photoSettings, delegate: self)
     }
-
     
     func captureZoomedPhotos() {
         guard let wideAngleCamera = wideAngleCamera else { return }
@@ -148,7 +188,7 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
             try wideAngleCamera.lockForConfiguration()
             wideAngleCamera.videoZoomFactor = 2.0
             
-            // Prepare photo settings with HEIF codec if available
+            // Siapkan pengaturan foto dengan HEIF codec jika tersedia
             let zoomedPhotoSettings: AVCapturePhotoSettings
             if wideAngleOutput?.availablePhotoCodecTypes.contains(.hevc) == true {
                 zoomedPhotoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.hevc])
@@ -165,11 +205,12 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
             print("Error setting zoom factor: \(error)")
         }
     }
-
+    
     
     private func saveImagesToPhotoLibrary(images: [UIImage]) {
-            PhotoLibraryHelper.saveImagesToAlbum(images: images)
-        }
+        print ("image saved to photo library")
+        PhotoLibraryHelper.saveImagesToAlbum(images: images)
+    }
     
     func setZoomLevel(zoomLevel: CGFloat) {
         selectedZoomLevel = zoomLevel
@@ -216,44 +257,52 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     }
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
-            DispatchQueue.main.async {
-                if let error = error {
-                    print("Error capturing photo: \(error)")
-                    self.isBlackScreenVisible = false
-                    if self.isFlashOn {
-                        self.turnTorch(on: false)
-                    }
-                    return
+        DispatchQueue.main.async {
+            if let error = error {
+                print("Error capturing photo: \(error)")
+                self.isBlackScreenVisible = false
+                if self.isFlashOn {
+                    self.turnTorch(on: false)
                 }
-                
-                guard let imageData = photo.fileDataRepresentation(),
-                      let image = UIImage(data: imageData) else { return }
-                
-                PhotoLibraryHelper.requestPhotoLibraryPermission { [weak self] authorized in
-                    guard let self = self else { return }
-                    DispatchQueue.main.async {
-                        if authorized {
-                            self.capturedImages.append(image)
-                            
-                            if self.capturedImages.count == 2 {
-                                self.captureZoomedPhotos()
-                            }
-                            
-                            if self.capturedImages.count == 3 {
-                                self.backToNormalLens()
-                                self.processAndSaveImages()
-                            }
-                        } else {
-                            print("Photo library access not authorized")
-                            self.isBlackScreenVisible = false
-                            if self.isFlashOn {
-                                self.turnTorch(on: false)
-                            }
+                return
+            }
+            
+            guard let imageData = photo.fileDataRepresentation(),
+                  let image = UIImage(data: imageData) else { return }
+            
+            
+            DispatchQueue.main.async {
+                print("Photo captured successfully")
+           
+                self.delegate?.didCaptureComplete(image: self.capturedImages.last)
+
+            }
+          
+            PhotoLibraryHelper.requestPhotoLibraryPermission { [weak self] authorized in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    if authorized {
+                        self.capturedImages.append(image)
+                        
+                        if self.capturedImages.count == 2 {
+                            self.captureZoomedPhotos()
+                        }
+                        
+                        if self.capturedImages.count == 3 {
+                            self.backToNormalLens()
+                            self.processAndSaveImages()
+                        }
+                    } else {
+                        print("Photo library access not authorized")
+                        self.isBlackScreenVisible = false
+                        if self.isFlashOn {
+                            self.turnTorch(on: false)
                         }
                     }
                 }
             }
         }
+    }
     
     private func processAndSaveImages() {
         if self.isMultiRatio {
@@ -274,6 +323,7 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
             self.isCapturingPhoto = false
         }
     }
+    
     
     private func processImagesInBackground(_ images: [UIImage], completion: @escaping ([UIImage]) -> Void) {
         DispatchQueue.global(qos: .background).async {
@@ -333,12 +383,6 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
         return croppedImage
     }
     
-//    private func saveImagesToPhotoLibrary(images: [UIImage]) {
-//        for image in images {
-//            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-//        }
-//    }
-    
     func backToNormalLens() {
         if selectedZoomLevel == 0.5 {
             switchToUltraWideCamera()
@@ -352,29 +396,6 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
                 self.turnTorch(on: false)
             }
         }
-    }
-    
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
-        
-        let ciImage = CIImage(cvImageBuffer: imageBuffer)
-        let context = CIContext()
-        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return }
-        
-        let image = UIImage(cgImage: cgImage)
-        sendPreviewToWatch(image)
-    }
-    
-    private func sendPreviewToWatch(_ image: UIImage) {
-        WatchConnectivityManager.shared.sendPreviewToWatch(image)
-    }
-    
-    func resizeImage(_ image: UIImage, to size: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
-        image.draw(in: CGRect(origin: .zero, size: size))
-        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return resizedImage
     }
     
     func turnTorch(on: Bool) {
@@ -443,4 +464,3 @@ extension UIImage {
         return normalizedImage ?? self
     }
 }
-
