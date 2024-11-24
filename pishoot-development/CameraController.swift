@@ -49,7 +49,7 @@ class CameraController: NSObject, ObservableObject {
 
     func capturePhoto(completion: @escaping (UIImage?, UIImage?, UIImage?) -> Void) {
         setupCamera(lense: .builtInWideAngleCamera)
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.5) {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.2) {
             self.captureSession?.startRunning()
             print("Camera session started")
 
@@ -62,26 +62,25 @@ class CameraController: NSObject, ObservableObject {
                 print("First photo captured")
 
                 DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
-                    self.stopCameraSession()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                         // Foto kedua (Ultra-wide)
                         self.setupCamera(lense: .builtInUltraWideCamera)
                         self.captureSession?.startRunning()
                         print("Switched to ultra-wide camera")
 
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             self.photoOutput?.capturePhoto(with: settings, delegate: self)
                             print("Second photo captured")
 
                             DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
-                                self.stopCameraSession()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                                self.stopCameraSession()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                     // Foto ketiga (Wide-angle dengan zoom)
                                     self.setupCamera(lense: .builtInWideAngleCamera)
                                     self.captureSession?.startRunning()
                                     print("Switched back to wide-angle camera")
 
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                                         self.captureZoomedPhoto { image in
                                             completion(nil, nil, image)
                                         }
@@ -121,7 +120,7 @@ class CameraController: NSObject, ObservableObject {
 
     func pauseAndCapturePhoto() {
         pauseARSession()
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.1) {
             self.capturePhoto { _, _,_  in
                 self.resumeARSession()
             }
@@ -162,15 +161,16 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
 
         DispatchQueue.main.async {
             print("Photo captured successfully")
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            PhotoLibraryHelper.requestPhotoLibraryPermission { authorized in
+                if authorized {
+                    PhotoLibraryHelper.saveImagesToAlbum(images: [image])
+                } else {
+                    print("Photo library permission denied")
+                }
+            }
             self.delegate?.didCaptureComplete(image: image)
-
-            // Resume AR session setelah foto diambil
-//            self.resumeARSession()
-
-            // Hentikan sesi kamera setelah selesai
             self.stopCameraSession()
+            self.resumeARSession()
         }
     }
 }
-

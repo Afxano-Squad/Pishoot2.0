@@ -44,12 +44,29 @@ class FrameViewModel: ObservableObject {
         }
     
     func capturePhoto() {
-        
-        cameraController.capturePhoto { [weak self] (image: UIImage?, image2: UIImage?, image3: UIImage?) in
+        cameraController.capturePhoto { [weak self] (image1: UIImage?, image2: UIImage?, image3: UIImage?) in
             self?.isCapturingPhoto = true
-            print("photo capture is working.")
+            
+            let images = [image1, image2, image3].compactMap { $0 }
+            
+            if images.isEmpty {
+                print("Failed to capture all photos.")
+                return
+            }
+            
+            PhotoLibraryHelper.requestPhotoLibraryPermission { authorized in
+                if authorized {
+                    PhotoLibraryHelper.saveImagesToAlbum(images: images)
+                } else {
+                    print("Photo library access not authorized")
+                }
+            }
+            print("Photos captured and saved.")
+            self?.isCapturingPhoto = false
         }
     }
+
+
     
     func addFrame(to arView: ARView) {
         if let cameraTransform = arView.session.currentFrame?.camera.transform {
@@ -176,7 +193,7 @@ extension FrameViewModel: CameraDelegate{
     func didCaptureComplete(image: UIImage?) {
         print("Capture Complete and photo saved!")
         isCapturingPhoto = false
-        self.returnToARSession()
+//        self.returnToARSession()
     }
     
 }
