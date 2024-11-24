@@ -8,7 +8,6 @@ import SwiftUI
 import AVFoundation
 import Combine
 
-
 class CameraViewModel: ObservableObject {
     private var cameraManager: CameraManager
     private var cancellables = Set<AnyCancellable>()
@@ -102,12 +101,11 @@ class CameraViewModel: ObservableObject {
             self.captureProgress = 1
         }
         cameraManager.capturePhotos { [weak self] images in
-            self?.lastPhotos = images ?? [] // Ganti <#default value#> dengan []
+            self?.lastPhotos = images
             WatchConnectivityManager.shared.send(message: ["event": "photoCaptured"])
-            completion(images ?? []) // Ganti <#default value#> dengan []
+            completion(images)
         }
     }
-
     
     private func startCountdownTimer(completion: @escaping () -> Void) {
         countdown = timerDuration

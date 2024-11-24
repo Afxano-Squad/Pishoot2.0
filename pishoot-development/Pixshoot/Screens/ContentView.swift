@@ -112,11 +112,14 @@ struct ContentView: View {
                                     BottomBarView(
                                         lastPhoto: lastPhotos.first,
                                         captureAction: {
+                                            
+                                            frameViewModel.pauseARSession()
                                             if !appState.hasCompletedTutorial && currentStepIndex == tutorialSteps.count - 1 {
                                                 completeTutorial()
                                             }
                                             cameraViewModel.capturePhotos { images in
                                                 self.lastPhotos = images
+                                                frameViewModel.returnToARSession()
                                             }
                                         },
                                         openPhotosApp: {
@@ -134,6 +137,8 @@ struct ContentView: View {
                                 
                             }
                             
+                            
+                            GuidanceTextView(gyroViewModel: gyroViewModel, accleroViewModel: acclerometerViewModel)
                             AcclerometerView(accleroViewModel: acclerometerViewModel, gyroViewModel: gyroViewModel, isLocked: $isLocked)
                             
                             if !appState.hasCompletedTutorial {

@@ -66,6 +66,8 @@ class CameraController: NSObject, ObservableObject {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         // Foto kedua (Ultra-wide)
                         self.setupCamera(lense: .builtInUltraWideCamera)
+                        // Should be run on background thread!
+                        
                         self.captureSession?.startRunning()
                         print("Switched to ultra-wide camera")
 
@@ -74,10 +76,13 @@ class CameraController: NSObject, ObservableObject {
                             print("Second photo captured")
 
                             DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
+                                //
                                 self.stopCameraSession()
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                                     // Foto ketiga (Wide-angle dengan zoom)
                                     self.setupCamera(lense: .builtInWideAngleCamera)
+                                    
+                                    // Should run on backgorund thread!
                                     self.captureSession?.startRunning()
                                     print("Switched back to wide-angle camera")
 

@@ -10,6 +10,7 @@ import RealityKit
 import SwiftUI
 import ARKit
 
+
 class FrameViewModel: ObservableObject {
     
     @Published var model = FrameModel()
@@ -18,10 +19,14 @@ class FrameViewModel: ObservableObject {
     private var timer: Timer?
     var arView: ARView
     lazy var cameraController = CameraController(arView: arView)
+    private var cameraManager: CameraManager
     
     init(arView: ARView) {
         self.arView = arView
-        self.cameraController.delegate = self
+//        self.cameraController.delegate = self
+        
+        cameraManager = CameraManager.shared
+        self.cameraManager.delegate = self
     }
     
     func toggleFrame(at arView: ARView) {
@@ -42,14 +47,6 @@ class FrameViewModel: ObservableObject {
             arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
             print("AR session resumed.")
         }
-    
-    func capturePhoto() {
-        
-        cameraController.capturePhoto { [weak self] (image: UIImage?, image2: UIImage?, image3: UIImage?) in
-            self?.isCapturingPhoto = true
-            print("photo capture is working.")
-        }
-    }
     
     func addFrame(to arView: ARView) {
         if let cameraTransform = arView.session.currentFrame?.camera.transform {
@@ -111,8 +108,6 @@ class FrameViewModel: ObservableObject {
         return anchor
     }
 
-
-    
     private func startLiveAlignmentCheck(arView: ARView) {
         timer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { _ in
             self.checkOverlayColor(arView: arView)
@@ -159,7 +154,9 @@ class FrameViewModel: ObservableObject {
         
         // Hentikan sesi kamera
         cameraController.captureSession?.stopRunning()
+        cameraManager.stopSession()
         cameraController.captureSession = nil // **Perubahan: Set `captureSession` menjadi `nil` untuk memastikan direset**
+        cameraManager.session = nil
         print("Camera session stopped")
         
         // Lanjutkan AR session

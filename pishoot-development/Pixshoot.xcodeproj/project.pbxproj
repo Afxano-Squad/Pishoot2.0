@@ -42,6 +42,7 @@
 		674E45EA2CEB1AFB004ED50E /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674E45E22CEB1AFB004ED50E /* CameraController.swift */; };
 		679A619C2CD669860054688B /* AccessibilityExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 679A619B2CD669860054688B /* AccessibilityExtensions.swift */; };
 		679A61A22CD67A350054688B /* benar.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 679A61A12CD67A350054688B /* benar.mp3 */; };
+		C02561D52CF2161C00EA0A75 /* GuidanceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02561D42CF2161C00EA0A75 /* GuidanceTextView.swift */; };
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
 		C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C52CCF3D8700DEC909 /* GyroManager.swift */; };
 		C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */; };
@@ -123,6 +124,7 @@
 		674E45E52CEB1AFB004ED50E /* GreenOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreenOverlayView.swift; sourceTree = "<group>"; };
 		679A619B2CD669860054688B /* AccessibilityExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessibilityExtensions.swift; sourceTree = "<group>"; };
 		679A61A12CD67A350054688B /* benar.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = benar.mp3; sourceTree = "<group>"; };
+		C02561D42CF2161C00EA0A75 /* GuidanceTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidanceTextView.swift; sourceTree = "<group>"; };
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
 		C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroViewModel.swift; sourceTree = "<group>"; };
 		C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLockGryos.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 		0F8458E02C2AB7270033FED7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C02561D42CF2161C00EA0A75 /* GuidanceTextView.swift */,
 				E90BBBF42CEE855C0030CDD1 /* AcclerometerView.swift */,
 				C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */,
 				0F8458E82C2AB9170033FED7 /* CameraPreviewView.swift */,
@@ -471,6 +474,7 @@
 				0F8458E72C2AB8CD0033FED7 /* PhotoLibraryHelper.swift in Sources */,
 				0F7399CE2C38536900324891 /* OnBoardingView.swift in Sources */,
 				0F7399D72C38615C00324891 /* ArrowView.swift in Sources */,
+				C02561D52CF2161C00EA0A75 /* GuidanceTextView.swift in Sources */,
 				0F8458ED2C2AB9C20033FED7 /* TopBarView.swift in Sources */,
 				0F8458F12C2ABA8C0033FED7 /* PhotoThumbnailView.swift in Sources */,
 				0F05D7012C35985400F961C7 /* BlackScreenView.swift in Sources */,
