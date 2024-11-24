@@ -49,7 +49,6 @@ class AccelerometerViewModel: ObservableObject {
     func lockAcceleration() {
         lockedBaselineZ = accelerationZ
         lockedBaselineX = accelerationX
-        print("Locked baseline X: \(lockedBaselineX), Acceleration X: \(accelerationX)")
     }
     
     func resetAcceleration() {
