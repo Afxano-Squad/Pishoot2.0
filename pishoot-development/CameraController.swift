@@ -11,14 +11,13 @@ class CameraController: NSObject, ObservableObject {
     var photoOutput: AVCapturePhotoOutput?
 
     var delegate: CameraDelegate?
-    var arView: ARView // Referensi ARView untuk pause dan resume
+    var arView: ARView
 
     init(arView: ARView) {
         self.arView = arView
         super.init()
     }
 
-    // Fungsi untuk mengatur sesi kamera saat diperlukan
     private func setupCamera(lense: AVCaptureDevice.DeviceType) {
         captureSession = AVCaptureSession()
         photoOutput = AVCapturePhotoOutput()
@@ -51,45 +50,42 @@ class CameraController: NSObject, ObservableObject {
         pauseARSession() // Pause AR session sebelum memulai sesi capture
         
         setupCamera(lense: .builtInWideAngleCamera)
-        DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 0.2) {
+        DispatchQueue.global(qos: .userInitiated).async {
             self.captureSession?.startRunning()
             print("Camera session started")
 
-            DispatchQueue.main.async {
+            // Tambahkan jeda sebelum foto pertama
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { // Jeda 0.5 detik
                 let settings = AVCapturePhotoSettings()
                 settings.isHighResolutionPhotoEnabled = true
 
-                // Delay untuk memastikan stabilisasi kamera
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.photoOutput?.capturePhoto(with: settings, delegate: self)
-                    print("First photo captured")
-                }
+                // Capture foto pertama (Wide-angle)
+                self.photoOutput?.capturePhoto(with: settings, delegate: self)
+                print("First photo captured")
 
                 DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        // Foto kedua (Ultra-wide)
-                        self.setupCamera(lense: .builtInUltraWideCamera)
+                    // Capture foto kedua (Ultra-wide)
+                    self.setupCamera(lense: .builtInUltraWideCamera)
+                    self.captureSession?.startRunning()
+                    print("Switched to ultra-wide camera")
+
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.photoOutput?.capturePhoto(with: settings, delegate: self)
+                        print("Second photo captured")
+                    }
+
+                    DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
+                        // Foto ketiga (Wide-angle dengan zoom)
+                        self.setupCamera(lense: .builtInWideAngleCamera)
                         self.captureSession?.startRunning()
-                        print("Switched to ultra-wide camera")
+                        print("Switched back to wide-angle camera")
 
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            self.photoOutput?.capturePhoto(with: settings, delegate: self)
-                            print("Second photo captured")
-
-                            DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1.0) {
-//                                self.stopCameraSession()
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                    // Foto ketiga (Wide-angle dengan zoom)
-                                    self.setupCamera(lense: .builtInWideAngleCamera)
-                                    self.captureSession?.startRunning()
-                                    print("Switched back to wide-angle camera")
-
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                                        self.captureZoomedPhoto { image in
-                                            completion(nil, nil, image)
-                                        }
-                                    }
-                                }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.captureZoomedPhoto { zoomedPhoto in
+                                self.stopCameraSession() // Hentikan sesi kamera
+                                self.resumeARSession() // Aktifkan kembali AR session
+                                completion(nil, nil, zoomedPhoto)
+                                print("All photos captured and AR session resumed.")
                             }
                         }
                     }
@@ -97,6 +93,13 @@ class CameraController: NSObject, ObservableObject {
             }
         }
     }
+
+
+    func cleanupAfterCapture() {
+        stopCameraSession() // Stop camera session
+        resumeARSession()   // Resume AR session
+    }
+
 
     func captureZoomedPhoto(completion: @escaping (UIImage?) -> Void) {
         pauseARSession() // Pastikan AR session dihentikan
@@ -169,16 +172,19 @@ class CameraController: NSObject, ObservableObject {
     }
 }
 
+
 extension CameraController: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let error = error {
             print("Error capturing photo: \(error.localizedDescription)")
+            cleanupAfterCapture()
             return
         }
 
         guard let data = photo.fileDataRepresentation(),
               let image = UIImage(data: data) else {
             print("Failed to process photo data")
+            cleanupAfterCapture()
             return
         }
 
@@ -192,8 +198,7 @@ extension CameraController: AVCapturePhotoCaptureDelegate {
                 }
             }
             self.delegate?.didCaptureComplete(image: image)
-            self.stopCameraSession()
-            self.resumeARSession()
         }
     }
 }
+
