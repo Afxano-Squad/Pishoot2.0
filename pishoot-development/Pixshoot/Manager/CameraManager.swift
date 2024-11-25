@@ -116,17 +116,17 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
     }
     
     
-func stopSession() {
-    guard let session = session else {
-        print("Session is not initialized")
-        return
+    func stopSession() {
+        guard let session = session else {
+            print("Session is not initialized")
+            return
+        }
+        
+        if session.isRunning {
+            session.stopRunning()
+            print("Camera session stopped")
+        }
     }
-    
-    if session.isRunning {
-        session.stopRunning()
-        print("Camera session stopped")
-    }
-}
     
     
     func toggleFlash() {
@@ -273,11 +273,11 @@ func stopSession() {
             
             DispatchQueue.main.async {
                 print("Photo captured successfully")
-           
+                
                 self.delegate?.didCaptureComplete(image: self.capturedImages.last)
-
+                
             }
-          
+            
             PhotoLibraryHelper.requestPhotoLibraryPermission { [weak self] authorized in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
@@ -383,6 +383,8 @@ func stopSession() {
         return croppedImage
     }
     
+    
+    
     func backToNormalLens() {
         if selectedZoomLevel == 0.5 {
             switchToUltraWideCamera()
@@ -397,6 +399,17 @@ func stopSession() {
             }
         }
     }
+    func resizeImage(_ image: UIImage, to size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(size, false, 1.0)
+        image.draw(in: CGRect(origin: .zero, size: size))
+        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return resizedImage
+    }
+    
+    private func sendPreviewToWatch(_ image: UIImage) {
+        WatchConnectivityManager.shared.sendPreviewToWatch(image)
+    }
     
     func turnTorch(on: Bool) {
         guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
@@ -410,6 +423,17 @@ func stopSession() {
         } catch {
             print("Torch could not be used: \(error)")
         }
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        
+        let ciImage = CIImage(cvImageBuffer: imageBuffer)
+        let context = CIContext()
+        guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return }
+        
+        let image = UIImage(cgImage: cgImage)
+//        sendPreviewToWatch(image)
     }
     
     private func rotateImage(_ image: UIImage, orientation: UIDeviceOrientation) -> UIImage {
