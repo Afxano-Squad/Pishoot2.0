@@ -45,14 +45,14 @@
 		67BF9B662CF33EDF00B7A07A /* PhotoLibraryHelper2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67BF9B652CF33EDF00B7A07A /* PhotoLibraryHelper2.swift */; };
 		C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */; };
 		C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5C52CCF3D8700DEC909 /* GyroManager.swift */; };
-		C053C5CD2CCF444900DEC909 /* GyroView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C053C5CC2CCF444400DEC909 /* GyroView.swift */; };
 		C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */; };
+		C09DF9BC2CF429A0007FF5A6 /* GuidanceTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DF9BB2CF429A0007FF5A6 /* GuidanceTextView.swift */; };
+		C09DF9C32CF429EC007FF5A6 /* AcclerometerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DF9C22CF429EC007FF5A6 /* AcclerometerViewModel.swift */; };
+		C09DF9C62CF42A0C007FF5A6 /* AcclerometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09DF9C52CF42A0C007FF5A6 /* AcclerometerView.swift */; };
 		C0A7F6602CD7C497008EFC6B /* TutorialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */; };
 		C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */; };
 		C0A7F6672CD855BC008EFC6B /* TutorialContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */; };
 		E90BBBED2CEE83E60030CDD1 /* AccelerometerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90BBBEC2CEE83E40030CDD1 /* AccelerometerManager.swift */; };
-		E90BBBF12CEE84100030CDD1 /* AcclerometerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90BBBF02CEE840F0030CDD1 /* AcclerometerViewModel.swift */; };
-		E90BBBF52CEE855D0030CDD1 /* AcclerometerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90BBBF42CEE855C0030CDD1 /* AcclerometerView.swift */; };
 		E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4802C354500005EB61A /* CameraManager.swift */; };
 		E9E5A4892C3545F4005EB61A /* PishootWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */; };
 		E9E5A48B2C3545F4005EB61A /* WatchContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E5A48A2C3545F4005EB61A /* WatchContentView.swift */; };
@@ -128,14 +128,14 @@
 		67BF9B652CF33EDF00B7A07A /* PhotoLibraryHelper2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryHelper2.swift; sourceTree = "<group>"; };
 		C053C5C52CCF3D8700DEC909 /* GyroManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroManager.swift; sourceTree = "<group>"; };
 		C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroViewModel.swift; sourceTree = "<group>"; };
-		C053C5CC2CCF444400DEC909 /* GyroView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GyroView.swift; sourceTree = "<group>"; };
 		C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonLockGryos.swift; sourceTree = "<group>"; };
+		C09DF9BB2CF429A0007FF5A6 /* GuidanceTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuidanceTextView.swift; sourceTree = "<group>"; };
+		C09DF9C22CF429EC007FF5A6 /* AcclerometerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcclerometerViewModel.swift; sourceTree = "<group>"; };
+		C09DF9C52CF42A0C007FF5A6 /* AcclerometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcclerometerView.swift; sourceTree = "<group>"; };
 		C0A7F65E2CD7C495008EFC6B /* TutorialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialView.swift; sourceTree = "<group>"; };
 		C0A7F6622CD854D0008EFC6B /* TutorialModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialModel.swift; sourceTree = "<group>"; };
 		C0A7F6662CD855AD008EFC6B /* TutorialContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialContent.swift; sourceTree = "<group>"; };
 		E90BBBEC2CEE83E40030CDD1 /* AccelerometerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccelerometerManager.swift; sourceTree = "<group>"; };
-		E90BBBF02CEE840F0030CDD1 /* AcclerometerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcclerometerViewModel.swift; sourceTree = "<group>"; };
-		E90BBBF42CEE855C0030CDD1 /* AcclerometerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcclerometerView.swift; sourceTree = "<group>"; };
 		E9E5A4802C354500005EB61A /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
 		E9E5A4862C3545F4005EB61A /* PixshootWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PixshootWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9E5A4882C3545F4005EB61A /* PishootWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PishootWatchApp.swift; sourceTree = "<group>"; };
@@ -216,11 +216,6 @@
 		0F8458C62C2AB4130033FED7 = {
 			isa = PBXGroup;
 			children = (
-				674E45E22CEB1AFB004ED50E /* CameraController.swift */,
-				674E45E32CEB1AFB004ED50E /* FrameModel.swift */,
-				674E45E42CEB1AFB004ED50E /* FrameViewModel.swift */,
-				674E45E52CEB1AFB004ED50E /* GreenOverlayView.swift */,
-				674E45DF2CEB17C7004ED50E /* ARViewContainer.swift */,
 				679A61A12CD67A350054688B /* benar.mp3 */,
 				679A619B2CD669860054688B /* AccessibilityExtensions.swift */,
 				E9E5A4982C3545FD005EB61A /* Shared */,
@@ -243,6 +238,7 @@
 		0F8458D12C2AB4130033FED7 /* Pixshoot */ = {
 			isa = PBXGroup;
 			children = (
+				C09DF9C82CF46436007FF5A6 /* AR */,
 				C0A7F65B2CD7C489008EFC6B /* Tutorial */,
 				0F3E79982C43BFD50057F279 /* Info.plist */,
 				0F3E798F2C42CAFB0057F279 /* Manager */,
@@ -271,9 +267,9 @@
 		0F8458E02C2AB7270033FED7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E90BBBF42CEE855C0030CDD1 /* AcclerometerView.swift */,
+				C09DF9BB2CF429A0007FF5A6 /* GuidanceTextView.swift */,
+				C09DF9C52CF42A0C007FF5A6 /* AcclerometerView.swift */,
 				C08A45BD2CD1D4A600BC52CE /* ButtonLockGryos.swift */,
-				C053C5CC2CCF444400DEC909 /* GyroView.swift */,
 				0F8458E82C2AB9170033FED7 /* CameraPreviewView.swift */,
 				0F8458EA2C2AB97E0033FED7 /* CaptureButton.swift */,
 				0F8458EC2C2AB9C20033FED7 /* TopBarView.swift */,
@@ -290,7 +286,7 @@
 		0F8458E12C2AB7400033FED7 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				E90BBBF02CEE840F0030CDD1 /* AcclerometerViewModel.swift */,
+				C09DF9C22CF429EC007FF5A6 /* AcclerometerViewModel.swift */,
 				0F8458E42C2AB8800033FED7 /* CameraViewModel.swift */,
 				C053C5C62CCF3D8700DEC909 /* GyroViewModel.swift */,
 			);
@@ -312,6 +308,18 @@
 				0F8458D42C2AB4130033FED7 /* ContentView.swift */,
 			);
 			path = Screens;
+			sourceTree = "<group>";
+		};
+		C09DF9C82CF46436007FF5A6 /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				674E45E22CEB1AFB004ED50E /* CameraController.swift */,
+				674E45E32CEB1AFB004ED50E /* FrameModel.swift */,
+				674E45E42CEB1AFB004ED50E /* FrameViewModel.swift */,
+				674E45E52CEB1AFB004ED50E /* GreenOverlayView.swift */,
+				674E45DF2CEB17C7004ED50E /* ARViewContainer.swift */,
+			);
+			path = AR;
 			sourceTree = "<group>";
 		};
 		C0A7F65B2CD7C489008EFC6B /* Tutorial */ = {
@@ -462,18 +470,19 @@
 				C053C5C72CCF3D8700DEC909 /* GyroViewModel.swift in Sources */,
 				C053C5C82CCF3D8700DEC909 /* GyroManager.swift in Sources */,
 				0F7399CC2C38534900324891 /* OnBoardingDataModel.swift in Sources */,
+				C09DF9C62CF42A0C007FF5A6 /* AcclerometerView.swift in Sources */,
 				0F3E79912C42CB190057F279 /* DeviceOrientationManager.swift in Sources */,
 				0F8458F52C2BB7AB0033FED7 /* MainAdditionalSetting.swift in Sources */,
 				0F8458E92C2AB9170033FED7 /* CameraPreviewView.swift in Sources */,
-				C053C5CD2CCF444900DEC909 /* GyroView.swift in Sources */,
+				C09DF9C32CF429EC007FF5A6 /* AcclerometerViewModel.swift in Sources */,
 				0F8458EF2C2ABA2C0033FED7 /* BottomBarView.swift in Sources */,
 				0F7399DB2C3862BB00324891 /* GuideStep.swift in Sources */,
 				C08A45BF2CD1D4B100BC52CE /* ButtonLockGryos.swift in Sources */,
 				C0A7F6642CD854D9008EFC6B /* TutorialModel.swift in Sources */,
 				279E1D9F2C36E21D0078C2A1 /* Marker.swift in Sources */,
+				C09DF9BC2CF429A0007FF5A6 /* GuidanceTextView.swift in Sources */,
 				679A619C2CD669860054688B /* AccessibilityExtensions.swift in Sources */,
 				0F7399CA2C38531500324891 /* OnBoardingContainerView.swift in Sources */,
-				E90BBBF52CEE855D0030CDD1 /* AcclerometerView.swift in Sources */,
 				0F7399DD2C38631300324891 /* GuidePopUpView.swift in Sources */,
 				0F8458E72C2AB8CD0033FED7 /* PhotoLibraryHelper.swift in Sources */,
 				0F7399CE2C38536900324891 /* OnBoardingView.swift in Sources */,
@@ -488,7 +497,6 @@
 				E9E5A49A2C354616005EB61A /* WatchConnectivityManager.swift in Sources */,
 				E90BBBED2CEE83E60030CDD1 /* AccelerometerManager.swift in Sources */,
 				0F7399DF2C38637400324891 /* HighlightFrameKey.swift in Sources */,
-				E90BBBF12CEE84100030CDD1 /* AcclerometerViewModel.swift in Sources */,
 				0F7399E32C386CE600324891 /* AppState.swift in Sources */,
 				0F3E79972C43BF9A0057F279 /* UnsupportedDeviceView.swift in Sources */,
 				E9E5A4812C354500005EB61A /* CameraManager.swift in Sources */,

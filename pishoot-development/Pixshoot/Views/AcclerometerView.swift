@@ -8,116 +8,106 @@
 import SwiftUI
 
 struct AcclerometerView: View {
-    @ObservedObject var acleroViewModel: AccelerometerViewModel
+    @ObservedObject var accleroViewModel: AccelerometerViewModel
+    @ObservedObject var gyroViewModel: GyroViewModel
     let numberOfBars = 15
-    @State private var accelerationText: String = "Y-Acceleration: 0.0"
     @Binding var isLocked: Bool
-
+    
     var body: some View {
-        VStack {
-            // Roll View for Acceleration Z
-            ZStack {
-                HStack {
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        ForEach(0..<numberOfBars, id: \.self) { index in
+        ZStack {
+            // Z-Axis Roll View
+            if gyroViewModel.orientationManager.currentOrientation == .portrait || gyroViewModel.orientationManager.currentOrientation == .portraitUpsideDown {
+                ZStack {
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .trailing) {
+                            ForEach(0..<numberOfBars, id: \.self) { index in
+                                Rectangle()
+                                    .fill(
+                                        index == accleroViewModel.calculateDynamicIndexZ() ?
+                                        Color("Primary").opacity(0.7) : Color.white.opacity(0.3)
+                                    )
+                                    .frame(width: calculateWidth(for: index), height: 10)
+                            }
+                        }
+                    }
+                    
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .trailing) {
                             Rectangle()
-                                .fill(
-                                    index == calculateDynamicIndexZ() ?
-                                    Color.yellow.opacity(0.7) : Color.white.opacity(0.3)
-                                )
-                                .frame(width: calculateWidth(for: index), height: 10)
-                            //add haptic later. (if the gyro is align)
+                                .fill(accleroViewModel.calculateDynamicIndexZ() == numberOfBars / 2 ? Color("Primary") : Color.white)
+                                .frame(width: 60, height: 10)
                         }
                     }
                 }
-
-                HStack {
-                    Spacer()
-                    VStack(alignment: .trailing) {
-                        Rectangle()
-                            .fill(calculateDynamicIndexZ() == numberOfBars / 2 ? Color.yellow : Color.white)
-                            .frame(width: 60, height: 10)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.top, -85)
+                
+            } else {
+                ZStack {
+                    VStack {
+                        HStack(alignment: .top) {
+                            ForEach(0..<numberOfBars, id: \.self) { index in
+                                Rectangle()
+                                    .fill(
+                                        index == accleroViewModel.calculateDynamicIndexX() ?
+                                        Color("Primary").opacity(0.7) : Color.white.opacity(0.3)
+                                    )
+                                    .frame(width: 10, height: calculateHeight(for: index))
+                            }
+                        }
+                        Spacer()
                     }
+                    
+                    
+                    VStack{
+                        HStack {
+                            Rectangle()
+                                .fill(accleroViewModel.calculateDynamicIndexX() == numberOfBars / 2 ? Color("Primary") : Color.white)
+                                .frame(width: 10, height: 60)
+                        }
+                        Spacer()
+                    }
+                    
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.horizontal, -50)
             }
-            
-
-            // Roll View for Acceleration X
-//            ZStack {
-//                VStack {
-//                    Spacer()
-//                    HStack {
-//                        ForEach(0..<numberOfBars, id: \.self) { index in
-//                            Rectangle()
-//                                .fill(
-//                                    index == calculateDynamicIndexX() ?
-//                                    Color.blue.opacity(0.7) : Color.white.opacity(0.3)
-//                                )
-//                                .frame(width: 10, height: calculateHeight(for: index))
-//                        }
-//                    }
-//                }
-//
-//                VStack {
-//                    Spacer()
-//                    HStack {
-//                        Rectangle()
-//                            .fill(calculateDynamicIndexX() == numberOfBars / 2 ? Color.blue : Color.white)
-//                            .frame(width: 10, height: 60)
-//                    }
-//                }
-//            }
-//            .padding()
-//            .overlay(Text("Roll View (X)").font(.headline).foregroundColor(.white), alignment: .top)
         }
         .onAppear {
-            acleroViewModel.start()
+            accleroViewModel.start()
         }
         .onDisappear {
-            acleroViewModel.stop()
+            accleroViewModel.stop()
         }
     }
-
-    // For Z-axis roll view
+    
+    // For Z-axis dynamic bar width
     func calculateWidth(for index: Int) -> CGFloat {
-        if index == calculateDynamicIndexZ() {
+        let dynamicIndex = accleroViewModel.calculateDynamicIndexZ()
+        if index == dynamicIndex {
             return 60
-        } else if abs(index - calculateDynamicIndexZ()) == 1 {
+        } else if abs(index - dynamicIndex) == 1 {
             return 40
         } else {
             return 20
         }
     }
-
-    func calculateDynamicIndexZ() -> Int {
-        let midIndex = numberOfBars / 2
-        let offsetZ = acleroViewModel.lockedBaselineZ ?? 0.0
-        let adjustedZ = acleroViewModel.accelerationZ - offsetZ // Adjust by baseline
-        let scaledZ = Int(adjustedZ * 6.5) // Scale the acceleration for visual representation
-        let adjustedIndex = midIndex + scaledZ
-
-        return max(0, min(numberOfBars - 1, adjustedIndex)) // Keep within bounds
-    }
-
-    // For X-axis roll view
+    
+    // For X-axis dynamic bar height
     func calculateHeight(for index: Int) -> CGFloat {
-        if index == calculateDynamicIndexX() {
+        let dynamicIndex = accleroViewModel.calculateDynamicIndexX()
+        if index == dynamicIndex {
             return 60
-        } else if abs(index - calculateDynamicIndexX()) == 1 {
+        } else if abs(index - dynamicIndex) == 1 {
             return 40
         } else {
             return 20
         }
     }
+}
 
-    func calculateDynamicIndexX() -> Int {
-        let midIndex = numberOfBars / 2
-        let offsetX = acleroViewModel.lockedBaselineX ?? 0.0
-        let adjustedX = acleroViewModel.accelerationX - offsetX // Adjust by baseline
-        let scaledX = Int(adjustedX * 6.5) // Scale the acceleration for visual representation
-        let adjustedIndex = midIndex + scaledX
-
-        return max(0, min(numberOfBars - 1, adjustedIndex)) // Keep within bounds
-    }
+#Preview{
+    AcclerometerView(accleroViewModel: AccelerometerViewModel(), gyroViewModel: GyroViewModel(), isLocked: .constant(true ))
 }
