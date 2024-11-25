@@ -80,6 +80,7 @@ class CameraController: NSObject, ObservableObject {
                         self.captureSession?.startRunning()
                         print("Switched back to wide-angle camera")
                         
+                        WatchConnectivityManager.shared.send(message: ["event": "photoCaptured"])
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             self.captureZoomedPhoto { zoomedPhoto in
@@ -187,6 +188,7 @@ class CameraController: NSObject, ObservableObject {
                 } catch {
                     print("Failed to reset zoom: \(error.localizedDescription)")
                 }
+                
                 
                 self.resumeARSession()
                 completion(nil) // Adjust as needed for your delegate or other logic

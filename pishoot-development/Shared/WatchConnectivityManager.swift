@@ -39,6 +39,7 @@ class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDelegate {
     }
     
 #if os(iOS)
+    
     func sendPreviewToWatch(_ image: UIImage) {
         guard let session = session, session.isReachable else { return }
         
