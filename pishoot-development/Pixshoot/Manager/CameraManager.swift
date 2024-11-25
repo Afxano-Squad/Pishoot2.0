@@ -433,7 +433,7 @@ class CameraManager: NSObject, AVCapturePhotoCaptureDelegate, AVCaptureVideoData
         guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else { return }
         
         let image = UIImage(cgImage: cgImage)
-        sendPreviewToWatch(image)
+//        sendPreviewToWatch(image)
     }
     
     private func rotateImage(_ image: UIImage, orientation: UIDeviceOrientation) -> UIImage {
