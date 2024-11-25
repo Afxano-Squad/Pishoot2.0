@@ -22,6 +22,11 @@ class FrameViewModel: ObservableObject {
     init(arView: ARView) {
         self.arView = arView
         self.cameraController.delegate = self
+        
+        WatchConnectivityManager.shared.takePictureOnWatch = { [weak self] in
+            guard let self = self else { return }
+            self.capturePhoto()
+        }
     }
     
     func toggleFrame(at arView: ARView) {
@@ -33,15 +38,15 @@ class FrameViewModel: ObservableObject {
     }
     
     func pauseARSession() {
-            arView.session.pause()
-            print("AR session paused.")
-        }
-
+        arView.session.pause()
+        print("AR session paused.")
+    }
+    
     func resumeARSession() {
-            let configuration = ARWorldTrackingConfiguration()
-            arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
-            print("AR session resumed.")
-        }
+        let configuration = ARWorldTrackingConfiguration()
+        arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        print("AR session resumed.")
+    }
     
     func capturePhoto() {
         isCapturingPhoto = true
@@ -65,7 +70,7 @@ class FrameViewModel: ObservableObject {
             self.isCapturingPhoto = false
         }
     }
-
+    
     
     func addFrame(to arView: ARView) {
         if let cameraTransform = arView.session.currentFrame?.camera.transform {
@@ -96,38 +101,38 @@ class FrameViewModel: ObservableObject {
         let dashLength: Float = 0.02
         let dashSpacing: Float = 0.01
         let material = UnlitMaterial(color: .yellow)  // Gantilah ke UnlitMaterial
-
+        
         let anchor = AnchorEntity(world: [0, 0, 0])
-
+        
         func createDashedLine(length: Float, axis: SIMD3<Float>, positionOffset: SIMD3<Float>) {
             var currentLength: Float = 0
             while currentLength < length {
                 let dash = ModelEntity(mesh: MeshResource.generateBox(size: [axis.x != 0 ? dashLength : frameThickness,
-                                                                                 axis.y != 0 ? dashLength : frameThickness,
-                                                                                 frameThickness]),
-                                           materials: [material])
+                                                                             axis.y != 0 ? dashLength : frameThickness,
+                                                                             frameThickness]),
+                                       materials: [material])
                 dash.position = positionOffset + (axis * (currentLength + dashLength / 2))
                 anchor.addChild(dash)
                 currentLength += dashLength + dashSpacing
             }
         }
-
+        
         createDashedLine(length: outerWidth - dashLength, axis: SIMD3<Float>(1, 0, 0), positionOffset: SIMD3<Float>(-outerWidth / 2 + dashLength / 2, outerHeight / 2, 0))
         createDashedLine(length: outerWidth - dashLength, axis: SIMD3<Float>(1, 0, 0), positionOffset: SIMD3<Float>(-outerWidth / 2 + dashLength / 2, -outerHeight / 2, 0))
         createDashedLine(length: outerHeight - dashLength, axis: SIMD3<Float>(0, 1, 0), positionOffset: SIMD3<Float>(-outerWidth / 2, -outerHeight / 2 + dashLength / 2, 0))
         createDashedLine(length: outerHeight - dashLength, axis: SIMD3<Float>(0, 1, 0), positionOffset: SIMD3<Float>(outerWidth / 2, -outerHeight / 2 + dashLength / 2, 0))
-
+        
         let plusHorizontal = ModelEntity(mesh: MeshResource.generateBox(size: [dashLength, frameThickness, frameThickness]), materials: [material])
         let plusVertical = ModelEntity(mesh: MeshResource.generateBox(size: [frameThickness, dashLength, frameThickness]), materials: [material])
         plusHorizontal.position = SIMD3<Float>(0, 0, 0)
         plusVertical.position = SIMD3<Float>(0, 0, 0)
         anchor.addChild(plusHorizontal)
         anchor.addChild(plusVertical)
-
+        
         return anchor
     }
-
-
+    
+    
     
     private func startLiveAlignmentCheck(arView: ARView) {
         timer = Timer.scheduledTimer(withTimeInterval: 0.016, repeats: true) { _ in
@@ -192,7 +197,7 @@ extension FrameViewModel: CameraDelegate{
     func didCaptureComplete(image: UIImage?) {
         print("Capture Complete and photo saved!")
         isCapturingPhoto = false
-//        self.returnToARSession()
+        //        self.returnToARSession()
     }
     
 }
