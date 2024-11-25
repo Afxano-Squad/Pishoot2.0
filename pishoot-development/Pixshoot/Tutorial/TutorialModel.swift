@@ -7,14 +7,9 @@
 
 import SwiftUI
 
-// Model for each tutorial step's content, including layout specifications
+// Model untuk setiap langkah tutorial
 struct TutorialStep {
-    let overlayWidth: CGFloat
-    let overlayHeight: CGFloat
-    let overlayPositionX: CGFloat
-    let overlayPositionY: CGFloat
-    let image: String
-    let imageWidth: CGFloat
-    let imageHeight: CGFloat
-    let text: String
+    let title: String    // Judul tutorial
+    let text: String     // Deskripsi tutorial
+    let gifName: String  // Nama file GIF
 }

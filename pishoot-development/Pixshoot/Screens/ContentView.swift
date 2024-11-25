@@ -120,18 +120,13 @@ struct ContentView: View {
                                         lastPhoto: lastPhotos.first,
                                         captureAction: {
                                             isShowingBlackScreen = true
-                                            if !appState.hasCompletedTutorial
-                                                && currentStepIndex
-                                                    == tutorialSteps.count - 1
-                                            {
+                                            if !appState.hasCompletedTutorial && currentStepIndex == tutorialSteps.count - 1 {
                                                 completeTutorial()
                                             }
-                                            frameViewModel.capturePhoto()
-                                            DispatchQueue.main.asyncAfter(
-                                                deadline: .now() + 6.0
-                                            ) {  // Durasi capture
-                                                isShowingBlackScreen = false
-                                            }
+                                                    frameViewModel.capturePhoto()
+                                                    DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+                                                        isShowingBlackScreen = false
+                                                    }
                                         },
                                         openPhotosApp: {
                                             PhotoLibraryHelper.openPhotosApp()
@@ -185,8 +180,11 @@ struct ContentView: View {
             }
         }
         .statusBar(hidden: true)
-        .onChange(of: appState.hasCompletedTutorial) { _, hasCompleted in
-            showGuide = !hasCompleted
+        .onAppear {
+            let tutorialCompleted = UserDefaults.standard.bool(forKey: "hasCompletedTutorial")
+            print("Tutorial Completed Status: \(tutorialCompleted)")
+            showGuide = !tutorialCompleted
+            isDeviceSupported = checkDeviceCapabilities()
         }
 
         .onChange(of: scenePhase) {
@@ -219,6 +217,7 @@ struct ContentView: View {
         showGuide = false
         appState.hasCompletedTutorial = true
         UserDefaults.standard.set(true, forKey: "hasCompletedTutorial")
+        UserDefaults.standard.synchronize() // Optional, ensures immediate saving
     }
 
     // Function to display grid overlay when isGridOn is active
