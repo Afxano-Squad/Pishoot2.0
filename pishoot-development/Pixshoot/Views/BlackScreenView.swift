@@ -38,7 +38,7 @@ struct BlackScreenView: View {
                         .frame(width: 250, height: 250)
 
                     Text("Hold On")
-                        .font(<#T##font: Font?##Font?#>)
+                        .font(.title)
                         .padding()
                         .foregroundColor(.white)
                         .clipShape(Capsule())
