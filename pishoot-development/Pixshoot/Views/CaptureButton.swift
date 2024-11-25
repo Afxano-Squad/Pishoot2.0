@@ -19,7 +19,8 @@ struct CaptureButton: View {
 
     var body: some View {
         Button(action: {
-            frameViewModel.capturePhoto() // Memanggil fungsi dengan pause-resume AR
+//            frameViewModel.capturePhoto() // Memanggil fungsi dengan pause-resume AR
+            action()
         }) {
             Circle()
                 .fill(Color.white)

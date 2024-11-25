@@ -5,138 +5,143 @@
 //  Created by MUHAMMAD FAIQ ADHITYA FAQIH on 03/11/24.
 //
 
+import AVKit
+import SDWebImageSwiftUI
 import SwiftUI
 
 struct BlackOverlayWithHole: View {
     @Binding var currentStepIndex: Int
-    @State private var hasStartedDelay = false  // Track if delay has started
     let tutorialSteps: [TutorialStep]
-    var onTutorialComplete: () -> Void  // Completion handler
+    var onTutorialComplete: () -> Void
     @Binding var isLocked: Bool
 
     var body: some View {
         ZStack {
-            if currentStepIndex < tutorialSteps.count {
-                let step = tutorialSteps[currentStepIndex]
+            // Langkah-langkah tutorial hanya ditampilkan jika currentStepIndex < 4
+            if currentStepIndex <= 2 {
+                if currentStepIndex < tutorialSteps.count {
+                    let step = tutorialSteps[currentStepIndex]
 
-                GeometryReader { geometry in
-                    Color.black.opacity(0.5)
-                        .ignoresSafeArea()
-                        .mask(
-                            ZStack {
-                                Rectangle()
-                                    .frame(
-                                        width: geometry.size.width,
-                                        height: geometry.size.height)
+                    GeometryReader { geometry in
+                        Color.black.opacity(0.8)
+                            .ignoresSafeArea()
+                    }
 
-                                RoundedRectangle(cornerRadius: 25)
-                                    .frame(
-                                        width: step.overlayWidth,
-                                        height: step.overlayHeight
-                                    )
-                                    .position(
-                                        x: UIScreen.main.bounds.width / 2
-                                            + step.overlayPositionX,
-                                        y: UIScreen.main.bounds.height / 2
-                                            + step.overlayPositionY
-                                    )
-                                    .blendMode(.destinationOut)
+                    VStack(spacing: 16) {
+                        // Judul dan teks tutorial
+                        VStack {
+                            Text(step.title)
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(Color("Secondary"))
 
-                                // Transparent area for step 2 to pass interactions
-                                if currentStepIndex == 2
-                                    || currentStepIndex == 4
-                                {
-                                    Rectangle()
-                                        .fill(Color.clear)
-                                        .frame(width: 0, height: 0)
-                                        .position(x: 0, y: 0)
-                                        .allowsHitTesting(false)
-                                }
-
-                                // Add two holes for the first tutorial step
-                                if currentStepIndex == 3 {
-                                    RoundedRectangle(cornerRadius: 25)
-                                        .frame(width: 150, height: 70)
-                                        .position(
-                                            x: UIScreen.main.bounds.width / 2,
-                                            y: 120
-                                        )
-                                        .blendMode(.destinationOut)
-                                }
-                            }
-                            .compositingGroup()
-
+                            Text(step.text)
+                                .font(.body)
+                                .foregroundColor(Color("Secondary"))
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 10)
+                        }
+                        .padding(10)
+                        .background(
+                            RoundedRectangle(cornerRadius: 10)
+                                .fill(Color("Primary"))
                         )
-                }
-                .allowsHitTesting(
-                    currentStepIndex != 2 && currentStepIndex != 4)
+                        .padding(.bottom, 30)
 
-                VStack(spacing: 16) {
-                    Image(systemName: step.image)
-                        .resizable()
-                        .frame(width: step.imageWidth, height: step.imageHeight)
-                    if currentStepIndex != 2 && currentStepIndex != 4 {
-                        Text(step.text)
-                            .font(.system(size: 20))
-                            .foregroundColor(.black)
-                            .padding()
-                            .background(Color.orange)
+                        // Animasi GIF
+                        AnimatedImage(name: step.gifName)
+                            .resizable()
+                            .frame(width: 325, height: 400)
                             .cornerRadius(10)
-                            .multilineTextAlignment(.center)
-                            .frame(width: 320)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
 
-                    if currentStepIndex != 0 && currentStepIndex != 2
-                        && currentStepIndex != 4
-                    {
-                        Button(action: {
-                            if currentStepIndex < tutorialSteps.count - 1 {
-                                currentStepIndex += 1
-                            } else {
-                                onTutorialComplete()  // Call completion handler
+                        // Progress Indicator
+                        HStack(spacing: 10) {
+                            Spacer()
+                            ForEach(0 ..< 3, id: \.self) {
+                                index in
+                                ZStack {
+                                    Circle()
+                                        .fill(Color("BackgroundProgress"))
+                                        .frame(
+                                            width: index == currentStepIndex
+                                                ? 14 : 10,
+                                            height: index == currentStepIndex
+                                                ? 14 : 10
+                                        )
+                                        .shadow(
+                                            color: index == currentStepIndex
+                                                ? Color.blue.opacity(0.4)
+                                                : Color.clear, radius: 5)
+
+                                    Circle()
+                                        .fill(
+                                            index < currentStepIndex + 1
+                                                ? Color("Button") : Color.clear
+                                        )
+                                        .frame(
+                                            width: index == currentStepIndex
+                                                ? 8.4 : 6,
+                                            height: index == currentStepIndex
+                                                ? 8.4 : 6
+                                        )
+                                        .animation(
+                                            .easeInOut, value: currentStepIndex)
+                                }
                             }
-                        }) {
-                            Text(
-                                currentStepIndex < tutorialSteps.count - 1
-                                    ? "Next" : "Finish"
-                            )
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                            .padding()
-                            .background(Color.orange)
-                            .cornerRadius(10)
+                            Spacer()
+                        }
+                        ZStack {
+                            // Ruang tetap untuk tombol agar tidak mengubah tata letak
+                            Color.clear
+                                .frame(height: 50)  // Atur tinggi sesuai kebutuhan
+                            if currentStepIndex == 2 {
+                                Button(action: {
+                                    currentStepIndex += 1
+                                }) {
+                                    Text("Got it!")
+                                        .fontWeight(.bold)
+                                        .foregroundColor(Color("Secondary"))
+                                        .padding()
+                                        .background(Color("Button"))
+                                        .cornerRadius(10)
+                                }
+                            }
                         }
                     }
-
+                    .gesture(
+                        DragGesture()
+                            .onEnded { value in
+                                if value.translation.width < -50,
+                                    currentStepIndex < tutorialSteps.count - 1
+                                {
+                                    currentStepIndex += 1
+                                } else if value.translation.width > 50,
+                                    currentStepIndex > 0
+                                {
+                                    currentStepIndex -= 1
+                                }
+                            }
+                    )
                 }
-                .frame(width: step.overlayWidth, height: step.overlayHeight)
-                .onAppear {
-                    if (currentStepIndex == 0 || currentStepIndex == 1)
-                        && !hasStartedDelay
-                    {
-                        hasStartedDelay = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                            currentStepIndex += 1
-                            hasStartedDelay = false
-                        }
-                    }
-                }
-                // Observe changes in `isLocked` to increment `currentStepIndex` when locked
-                .onChange(of: isLocked) { newValue in
-                    if currentStepIndex == 2 && newValue {
-                        currentStepIndex += 1
-                    }
-                }
+            } else {
+                // Tampilan kosong di langkah ke-4
+                Color.clear
+                    .ignoresSafeArea()
             }
         }
-        .edgesIgnoringSafeArea(.all)
+
+        .onChange(of: isLocked) { _, newValue in
+            if currentStepIndex == 3 && newValue {
+                currentStepIndex += 1
+            }
+        }
     }
 }
 
 #Preview {
 
     BlackOverlayWithHole(
-        currentStepIndex: .constant(0), tutorialSteps: tutorialSteps, onTutorialComplete: {},
+        currentStepIndex: .constant(2), tutorialSteps: tutorialSteps,
+        onTutorialComplete: {},
         isLocked: .constant(false))
 }
