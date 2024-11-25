@@ -88,7 +88,7 @@ struct WatchContentView: View {
         .onChange(of: scenePhase) {
             handleScenePhaseChange(scenePhase)
         }
-        .onChange(of: connectivityManager.isCapturePhoto) { newValue in
+        .onChange(of: connectivityManager.isCapturePhoto) { _, newValue in
             if newValue {
                 watchViewModel.playHapticFeedback()
                 connectivityManager.isCapturePhoto = false

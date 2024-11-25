@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import RealityKit
+import ARKit
 
 struct BottomBarView: View {
     var lastPhoto: UIImage?
@@ -13,9 +15,12 @@ struct BottomBarView: View {
     var openPhotosApp: () -> Void
     @Binding var isCapturing: Bool
     @Binding var animationProgress: CGFloat
-    @ObservedObject var gyroViewModel: GyroViewModel  // This must be present
+    @ObservedObject var gyroViewModel: GyroViewModel  // This must be present]
+    @ObservedObject var frameViewModel: FrameViewModel
+    @ObservedObject var acclerometerViewModel: AccelerometerViewModel
     @Binding var isLocked: Bool
-
+    var arView: ARView
+    
     var body: some View {
         ZStack {
             HStack(alignment: .center) {
@@ -25,22 +30,22 @@ struct BottomBarView: View {
             }
             .padding()
             .padding(.bottom)
-
+            
             HStack {
                 Spacer()
                 CaptureButton(
                     action: captureAction,
                     isCapturing: $isCapturing,
                     animationProgress: $animationProgress,
-                    gyroViewModel: gyroViewModel,
+                    gyroViewModel: gyroViewModel, frameViewModel: frameViewModel,
                     isLocked: $isLocked)
                 Spacer()
             }
-
+            
             HStack(alignment: .center) {
                 Spacer()
                 ButtonLockGyros(
-                    gyroViewModel: gyroViewModel, isLocked: $isLocked)
+                    gyroViewModel: gyroViewModel, frameViewModel: frameViewModel, acclerometerViewModel: acclerometerViewModel, isLocked: $isLocked, arView: arView)
             }
             .padding()
             .padding(.bottom)
@@ -49,10 +54,10 @@ struct BottomBarView: View {
         .padding(.bottom, 20)
     }
 }
-
-#Preview {
-    BottomBarView(
-        lastPhoto: nil, captureAction: {}, openPhotosApp: {},
-        isCapturing: .constant(false), animationProgress: .constant(0.5), gyroViewModel: GyroViewModel(),
-        isLocked: .constant(false))
-}
+//
+//#Preview {
+//    BottomBarView(
+//        lastPhoto: nil, captureAction: {}, openPhotosApp: {},
+//        isCapturing: .constant(false), animationProgress: .constant(0.5), gyroViewModel: GyroViewModel(), frameViewModel: FrameViewModel(),
+//        isLocked: .constant(false))
+//}
