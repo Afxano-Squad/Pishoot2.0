@@ -104,17 +104,17 @@ struct ContentView: View {
 
                                 VStack {
                                     Spacer()
-                                    if appState.hasCompletedTutorial {
-                                        MainAdditionalSetting(
-                                            isGridOn: $isGridOn,
-                                            toggleFlash: {
-                                                cameraViewModel.toggleFlash()
-                                            },
-                                            isFlashOn: cameraViewModel
-                                                .isFlashOn,
-                                            cameraViewModel: cameraViewModel,
-                                            gyroViewModel: gyroViewModel)
-                                    }
+//                                    if appState.hasCompletedTutorial {
+//                                        MainAdditionalSetting(
+//                                            isGridOn: $isGridOn,
+//                                            toggleFlash: {
+//                                                cameraViewModel.toggleFlash()
+//                                            },
+//                                            isFlashOn: cameraViewModel
+//                                                .isFlashOn,
+//                                            cameraViewModel: cameraViewModel,
+//                                            gyroViewModel: gyroViewModel)
+//                                    }
 
                                     BottomBarView(
                                         lastPhoto: lastPhotos.first,
